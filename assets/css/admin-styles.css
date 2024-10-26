@@ -1,0 +1,29 @@
+.custom-dashboard-widget {
+  display: block;
+  overflow: hidden;
+  text-align: center;
+}
+
+.custom-dashboard-widget img {
+  display: block;
+  max-width: 300px;
+  width: 100%;
+  margin: auto;
+}
+
+.custom-dashboard-title {
+  color: #497593 !important;
+  font-weight: 500 !important;
+}
+
+.custom-dashboard-title.top {
+  margin-top: 1rem !important;
+}
+
+.custom-dashboard-title.bottom {
+  margin-bottom: 0 !important;
+}
+
+#wpbody-content #edittag {
+  max-width: 100%;
+}

@@ -8,7 +8,7 @@
  /**
  * Encola estilos y scripts principales.
  */
-function theme_enqueue_scripts() {
+function custom_enqueue_scripts() {
    // Encolar CSS externos
    wp_enqueue_style( 'bootstrap-css', 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css', array(), null );
    wp_enqueue_style( 'font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css', array(), null );
@@ -31,12 +31,12 @@ function theme_enqueue_scripts() {
    // Inicializar AOS
    //wp_add_inline_script( 'aos-js', 'AOS.init();' ); // opcional
 }
-add_action( 'wp_enqueue_scripts', 'theme_enqueue_scripts' );
+add_action( 'wp_enqueue_scripts', 'custom_theme_enqueue_scripts' );
 
 /**
  * Cargar Google Fonts de Forma Dinámica
  */
-function theme_enqueue_google_fonts() {
+function custom_theme_enqueue_google_fonts() {
    $body_font  = get_theme_mod( 'body_font', 'Roboto' );
    $title_font = get_theme_mod( 'title_font', 'Roboto' );
 
@@ -63,7 +63,7 @@ function theme_enqueue_google_fonts() {
        wp_enqueue_style( 'google-font-title', 'https://fonts.googleapis.com/css2?family=' . $google_fonts[ $title_font ], array(), null );
    }
 }
-add_action( 'wp_enqueue_scripts', 'theme_enqueue_google_fonts' );
+add_action( 'wp_enqueue_scripts', 'custom_theme_enqueue_google_fonts' );
 
 
 /**
