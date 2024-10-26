@@ -20,7 +20,9 @@ add_action( 'wp_dashboard_setup', 'add_custom_dashboard_widget' );
 
 // Estilos personalizados para el área de administración
 function my_admin_styles() {
-   wp_enqueue_style( 'my-admin-style', get_template_directory_uri() . '/css/admin-styles.css' );
+   if ( is_admin() ) {
+      wp_enqueue_style( 'my-admin-style', get_template_directory_uri() . '/css/admin-styles.css' );
+   }
 }
 add_action( 'admin_enqueue_scripts', 'my_admin_styles' );
 
