@@ -15,10 +15,7 @@ function custom_enqueue_scripts() {
    wp_enqueue_style( 'bootstrap-icons', 'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css', array(), null );
 
    // CSS Principal del theme
-   wp_enqueue_style( 'theme-style', get_stylesheet_uri(), array(), _THEME_VERSION );
-
-   // Fuentes de Google: Roboto
-   wp_enqueue_style( 'google-fonts', 'https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap', array(), null );
+   wp_enqueue_style( 'theme-style', get_stylesheet_uri(), array('bootstrap-css'), _THEME_VERSION );
 
    // JS Principal del theme
    wp_enqueue_script( 'theme-scripts', get_template_directory_uri() . '/assets/js/main.js', array(), _THEME_VERSION, true );

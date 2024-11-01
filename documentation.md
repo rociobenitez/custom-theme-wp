@@ -44,11 +44,11 @@ Este theme define varios tamaños de imagen para optimizar la visualización en 
 
 ---
 
-## Menús 
+## Menús
 
 ### Menú Principal
 
-- **Profundidad de Anidación**: El menú está preparado para manejar hasta **2 niveles de anidación**. Esta configuración es ideal para mantener la navegación sencilla y accesible. 
+- **Profundidad de Anidación**: El menú está preparado para manejar hasta **2 niveles de anidación**. Esta configuración es ideal para mantener la navegación sencilla y accesible.
 - **Menús de Más Niveles**: Si se requiere mayor profundidad en la navegación, se recomienda usar un **plugin de megamenú** que ofrezca funcionalidades avanzadas y opciones de personalización.
 
 **Nota**: Para proyectos que incluyan una navegación compleja, un plugin de megamenú puede ofrecer una mejor experiencia de usuario al permitir una estructura de menú más visualmente organizada y modular.
@@ -56,6 +56,19 @@ Este theme define varios tamaños de imagen para optimizar la visualización en 
 ### Manejo de Menús Desplegables
 
 El theme incluye una clase personalizada `Bootstrap_NavWalker` para integrar menús de WordPress con Bootstrap 5. Esto permite usar submenús y menús desplegables automáticamente. El archivo `class-bootstrap-navwalker.php` se encuentra en `inc/` y debe ser incluido en `functions.php` para funcionar correctamente.
+
+---
+
+### Reglas de reescritura para URLs de autor
+
+Este paso personaliza las URLs de los perfiles de autor para que utilicen la estructura `equipo/nombre-del-autor`. Si prefieres no implementar esta reescritura, puedes comentar o eliminar el código correspondiente en `rewrite-rules.php`.
+
+**Pasos:**
+
+1. Asegúrate de que el archivo `rewrite-rules.php` esté en la carpeta `inc` y correctamente incluido en `functions.php`.
+2. Este archivo utiliza los campos de opciones de ACF para redirigir o desactivar la página de perfil del autor, en función de la configuración del campo `desactivar_pagina_de_autor` en los campos de usuario.
+3. Para que funcione correctamente, verifica que los campos de opciones de autor estén activos y disponibles a través de su archivo JSON (`acf-json/group_author.json`).
+4. Si decides implementar esta función, guarda nuevamente los enlaces permanentes en WordPress (Ajustes > Enlaces permanentes) para aplicar las reglas de reescritura.
 
 ---
 
@@ -89,6 +102,10 @@ Optimiza y limpia el `wp_head`, eliminando etiquetas y enlaces innecesarios para
 ### Archivo: `inc/default-pages.php`
 
 - Crea páginas predeterminadas como Aviso legal, Política de privacidad, Política de cookies, Contacto y Quiénes somos.
-- **Personalización:** 
+- **Personalización:**
   - Si deseas personalizar el contenido o revisar qué páginas se crean, es importante que verifiques este archivo antes de activarlo.
   - Comprueba también si estas páginas tienen plantillas asociadas, especialmente en page-contact.php y page-about.php.
+
+### Archivo: `inc/default-content.php`
+
+- Entradas de prueba por defecto para la etapa de desarrollo que serán eliminadas cuando se suba el contenido definitivo.
