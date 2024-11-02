@@ -17,6 +17,9 @@ function register_custom_image_sizes() {
 
    // Tamaño para miniaturas en galerías o grids.
    add_image_size('gallery_thumbnail', 400, 400, true);
+
+   // Tamaño para fondos de cards, con relación 2:1.
+   add_image_size('card_background', 520, 260, true);
 }
 add_action('after_setup_theme', 'register_custom_image_sizes');
 
