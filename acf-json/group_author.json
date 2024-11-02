@@ -1,0 +1,155 @@
+{
+    "key": "group_author",
+    "title": "Opciones de Autor",
+    "fields": [
+        {
+            "key": "field_6656db7cb0e33",
+            "label": "Desactivar página de autor",
+            "name": "disable_author_page",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "Habilita o deshabilita la página pública de este autor.",
+            "required": 0,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "20",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 0,
+            "ui": 1,
+            "ui_on_text": "Sí",
+            "ui_off_text": "No"
+        },
+        {
+            "key": "field_66712afba2117",
+            "label": "Prioridad",
+            "name": "priority",
+            "aria-label": "",
+            "type": "number",
+            "instructions": "Establece la prioridad de este autor (1 es la más alta).",
+            "required": 0,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "10",
+                "class": "",
+                "id": ""
+            },
+            "default_value": 2,
+            "placeholder": "Ej. 1, 2, 3",
+            "step": 1,
+            "min": "",
+            "max": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_6656e1880bcf3",
+            "label": "Foto",
+            "name": "photo",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "Sube una foto de perfil para mostrar en la página de autor.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array",
+            "library": "all",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": "",
+            "allow_in_bindings": 1,
+            "preview_size": "medium"
+        },
+        {
+            "key": "field_6656ebd319aa6",
+            "label": "Especialidad",
+            "name": "specialty",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "Introduce la especialidad o área de experiencia del autor.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 1,
+            "rows": "",
+            "placeholder": "",
+            "new_lines": ""
+        },
+        {
+            "key": "field_66e404ea8460a",
+            "label": "Enlaces de interés",
+            "name": "links",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "Agrega enlaces relacionados, como redes sociales o páginas relevantes.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "layout": "row",
+            "pagination": 0,
+            "min": 0,
+            "max": 0,
+            "collapsed": "",
+            "button_label": "Agregar enlace",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_66e404fc8460b",
+                    "label": "Enlace",
+                    "name": "link",
+                    "aria-label": "",
+                    "type": "link",
+                    "instructions": "Introduce el enlace y el texto para el botón.",
+                    "required": 0,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "100",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "array",
+                    "parent_repeater": "field_66e404ea8460a"
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "user_form",
+                "operator": "==",
+                "value": "all"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1730397921
+}

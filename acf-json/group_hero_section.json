@@ -1,0 +1,224 @@
+{
+  "key": "group_hero_section",
+  "title": "Hero",
+  "fields": [
+    {
+      "key": "field_6725222fc7ec8",
+      "label": "Título Principal",
+      "name": "main_title",
+      "aria-label": "",
+      "type": "text",
+      "instructions": "Ingresa el título que aparecerá en la sección principal de la home.",
+      "required": 0,
+      "conditional_logic": 0,
+      "wrapper": {
+        "width": "40",
+        "class": "",
+        "id": ""
+      },
+      "default_value": "",
+      "maxlength": "",
+      "allow_in_bindings": 0,
+      "placeholder": "",
+      "prepend": "",
+      "append": ""
+    },
+    {
+      "key": "field_672522aac7ec9",
+      "label": "Etiqueta del Título (Htag)",
+      "name": "heading_tag",
+      "aria-label": "",
+      "type": "radio",
+      "instructions": "Selecciona el nivel de encabezado para el título (H1, H2, etc.).",
+      "required": 0,
+      "conditional_logic": 0,
+      "wrapper": {
+        "width": "20",
+        "class": "",
+        "id": ""
+      },
+      "choices": {
+        "1": "H1",
+        "2": "H2",
+        "3": "H3",
+        "4": "P"
+      },
+      "default_value": 1,
+      "return_format": "value",
+      "allow_null": 0,
+      "other_choice": 0,
+      "allow_in_bindings": 0,
+      "layout": "vertical",
+      "save_other_choice": 0
+    },
+    {
+      "key": "field_67252327c1820",
+      "label": "Subtítulo",
+      "name": "subtitle",
+      "aria-label": "",
+      "type": "textarea",
+      "instructions": "Ingresa un subtítulo opcional que aparecerá debajo del título principal.",
+      "required": 0,
+      "conditional_logic": 0,
+      "wrapper": {
+        "width": "40",
+        "class": "",
+        "id": ""
+      },
+      "default_value": "",
+      "maxlength": "",
+      "allow_in_bindings": 1,
+      "rows": 4,
+      "placeholder": "",
+      "new_lines": ""
+    },
+    {
+      "key": "field_6725234fc1821",
+      "label": "Tipo de Fondo",
+      "name": "background_type",
+      "aria-label": "",
+      "type": "select",
+      "instructions": "Selecciona el tipo de fondo para el hero: imagen o video.",
+      "required": 0,
+      "conditional_logic": 0,
+      "wrapper": {
+        "width": "25",
+        "class": "",
+        "id": ""
+      },
+      "choices": {
+        "image": "Imagen",
+        "video": "Video"
+      },
+      "default_value": "image",
+      "return_format": "value",
+      "multiple": 0,
+      "allow_null": 0,
+      "allow_in_bindings": 0,
+      "ui": 0,
+      "ajax": 0,
+      "placeholder": ""
+    },
+    {
+      "key": "field_67252381c1822",
+      "label": "Imagen de Fondo",
+      "name": "background_image",
+      "aria-label": "",
+      "type": "image",
+      "instructions": "Sube una imagen para el fondo del hero. Recomendación: alta resolución.",
+      "required": 0,
+      "conditional_logic": [
+        [
+          {
+            "field": "field_6725234fc1821",
+            "operator": "==",
+            "value": "image"
+          }
+        ]
+      ],
+      "wrapper": {
+        "width": "25",
+        "class": "",
+        "id": ""
+      },
+      "return_format": "array",
+      "library": "all",
+      "min_width": "",
+      "min_height": "",
+      "min_size": "",
+      "max_width": "",
+      "max_height": "",
+      "max_size": "",
+      "mime_types": "",
+      "allow_in_bindings": 0,
+      "preview_size": "medium"
+    },
+    {
+      "key": "field_6725239bc1823",
+      "label": "Vídeo de Fondo",
+      "name": "background_video",
+      "aria-label": "",
+      "type": "image",
+      "instructions": "Sube una imagen para el fondo del hero. Recomendación: alta resolución.",
+      "required": 0,
+      "conditional_logic": [
+        [
+          {
+            "field": "field_6725234fc1821",
+            "operator": "==",
+            "value": "video"
+          }
+        ]
+      ],
+      "wrapper": {
+        "width": "25",
+        "class": "",
+        "id": ""
+      },
+      "return_format": "array",
+      "library": "all",
+      "min_width": "",
+      "min_height": "",
+      "min_size": "",
+      "max_width": "",
+      "max_height": "",
+      "max_size": "",
+      "mime_types": "",
+      "allow_in_bindings": 0,
+      "preview_size": "medium"
+    },
+    {
+      "key": "field_672523e2c1824",
+      "label": "Botón principal",
+      "name": "cta_button",
+      "aria-label": "",
+      "type": "link",
+      "instructions": "Configura un botón opcional para dirigir a los usuarios a una página específica.",
+      "required": 0,
+      "conditional_logic": 0,
+      "wrapper": {
+        "width": "25",
+        "class": "",
+        "id": ""
+      },
+      "return_format": "array",
+      "allow_in_bindings": 1
+    },
+    {
+      "key": "field_67252413c1825",
+      "label": "Botón transparente",
+      "name": "secondary_cta_button",
+      "aria-label": "",
+      "type": "link",
+      "instructions": "Configura un botón opcional para dirigir a los usuarios a una página específica.",
+      "required": 0,
+      "conditional_logic": 0,
+      "wrapper": {
+        "width": "25",
+        "class": "",
+        "id": ""
+      },
+      "return_format": "array",
+      "allow_in_bindings": 1
+    }
+  ],
+  "location": [
+    [
+      {
+        "param": "page_template",
+        "operator": "==",
+        "value": "page-home.php"
+      }
+    ]
+  ],
+  "menu_order": 0,
+  "position": "normal",
+  "style": "default",
+  "label_placement": "top",
+  "instruction_placement": "label",
+  "hide_on_screen": "",
+  "active": true,
+  "description": "",
+  "show_in_rest": 0,
+  "modified": 1730487385
+}
