@@ -3,34 +3,36 @@
  * Hero
  */
 
-// Obtener los valores de los campos ACF
-$title = get_field('main_title') ?: '';
-$htag = get_field('heading_tag') ?: 0;
-$subtitle = get_field('subtitle') ?: '';
+$fields = get_fields();
 
-$background_type = get_field('background_type') ?: 'image';
-$img_bg = get_field('background_image');
-$video_bg = get_field('background_video');
+// Obtener los valores de los campos ACF
+$title    = $fields['main_title'] ?: '';
+$htag     = $fields['heading_tag'] ?: 0;
+$subtitle = $fields['subtitle'] ?: '';
+
+$bg_type  = $fields['background_type'] ?: 'image';
+$img_bg   = $fields['background_image'];
+$video_bg = $fields['background_video'];
 
 // Configuración de los botones
-$link_1 = get_field('cta_button') ?: '';
-$link_2 = get_field('secondary_cta_button') ?: '';
+$link_1 = $fields['cta_button'] ?: '';
+$link_2 = $fields['secondary_cta_button'] ?: '';
 
 // Verificar si no hay imagen ni video, y usar la imagen por defecto en ese caso
 if (empty($img_bg['url']) && empty($video_bg['url'])) {
-    $background_type = 'image';
-    $img_bg = ['url' => get_template_directory_uri() . '/assets/img/hero.jpg'];
+    $bg_type = 'image';
+    $img_bg  = ['url' => get_template_directory_uri() . '/assets/img/hero.jpg'];
 }
 ?>
 
 <div id="hero">
-    <?php if ($background_type == 'image' && !empty($img_bg['url'])) : ?>
+    <?php if ($bg_type == 'image' && !empty($img_bg['url'])) : ?>
         <div class="hero-bg cover d-flex align-items-end"
             style="background:
                 linear-gradient(0deg, rgba(10, 25, 47, 0.5), rgba(10, 25, 47, 0.6)),
                 linear-gradient(260deg, rgba(16, 42, 67, 0.5) 0%, rgba(0, 0, 0, 0.3) 100%),
                 url('<?php echo esc_url($img_bg['url']); ?>');">
-    <?php elseif ($background_type == 'video' && !empty($video_bg['url'])) : ?>
+    <?php elseif ($bg_type == 'video' && !empty($video_bg['url'])) : ?>
         <div class="hero-bg cover d-flex align-items-end relative overflow-hidden">
             <video autoplay muted loop class="background-video absolute">
                 <source src="<?php echo esc_url($video_bg['url']); ?>" type="video/mp4">
