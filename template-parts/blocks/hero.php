@@ -3,13 +3,11 @@
  * Hero
  */
 
-$fields = get_fields();
-
 // Obtener los valores de los campos ACF
+$fields   = get_fields();
 $title    = $fields['main_title'] ?: '';
 $htag     = $fields['heading_tag'] ?: 0;
 $subtitle = $fields['subtitle'] ?: '';
-
 $bg_type  = $fields['background_type'] ?: 'image';
 $img_bg   = $fields['background_image'];
 $video_bg = $fields['background_video'];
