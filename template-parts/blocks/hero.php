@@ -5,16 +5,16 @@
 
 // Obtener los valores de los campos ACF
 $fields   = get_fields();
-$title    = $fields['main_title'] ?: '';
-$htag     = $fields['heading_tag'] ?: 0;
-$subtitle = $fields['subtitle'] ?: '';
-$bg_type  = $fields['background_type'] ?: 'image';
-$img_bg   = $fields['background_image'];
-$video_bg = $fields['background_video'];
+$title    = $fields['hero_main_title'] ?: '';
+$htag     = $fields['hero_heading_htag'] ?: 0;
+$subtitle = $fields['hero_subtitle'] ?: '';
+$bg_type  = $fields['hero_background_type'] ?: 'image';
+$img_bg   = $fields['hero_background_image'];
+$video_bg = $fields['hero_background_video'];
 
 // Configuración de los botones
-$link_1 = $fields['cta_button'] ?: '';
-$link_2 = $fields['secondary_cta_button'] ?: '';
+$link_1 = $fields['hero_cta_button'] ?: '';
+$link_2 = $fields['hero_secondary_cta_button'] ?: '';
 
 // Verificar si no hay imagen ni video, y usar la imagen por defecto en ese caso
 if (empty($img_bg['url']) && empty($video_bg['url'])) {

@@ -67,31 +67,73 @@ Sigue las pautas de Underscores (https://underscores.me/) y está licenciado baj
   --fs-h4: 1.125rem;
   --fs-h5: 1.025rem;
 
-  --fw-heading: 700;
+  --fw-heading: 600;
 
   /* Colors */
-  --black: #0a192f;
-  --dark: #102a43;
-  --grey: #708d9c;
-  --light: #f9f9f9;
-  --white: #ffffff;
-  --primary-hover: #5a9ec1;
-  --tagline-color: #3978a7;
-  --accent-blue: #6fa5b0;
-  --accent-blue-hover: #5d8b94;
-  --accent-red: #fd7676;
-  --body-color: #4a4a4a;
-  --heading-color: #0a192f;
+  --color-black: #121212;
+  --color-dark: #2c2c2c;
+
+  --color-primary: #121212;
+  --color-primary-hover: #3a3a3a;
+
+  --color-primary-500: #121212;
+  --color-primary-400: #3a3a3a;
+  --color-primary-300: #616161;
+  --color-primary-200: #888888;
+  --color-primary-100: #b0b0b0;
+  --color-primary-alpha: rgba(18, 18, 18, 10);
+
+  --color-secondary: #2c2c2c;
+  --color-secondary-hover: #4f4f4f;
+
+  --color-secondary-500: #2c2c2c;
+  --color-secondary-400: #4f4f4f;
+  --color-secondary-300: #727272;
+  --color-secondary-200: #969696;
+  --color-secondary-100: #b9b9b9;
+  --color-secondary-alpha: rgba(44, 44, 44, 10);
+
+  --color-error-100: #fb3748;
+  --color-error-200: #d00416;
+  --color-error-alpha: rgba(251, 55, 72, 10);
+
+  --color-warning-100: #ffdb43;
+  --color-warning-200: #dfb400;
+  --color-warning-alpha: rgba(251, 219, 67, 10);
+
+  --color-sucess-100: #84ebb4;
+  --color-sucess-200: #1fc16b;
+  --color-sucess-alpha: rgba(31, 193, 107, 10);
+
+  --color-text-body: #6e6e73;
+  --color-text-heading: #1d1d1f;
+  --color-text-tagline: #727272;
+  --color-text-muted: #757575;
+  --color-text-card: #4a4a4a;
+
+  --color-text-white: #ffffff;
+  --color-text-light: #f9f9f9;
+
+  --color-text-link: #2c2c2c;
+  --color-text-link-hover: #121212;
+
+  --color-bg-dark: #121212;
+  --color-bg-light: #f7f7f7;
+  --color-bg-white: #fff;
+  --color-bg-primary: #fff;
+
+  --color-border: #d1d1d1;
 
   /* Margins & Paddings */
-  --paddding-top-body: 105px;
-  --paddding-top-body-mobile: 64px;
+  --padding-top-body: 105px;
+  --padding-top-body-mobile: 64px;
 
   /* Transitions */
   --transition-btn: all 0.25s ease-in-out;
 
   /* Shadows */
   --box-shadow-menu: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  --text-shadow-hero: 0px 2px 4px rgba(0, 0, 0, 0.4);
 }
 
 /*--------------------------------------------------------------
@@ -132,7 +174,7 @@ body {
 }
 
 body.home {
-  padding-top: var(--paddding-top-body);
+  padding-top: var(--padding-top-body);
 }
 
 a {
@@ -144,6 +186,26 @@ a:hover,
 a:focus {
   color: var(--primary);
   outline: none;
+}
+
+.alignleft {
+  float: left;
+  margin-right: 1.5rem;
+  margin-left: 1.5rem;
+}
+
+.alignright {
+  float: right;
+  margin-right: 1.5rem;
+  margin-left: 1.5rem;
+}
+
+.aligncenter {
+  clear: both;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 1.5em;
 }
 
 /*--------------------------------------------------------------
@@ -465,7 +527,7 @@ textarea {
   border-radius: 2.5rem;
 }
 
-/* Botón azul neutro */
+/* Botón por defecto */
 .btn-default,
 .gform_button {
   background-color: var(--dark);
@@ -483,7 +545,7 @@ textarea {
   box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.15);
 }
 
-/* Botón azul neutro */
+/* Botón primario */
 .btn-primary {
   background: var(--primary);
   color: var(--white);
@@ -498,7 +560,7 @@ textarea {
   border-color: transparent;
 }
 
-/* Botón azul turquesa (CTAs) */
+/* Botón secundario */
 .btn-cta {
   background-color: var(--secondary);
   color: var(--white);
@@ -514,7 +576,7 @@ textarea {
   opacity: 0.8;
 }
 
-/* Botón blanco */
+/* Botón secundario */
 .btn-secondary {
   background-color: var(--white);
   color: var(--primary);
@@ -547,7 +609,6 @@ textarea {
 /*--------------------------------------------------------------
 # Topbar
 --------------------------------------------------------------*/
-
 .topbar-link-text {
   color: var(--black);
   font-size: 0.9375rem;
@@ -710,6 +771,26 @@ ul.dropdown-submenu.show {
 --------------------------------------------------------------*/
 
 /*--------------------------------------------------------------
+ # Slider
+ --------------------------------------------------------------*/
+.carousel-content,
+.carousel-inner,
+.carousel-item {
+  min-height: 650px;
+}
+
+.carousel-content .heading-1 {
+  color: var(--color-text-white, #fff);
+  text-shadow: var(--text-shadow-hero);
+}
+
+.slide-description p {
+  color: var(--color-text-white, #fff);
+  font-size: 1.375rem;
+  text-shadow: var(--text-shadow-hero);
+}
+
+/*--------------------------------------------------------------
 # Page Headers
 --------------------------------------------------------------*/
 
@@ -868,18 +949,21 @@ ul.dropdown-submenu.show {
 
 /* landscape phones */
 @media (min-width: 576px) {
+  #hero {
+    padding-top: var(--padding-top-body);
+  }
 }
 
 @media (max-width: 767.98px) {
-  body {
-    padding-top: var(--paddding-top-body-mobile);
+  #hero {
+    padding-top: var(--padding-top-body-mobile);
   }
 }
 
 /* tablets */
 @media (min-width: 768px) {
-  body {
-    padding-top: var(--paddding-top-body);
+  body:not(.home) {
+    padding-top: var(--padding-top-body);
   }
 }
 

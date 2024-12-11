@@ -1,0 +1,164 @@
+[
+  {
+    "key": "group_slider",
+    "title": "Slider",
+    "fields": [
+      {
+        "key": "field_slides",
+        "label": "Slides",
+        "name": "slides",
+        "aria-label": "",
+        "type": "repeater",
+        "instructions": "Añade cada slide que desees mostrar en el slider. Cada fila representa una diapositiva.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "",
+          "class": "",
+          "id": ""
+        },
+        "layout": "table",
+        "pagination": 0,
+        "min": 0,
+        "max": 0,
+        "collapsed": "",
+        "button_label": "Agregar Diapositiva",
+        "rows_per_page": 20,
+        "sub_fields": [
+          {
+            "key": "field_slider_title",
+            "label": "Titulo",
+            "name": "title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Introduce el título que se mostrará en la diapositiva.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+              "width": "40",
+              "class": "",
+              "id": ""
+            },
+            "default_value": "",
+            "maxlength": "100",
+            "placeholder": "Escribe el título aquí",
+            "prepend": "",
+            "append": "",
+            "parent_repeater": "field_slides"
+          },
+          {
+            "key": "field_slider_htag_title",
+            "label": "Htag Titulo",
+            "name": "htag_title",
+            "aria-label": "",
+            "type": "radio",
+            "instructions": "Selecciona el nivel de encabezado para el título.",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+              "width": "10",
+              "class": "",
+              "id": ""
+            },
+            "choices": {
+              "0": "H1",
+              "1": "H2",
+              "2": "H3",
+              "3": "P"
+            },
+            "default_value": "0",
+            "return_format": "value",
+            "allow_null": 0,
+            "other_choice": 0,
+            "layout": "vertical",
+            "save_other_choice": 0,
+            "parent_repeater": "field_slides"
+          },
+          {
+            "key": "field_slider_text",
+            "label": "Texto",
+            "name": "text",
+            "aria-label": "",
+            "type": "wysiwyg",
+            "instructions": "Introduce el texto o subtítulo para la diapositiva.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+              "width": "60",
+              "class": "",
+              "id": ""
+            },
+            "default_value": "",
+            "tabs": "all",
+            "toolbar": "full",
+            "media_upload": 1,
+            "delay": 0,
+            "parent_repeater": "field_slides"
+          },
+          {
+            "key": "field_slider_img_bg",
+            "label": "Imagen de fondo",
+            "name": "img_bg",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "Sube una imagen para el fondo de la diapositiva. Se usará una imagen por defecto si no se proporciona.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+              "width": "25",
+              "class": "",
+              "id": ""
+            },
+            "return_format": "array",
+            "library": "all",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": "jpg,jpeg,png",
+            "preview_size": "medium",
+            "parent_repeater": "field_slides"
+          },
+          {
+            "key": "field_slider_link",
+            "label": "Botón",
+            "name": "link",
+            "aria-label": "",
+            "type": "link",
+            "instructions": "Añade el enlace del botón que se mostrará en la diapositiva.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+              "width": "25",
+              "class": "",
+              "id": ""
+            },
+            "return_format": "array",
+            "parent_repeater": "field_slides"
+          }
+        ]
+      }
+    ],
+    "location": [
+      [
+        {
+          "param": "page_template",
+          "operator": "==",
+          "value": "page-home.php"
+        }
+      ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1727879936
+  }
+]
