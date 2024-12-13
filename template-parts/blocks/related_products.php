@@ -55,18 +55,22 @@ if (count($final_products) < $max_products) {
 if (!empty($final_products)) :
 ?>
    <section class="product-listing container my-5">
-      <div class="text-center mb-4">
-         <?php if (!empty($tagline)) :
-            echo tagTitle($htag_tagline, $tagline, 'tagline', '');
-         endif; 
-         if (!empty($title)) :
-            echo tagTitle($htag_title, $title, 'heading-2', '');
-         endif;
-         if (!empty($text)) : ?>
-            <div class="section-text">
-               <?php echo $text; ?>
+      <div class="row">
+         <div class="col-lg-8 mx-auto">
+            <div class="text-center mb-4">
+               <?php if (!empty($tagline)) :
+                  echo tagTitle($htag_tagline, $tagline, 'tagline', '');
+               endif; 
+               if (!empty($title)) :
+                  echo tagTitle($htag_title, $title, 'heading-2', '');
+               endif;
+               if (!empty($text)) : ?>
+                  <div class="section-text">
+                     <?php echo $text; ?>
+                  </div>
+               <?php endif; ?>
             </div>
-         <?php endif; ?>
+         </div>
       </div>
 
       <!-- Listado de productos -->
