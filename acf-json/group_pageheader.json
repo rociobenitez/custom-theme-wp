@@ -1,0 +1,172 @@
+[
+  {
+    "key": "group_671755056662d",
+    "title": "Page Header",
+    "fields": [
+      {
+        "key": "field_671755056d12c",
+        "label": "Tagline",
+        "name": "pageheader_tagline",
+        "type": "text",
+        "instructions": "Texto breve o slogan que se mostrará encima del título. Opcional.",
+        "required": 0,
+        "wrapper": {
+          "width": "40"
+        },
+        "placeholder": ""
+      },
+      {
+        "key": "field_671755056d175",
+        "label": "Tagline Heading Tag",
+        "name": "pageheader_htag_tagline",
+        "type": "radio",
+        "instructions": "Elige la etiqueta HTML para el tagline.",
+        "choices": {
+          "0": "H1",
+          "1": "H2",
+          "2": "H3",
+          "3": "P"
+        },
+        "default_value": "H3",
+        "wrapper": {
+          "width": "10"
+        },
+        "layout": "vertical"
+      },
+      {
+        "key": "field_671755056d1b2",
+        "label": "Título Principal",
+        "name": "pageheader_title",
+        "type": "text",
+        "instructions": "Título principal de la página. Si se deja vacío, se usará el título de la página.",
+        "required": 0,
+        "wrapper": {
+          "width": "40"
+        },
+        "placeholder": ""
+      },
+      {
+        "key": "field_671755056d1ec",
+        "label": "Título Heading Tag",
+        "name": "pageheader_htag_title",
+        "type": "radio",
+        "instructions": "Elige la etiqueta HTML para el título principal.",
+        "choices": {
+          "0": "H1",
+          "1": "H2",
+          "2": "H3",
+          "3": "P"
+        },
+        "default_value": "H1",
+        "wrapper": {
+          "width": "10"
+        },
+        "layout": "vertical"
+      },
+      {
+        "key": "field_675fed44d9d15",
+        "label": "Estilo de la Cabecera",
+        "name": "pageheader_style",
+        "type": "radio",
+        "instructions": "Elige cómo se mostrará la cabecera.",
+        "choices": {
+          "bg_image": "Imagen de fondo con texto",
+          "cols": "Imagen al lado del contenido"
+        },
+        "default_value": "bg_image",
+        "wrapper": {
+          "width": "20"
+        },
+        "layout": "horizontal"
+      },
+      {
+        "key": "field_671755056d2a8",
+        "label": "Imagen de Fondo",
+        "name": "pageheader_image",
+        "type": "image",
+        "instructions": "Sube una imagen que se mostrará en la cabecera. Opcional.",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+          "width": "15"
+        },
+        "return_format": "array",
+        "preview_size": "medium"
+      },
+      {
+        "key": "field_675fecf2d9d14",
+        "label": "Color de Fondo",
+        "name": "pageheader_bg_color",
+        "type": "color_picker",
+        "instructions": "Color de fondo para la sección si no se usa imagen.",
+        "required": 0,
+        "conditional_logic": [
+          [
+            {
+              "field": "field_675fed44d9d15",
+              "operator": "==",
+              "value": "cols"
+            }
+          ]
+        ],
+        "wrapper": {
+          "width": "15"
+        },
+        "default_value": "#f8f9fa"
+      },
+      {
+        "key": "field_675fec3cd9d13",
+        "label": "Descripción",
+        "name": "pageheader_text",
+        "type": "wysiwyg",
+        "instructions": "Breve descripción (recomendado máximo 20 palabras). Opcional.",
+        "required": 0,
+        "conditional_logic": [
+          [
+            {
+              "field": "field_675fed44d9d15",
+              "operator": "==",
+              "value": "cols"
+            }
+          ]
+        ],
+        "wrapper": {
+          "width": "50"
+        },
+        "default_value": "",
+        "tabs": "all",
+        "toolbar": "basic",
+        "media_upload": 0
+      },
+      {
+        "key": "field_675feefd7508b",
+        "label": "Botón CTA",
+        "name": "pageheader_button",
+        "type": "link",
+        "instructions": "Configura el botón de llamada a la acción. Opcional.",
+        "required": 0,
+        "wrapper": {
+          "width": "50"
+        },
+        "return_format": "array"
+      }
+    ],
+    "location": [
+      [
+        {
+          "param": "post_type",
+          "operator": "==",
+          "value": "page"
+        }
+      ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "active": true,
+    "description": "Configuración de la cabecera de la página",
+    "show_in_rest": 0
+  }
+]
