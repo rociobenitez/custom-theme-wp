@@ -34,93 +34,93 @@ get_header(); ?>
    get_template_part('template-parts/pageheader', null, ['pageheader_style' => 'bg-image']);
    ?>
 
-    <!-- Sección de Contenido Principal -->
-    <?php if (!empty($content)) : ?>
-    <div class="bg-light-subtle py-5">
-        <div class="container">
-            <?php echo $content; ?>
-        </div>
-    </div>
-    <?php endif; ?>
+   <!-- Sección de Contenido Principal -->
+   <?php if (!empty($content)) : ?>
+   <div class="bg-light-subtle py-5">
+      <div class="container">
+         <?php echo $content; ?>
+      </div>
+   </div>
+   <?php endif; ?>
 
-    <!-- Listado de Cursos por Taxonomía -->
-    <section class="cpt-courses container my-5">
-        <?php
-        // Función para renderizar cursos por modalidad
-        function render_cursos_by_modalidad($taxonomy, $term, $cpt_slug, $section_title, $class_section) {
-            $query = new WP_Query([
-                'post_type'      => $cpt_slug,
-                'posts_per_page' => -1,
-                'tax_query'      => [[
-                    'taxonomy' => $taxonomy,
-                    'field'    => 'slug',
-                    'terms'    => $term,
-                ]],
-            ]);
+   <!-- Listado de Cursos por Taxonomía -->
+   <section class="cpt-courses container my-5">
+      <?php
+      // Función para renderizar cursos por modalidad
+      function render_cursos_by_modalidad($taxonomy, $term, $cpt_slug, $section_title, $class_section) {
+         $query = new WP_Query([
+            'post_type'      => $cpt_slug,
+            'posts_per_page' => -1,
+            'tax_query'      => [[
+               'taxonomy' => $taxonomy,
+               'field'    => 'slug',
+               'terms'    => $term,
+            ]],
+         ]);
 
-            if ($query->have_posts()) :
-                ?>
-                <div class="<?php echo esc_attr($class_section); ?>">
-                    <h2 class="section-title heading-3 text-uppercase mb-4">
-                        <?php echo esc_html($section_title); ?>
-                    </h2>
-                    <div class="row">
-                        <?php
-                        while ($query->have_posts()) : $query->the_post();
-                            // Plantilla para cada curso
-                            get_template_part('template-parts/components/card-cpt', null, [
-                                'title'     => get_the_title(),
-                                'excerpt'   => wp_trim_words(get_the_excerpt(), 20),
-                                'image_url' => get_the_post_thumbnail_url(get_the_ID(), 'medium'),
-                                'permalink' => get_permalink(),
-                                'class-col' => 'col-md-6 col-lg-4 col-xl-3',
-                            ]);
-                        endwhile;
-                        ?>
-                    </div>
-                </div>
-                <?php
-                wp_reset_postdata();
-            else :
-                echo '<p class="text-center">No hay cursos disponibles en esta modalidad.</p>';
-            endif;
-        }
+         if ($query->have_posts()) :
+            ?>
+            <div class="<?php echo esc_attr($class_section); ?>">
+               <h2 class="section-title heading-3 text-uppercase mb-4">
+                  <?php echo esc_html($section_title); ?>
+               </h2>
+               <div class="row">
+                  <?php
+                  while ($query->have_posts()) : $query->the_post();
+                     // Plantilla para cada curso
+                     get_template_part('template-parts/components/card-cpt', null, [
+                        'title'     => get_the_title(),
+                        'excerpt'   => wp_trim_words(get_the_excerpt(), 20),
+                        'image_url' => get_the_post_thumbnail_url(get_the_ID(), 'medium'),
+                        'permalink' => get_permalink(),
+                        'class-col' => 'col-md-6 col-lg-4 col-xl-3',
+                     ]);
+                  endwhile;
+                  ?>
+               </div>
+            </div>
+            <?php
+            wp_reset_postdata();
+         else :
+            echo '<p class="text-center">No hay cursos disponibles en esta modalidad.</p>';
+         endif;
+      }
 
-        if (!empty($terms) && !is_wp_error($terms)) :
-            $total_terms = count($terms); // Número total de términos
-            $current_index = 0;           // Inicializa contador
+      if (!empty($terms) && !is_wp_error($terms)) :
+         $total_terms = count($terms); // Número total de términos
+         $current_index = 0;           // Inicializa contador
 
-            foreach ($terms as $term) :
-                $current_index++;
-                
-                // Determinar la clase de sección
-                $section_class = 'cpt-section mb-5';
-                if ($current_index !== $total_terms) {
-                    $section_class .= ' pb-5 border-bottom'; // Añadir clase excepto en el último término
-                }
-
-                // Renderizar cursos del término actual
-                render_cursos_by_modalidad($taxonomy, $term->slug, $cpt_slug, 'Formación ' . ucfirst($term->name), $section_class);
-            endforeach;
-        else :
-            echo '<p class="text-center">No hay cursos disponibles.</p>';
-        endif;
-        ?>
-    </section>
-
-    <?php // Bloques flexibles dinámicos
-    if ($fields && isset($fields['flexible_content']) && is_array($fields['flexible_content'])) {
-        foreach ($fields['flexible_content'] as $bloque) {
-            if (isset($bloque['acf_fc_layout']) && !empty($bloque['acf_fc_layout'])) {
-               $block_file = 'bloques/' . $bloque['acf_fc_layout'] . '.php';
-
-               if (file_exists(get_stylesheet_directory() . '/' . $block_file)) {
-                  include locate_template($block_file);
-               }
+         foreach ($terms as $term) :
+            $current_index++;
+            
+            // Determinar la clase de sección
+            $section_class = 'cpt-section mb-5';
+            if ($current_index !== $total_terms) {
+               $section_class .= ' pb-5 border-bottom'; // Añadir clase excepto en el último término
             }
-        }
-    }
-    ?>
+
+            // Renderizar cursos del término actual
+            render_cursos_by_modalidad($taxonomy, $term->slug, $cpt_slug, 'Formación ' . ucfirst($term->name), $section_class);
+         endforeach;
+      else :
+         echo '<p class="text-center">No hay cursos disponibles.</p>';
+      endif;
+      ?>
+   </section>
+
+   <?php // Bloques flexibles dinámicos
+   if ($fields && isset($fields['flexible_content']) && is_array($fields['flexible_content'])) {
+      foreach ($fields['flexible_content'] as $block) {
+         if (isset($block['acf_fc_layout']) && !empty($block['acf_fc_layout'])) {
+            $block_file = 'blocks/' . $block['acf_fc_layout'] . '.php';
+
+            if (file_exists(get_stylesheet_directory() . '/' . $block_file)) {
+               include locate_template($block_file);
+            }
+         }
+      }
+   }
+   ?>
 </main>
 
 <?php get_footer(); ?>
