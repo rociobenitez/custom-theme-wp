@@ -108,18 +108,10 @@ get_header(); ?>
       ?>
    </section>
 
-   <?php // Bloques flexibles dinámicos
-   if ($fields && isset($fields['flexible_content']) && is_array($fields['flexible_content'])) {
-      foreach ($fields['flexible_content'] as $block) {
-         if (isset($block['acf_fc_layout']) && !empty($block['acf_fc_layout'])) {
-            $block_file = 'blocks/' . $block['acf_fc_layout'] . '.php';
-
-            if (file_exists(get_stylesheet_directory() . '/' . $block_file)) {
-               include locate_template($block_file);
-            }
-         }
-      }
-   }
+   <?php
+   // Cargar bloques flexibles dinámicamente
+   require_once get_template_directory() . '/template-parts/load-flexible-blocks.php';
+   load_flexible_blocks($fields['flexible_content']);
    ?>
 </main>
 
