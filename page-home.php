@@ -34,22 +34,9 @@ if (isset($fields['slides']) && is_array($fields['slides'])) {
    }
 }
 
-/**
- * Cargar bloques flexibles dinámicamente
- */
-if ($fields && isset($fields['flexible_content']) && is_array($fields['flexible_content'])) {
-   foreach ($fields['flexible_content'] as $bloque) {
-      if (isset($bloque['acf_fc_layout']) && !empty($bloque['acf_fc_layout'])) {
-         $block_file = 'template-parts/blocks/' . $bloque['acf_fc_layout'] . '.php';
-
-         if (file_exists(get_stylesheet_directory() . '/' . $block_file)) {
-            include locate_template($block_file);
-         } else {
-            error_log("El archivo {$bloque['acf_fc_layout']}.php no se encontró en template-parts/blocks/");
-        }
-      }
-   }
-}
+// Cargar bloques flexibles dinámicamente
+require_once get_template_directory() . '/template-parts/load-flexible-blocks.php';
+load_flexible_blocks($fields['flexible_content']);
 
 // Incluir el pie de página del tema
 get_footer();
