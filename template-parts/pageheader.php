@@ -10,7 +10,7 @@
 // --- Configuración por defecto ---
 $fields           = get_fields();
 $page_title       = get_the_title();
-$default_img      = get_template_directory_uri() . '/img/img-default.png';
+$default_img      = get_template_directory_uri() . '/assets/img/default-background.jpg';
 $pageheader_style = $args['pageheader_style'] ?? 'bg_image'; // Estilo predeterminado
 
 // --- Variables por defecto ---
@@ -22,17 +22,18 @@ $description  = '';
 $button       = null;
 $bg_image     = $default_img;
 
-// --- Verificar si estamos en el CPT "cursos" ---
-if (is_singular('cursos')) {
+if (is_singular('cursos')) { // --- Verificar si estamos en el CPT "cursos" ---
    // Datos desde el propio CPT
-   $tagline       = 'Detalles del Curso'; // Puedes personalizar esta línea
-   $title         = $page_title;
-   $htag_title    = 2;
-   $description   = get_the_excerpt(); // El extracto como descripción
-   $bg_image      = has_post_thumbnail() ? esc_url(get_the_post_thumbnail_url(null, 'full')) : $default_img;
-   $button_text   = 'Ver Cursos';
-   $button_url    = get_post_type_archive_link('cursos'); // Enlace a la página de archivo de cursos
-} elseif (is_shop()) {
+   $tagline     = 'Detalles del Curso'; 
+   $title       = $page_title;
+   $htag_title  = 2;
+   $description = get_the_excerpt(); // El extracto como descripción
+   $button_text = 'Ver Cursos';
+   $button_url  = get_post_type_archive_link('cursos'); // Enlace a la página de archivo de cursos
+   $bg_image    = has_post_thumbnail()
+      ? esc_url(get_the_post_thumbnail_url(null, 'full'))
+      : $default_img;
+} elseif (is_shop()) { // --- Verificar si estamos en la página de 'tienda' ---
    $shop_page_id = wc_get_page_id('shop'); // ID de la página asignada como tienda
    $title        = !empty($fields['pageheader_title'])
       ? $fields['pageheader_title']
