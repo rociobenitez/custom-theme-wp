@@ -19,6 +19,8 @@ $page_title    = get_the_title();
 $section_title = !empty($fields['pageheader_title'])
    ? $fields['pageheader_title']
    : 'Formación Presencial';
+$section_title_class = 'section-title heading-2 mb-4 text-center';
+$htag_section_title = 1; # H2
 
 get_header(); ?>
 
@@ -43,7 +45,7 @@ get_header(); ?>
          * @param string $section_title Título de la sección.
          * @param string $section_class Clase adicional para la sección.
          */
-        function render_courses($taxonomy, $term, $cpt_slug, $section_title, $section_class) {
+        function render_courses($taxonomy, $term, $cpt_slug, $section_title, $section_class, $htag_section_title, $section_title_class) {
             $query = new WP_Query([
                 'post_type'      => $cpt_slug,
                 'posts_per_page' => -1,
@@ -56,9 +58,7 @@ get_header(); ?>
 
             if ($query->have_posts()) : ?>
                 <div class="<?php echo esc_attr($section_class); ?>">
-                    <h2 class="section-title heading-2 mb-4 text-center">
-                        <?php echo esc_html($section_title); ?>
-                    </h2>
+                    <?php echo tagTitle($htag_section_title, $section_title, $section_title_class, ''); ?>
                     <div class="row">
                         <?php
                         while ($query->have_posts()) : $query->the_post();
@@ -81,7 +81,7 @@ get_header(); ?>
             wp_reset_postdata();
         }
 
-        render_courses($taxonomy, $term_slug, $cpt_slug, $section_title, 'cpt-section my-5');
+        render_courses($taxonomy, $term_slug, $cpt_slug, $section_title, 'cpt-section my-5', $htag_section_title, $section_title_class);
         ?>
     </section>
 
