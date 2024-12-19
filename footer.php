@@ -9,17 +9,27 @@
 
 // Opciones del tema
 $options = get_fields('option');
+
+// Obtener el diseño del footer seleccionado (por defecto '4columns')
+$footer_layout = isset($options['footer_layout']) ? $options['footer_layout'] : '4columns';
+
+// Definir clases del footer
 $footer_bg_class = 'bg-light';
-$border_color = 'border-secondary';
+$border_color    = 'border-secondary';
 
 // Logotipo
-$logo_url = !empty($options['footer_logo']) ? $options['footer_logo'] : get_template_directory_uri() . '/assets/img/logo.svg';
-$footer_text_below_logo = !empty($options['footer_text_below_logo']) ? $options['footer_text_below_logo'] : '';
+$logo_url = !empty($options['footer_logo']) 
+    ? $options['footer_logo']
+    : get_template_directory_uri() . '/assets/img/logo.svg';
+$footer_text_below_logo = !empty($options['footer_text_below_logo'])
+    ? $options['footer_text_below_logo']
+    : '';
 $width_logo = 150;
 $height_logo = 60;
 
-$footer_contact_column_title = !empty($options['footer_contact_column_title']) ? $options['footer_contact_column_title'] : 'Contacto';
-$icon_schedule_src = get_template_directory_uri() . "/assets/img/icons/schedule.svg";
+$footer_contact_column_title = !empty($options['footer_contact_column_title']) 
+    ? $options['footer_contact_column_title']
+    : 'Contacto';
 
 // Configuración de columnas del footer
 $footer_columns = [
@@ -34,8 +44,8 @@ $footer_columns = [
 ];
 
 // Filtra las columnas activas
-$active_columns = array_filter($footer_columns, fn($col) => has_nav_menu($col['menu']));
-$column_count = count($active_columns) + 1; // Agregamos la columna de Contacto como adicional
+$active_cols  = array_filter($footer_columns, fn($col) => has_nav_menu($col['menu']));
+$column_count = count($active_cols) + 1; // Agregamos la columna de Contacto como adicional
 $column_class = 'col-lg-' . ($column_count === 1 ? '5' : (12 / $column_count));
 
 // Variables de contacto
@@ -50,7 +60,7 @@ $contact_info = [
 	'phone'     => [
 		 'icon' => get_template_directory_uri() . "/assets/img/icons/phone.svg",
 		 'link' => !empty($options['phone']) ? 'tel:' . $options['phone'] : '',
-		 'text' => $options['telefono'] ?? ''
+		 'text' => $options['phone'] ?? ''
 	],
 	'whatsapp'  => [
 		 'icon' => get_template_directory_uri() . "/assets/img/icons/whatsapp.svg",
@@ -66,6 +76,7 @@ $contact_info = [
 
 // Horario de apertura (opcional)
 $opening_hours = !empty($options['opening_hours']) ? $options['opening_hours'] : '';
+$icon_schedule_src = get_template_directory_uri() . "/assets/img/icons/schedule.svg";
 ?>
 
 <footer id="site-footer" class="site-footer d-flex flex-column <?php echo esc_attr($footer_bg_class); ?>">
@@ -78,13 +89,15 @@ $opening_hours = !empty($options['opening_hours']) ? $options['opening_hours'] :
                         <img src="<?php echo esc_url($logo_url); ?>" alt="<?php echo esc_attr(get_bloginfo('name')); ?>" class="footer-logo" width="<?php echo esc_attr($width_logo); ?>" height="<?php echo esc_attr($height_logo); ?>">
                     </a>
                     <?php if (!empty($footer_text_below_logo)) : ?>
-                        <div><?php echo $footer_text_below_logo; ?></div>
+                        <div class="footer-text-below-logo">
+                            <?php echo $footer_text_below_logo; ?>
+                        </div>
                     <?php endif; ?>
                 </div>
 
                 <!-- Footer Menus -->
                 <div class="row col-lg-10 justify-content-end">
-                    <?php foreach ($active_columns as $col) : ?>
+                    <?php foreach ($active_cols as $col) : ?>
                         <div class="<?php echo esc_attr($column_class); ?> footer-menu text-center text-md-start mb-4 mb-lg-0">
                             <p class="footer-menu-title mb-2"><?php echo esc_html($col['title']); ?></p>
                             <?php wp_nav_menu([
@@ -123,6 +136,29 @@ $opening_hours = !empty($options['opening_hours']) ? $options['opening_hours'] :
         </div>
     </div>
 
+    <!-- Incluir la plantilla de footer según el diseño seleccionado -->
+    <?php
+    // Ruta a las plantillas de footer
+    $footer_templates = [
+        '4columns' => 'template-parts/footers/footer-4columns.php',
+        '3columns' => 'template-parts/footers/footer-3columns.php'
+    ];
+
+    if (array_key_exists($footer_layout, $footer_templates)) {
+        $template_path = $footer_templates[$footer_layout];
+        if (file_exists(get_template_directory() . '/' . $template_path)) {
+            // Pasar variables a la plantilla incluida
+            include locate_template($template_path);
+        } else {
+            // Cargar una plantilla por defecto
+            include locate_template('template-parts/footers/footer-4columns.php');
+        }
+    } else {
+        // Cargar una plantilla de footer por defecto si el diseño no está definido
+        include locate_template('template-parts/footers/footer-4columns.php');
+    }
+    ?>
+
     <div class="footer-bottom">
         <div class="container d-flex flex-column-reverse flex-lg-row justify-content-between align-items-center py-4 border-top <?php echo esc_attr($border_color); ?>">
             <div class="footer-copy my-auto text-center text-lg-start">
@@ -140,6 +176,14 @@ $opening_hours = !empty($options['opening_hours']) ? $options['opening_hours'] :
         </div>
     </div>
 </footer>
+
+<?php
+// // Descomentar si el proyecto es de 'Kit digital'
+// $kitdigital_template = 'template-parts/footer-kitdigital.php';
+// if (file_exists(get_stylesheet_directory() . '/' . $kitdigital_template)) {
+//     include locate_template($kitdigital_template);
+// }
+?>
 
 <!-- Scroll to Top Button -->
 <a href="#" class="scroll-to-top" aria-label="Scroll to top"><i class="bi bi-arrow-up"></i></a>

@@ -9,25 +9,31 @@
  * @package CustomTheme
  */
 
- global $bodyclass;
- $bodyclass = $bodyclass ?? 'default-body';
- $headerclass = 'bg-white shadow-sm';
- 
- // Ruta del logo SVG o PNG por defecto
- $logo_src = get_template_directory_uri() . '/assets/img/logo-horizontal.svg';
- // Ruta opcional para el logo en PNG o JPG de mayor resolución
- // $logo2x_src = get_template_directory_uri() . '/assets/img/logo@2x.png';
- 
- $srcset = isset($logo2x_src) ? 'srcset="' . esc_url($logo_src) . ' 1x, ' . esc_url($logo2x_src) . ' 2x"' : '';
- 
- $logo_width = 170;
- $logo_height = 48;
- 
- // Obtener el valor de los campos de opciones
- $options = get_fields('option');
- $contactOptions = get_contact_options();
- 
- ?>
+global $bodyclass;
+$bodyclass = $bodyclass ?? 'default-body';
+$is_home_template = is_page_template('page-home.php');
+
+// Definir la clase de fondo basada en la plantilla utilizada
+$background_class = $is_home_template ? 'bg-transparent' : 'bg-white';
+$headerclass = $background_class . ' shadow-sm'; // Definir otras clases adicionales para el header
+
+// Definir las URLs de los logos
+$logo_src = get_template_directory_uri() . '/assets/img/logo.svg';
+$logo_white_src   = get_template_directory_uri() . '/assets/img/logo-white.svg';
+
+// Ruta opcional para el logo en PNG o JPG de mayor resolución
+// $logo2x_src = get_template_directory_uri() . '/assets/img/logo@2x.png';
+
+$srcset = isset($logo2x_src) ? 'srcset="' . esc_url($logo_src) . ' 1x, ' . esc_url($logo2x_src) . ' 2x"' : '';
+
+$logo_width = 170;
+$logo_height = 48;
+
+// Obtener el valor de los campos de opciones
+$options = get_fields('option');
+$contactOptions = get_contact_options();
+
+?>
 <!doctype html>
 <html <?php language_attributes(); ?>>
 <head>
@@ -65,16 +71,22 @@
 		<nav class="navbar navbar-expand-xl navbar-light">
 			<div class="container" id="navbar-container">
 				<a class="navbar-brand" href="<?php echo esc_url( home_url('/') ); ?>">
-				<?php if (function_exists('the_custom_logo') && has_custom_logo()) : 
-					the_custom_logo(); 
-				else : ?>
-					<img src="<?php echo esc_url($logo_src); ?>"
-						<?php echo $srcset; ?> 
-						class="img-brand" 
-						alt="<?php echo esc_attr(get_bloginfo('name')); ?>" 
-						width="<?php echo esc_attr($logo_width); ?>" 
-						height="<?php echo esc_attr($logo_height); ?>">
-				<?php endif; ?>
+					<?php if (function_exists('the_custom_logo') && has_custom_logo()) : 
+						the_custom_logo(); 
+					else : ?>
+						<img src="<?php echo esc_url($logo_src); ?>"
+							<?php echo $srcset; ?> 
+							class="img-brand logo-default" id="logo-default"
+							alt="<?php echo esc_attr(get_bloginfo('name')); ?>" 
+							width="<?php echo esc_attr($logo_width); ?>" 
+							height="<?php echo esc_attr($logo_height); ?>" />
+						<img src="<?php echo esc_url($logo_white_src); ?>"
+							<?php echo $srcset; ?> 
+							class="img-brand logo-white" id="logo-white"
+							alt="<?php echo esc_attr(get_bloginfo('name')); ?>" 
+							width="<?php echo esc_attr($logo_width); ?>" 
+							height="<?php echo esc_attr($logo_height); ?>" />
+					<?php endif; ?>
 				</a>
 				<button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
 					data-bs-target="#navbarNav" aria-controls="navbarNav" 
@@ -91,7 +103,7 @@
 					'menu_class'      => 'navbar-nav ms-auto align-items-xl-center gap-2',
 					'menu_id'         => 'main-menu',
 					'fallback_cb'     => '__return_false',
-					'walker'          => new Bootstrap_NavWalker()
+					'walker'          => new bootstrap_5_wp_nav_menu_walker()
 				));
 				?>
 			</div>
