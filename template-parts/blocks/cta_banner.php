@@ -102,7 +102,7 @@ $linear_gradient = 'linear-gradient(0deg, rgba(0, 0, 0, 0.20) 0%, rgba(0, 0, 0, 
         <?php // Contenido ?>
         <div class="d-flex justify-content-between align-items-center position-relative">
             <div class="container">
-                <div class="col-lg-5 py-5 <?php echo esc_attr($text_color); ?> <?php echo $image_position === 'left' ? 'ms-auto' : ''; ?>">
+                <div class="col-lg-5 col-content py-5 <?php echo esc_attr($text_color); ?> <?php echo $image_position === 'left' ? 'ms-auto' : ''; ?>">
                     <?php
                     // Encabezado del banner
                     get_component('template-parts/components/section-heading', [
@@ -128,7 +128,7 @@ $linear_gradient = 'linear-gradient(0deg, rgba(0, 0, 0, 0.20) 0%, rgba(0, 0, 0, 
             </div>
 
             <?php // Imagen ?>
-            <div class="col-lg-6 position-absolute top-0 h-100 cover <?php echo $image_position === 'left' ? 'start-1' : 'end-0'; ?>"
+            <div class="col-lg-6 col-image position-absolute top-0 h-100 cover <?php echo $image_position === 'left' ? 'start-1' : 'end-0'; ?>"
                 style="background-image: url('<?php echo esc_url($bg_image_medium); ?>');">
             </div>
         </div>
