@@ -1972,6 +1972,392 @@
           "min": "",
           "max": ""
         },
+        "layout_67274d574d218": {
+          "key": "layout_67274d574d218",
+          "name": "cta_banner",
+          "label": "Banner",
+          "display": "block",
+          "sub_fields": [
+            {
+              "key": "field_6763dd8a767b9",
+              "label": "Diseño del banner",
+              "name": "",
+              "aria-label": "",
+              "type": "tab",
+              "instructions": "",
+              "required": 0,
+              "conditional_logic": 0,
+              "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+              },
+              "placement": "top",
+              "endpoint": 0,
+              "selected": 0
+            },
+            {
+              "key": "field_675fd59d0a278",
+              "label": "Diseño del banner",
+              "name": "banner_layout",
+              "aria-label": "",
+              "type": "radio",
+              "instructions": "Selecciona si el diseño será con una imagen de fondo o con la imagen en una columna",
+              "required": 0,
+              "conditional_logic": 0,
+              "wrapper": {
+                "width": "15",
+                "class": "",
+                "id": ""
+              },
+              "choices": {
+                "bg_image": "Imagen de fondo",
+                "side_image": "Imagen al lado"
+              },
+              "default_value": "",
+              "return_format": "value",
+              "allow_null": 0,
+              "other_choice": 0,
+              "allow_in_bindings": 1,
+              "layout": "vertical",
+              "save_other_choice": 0
+            },
+            {
+              "key": "field_6763e0dd972f9",
+              "label": "Ancho del banner",
+              "name": "banner_width",
+              "aria-label": "",
+              "type": "radio",
+              "instructions": "Selecciona si el banner ocupa o no el ancho completo",
+              "required": 0,
+              "conditional_logic": [
+                [
+                  {
+                    "field": "field_675fd59d0a278",
+                    "operator": "==",
+                    "value": "bg_image"
+                  }
+                ]
+              ],
+              "wrapper": {
+                "width": "15",
+                "class": "",
+                "id": ""
+              },
+              "choices": {
+                "full": "100% (pantalla completa)",
+                "container": "Ajustado al contenedor"
+              },
+              "default_value": "full",
+              "return_format": "value",
+              "allow_null": 0,
+              "other_choice": 0,
+              "allow_in_bindings": 1,
+              "layout": "vertical",
+              "save_other_choice": 0
+            },
+            {
+              "key": "field_6763d56c47be5",
+              "label": "Mostrar formulario",
+              "name": "show_form",
+              "aria-label": "",
+              "type": "true_false",
+              "instructions": "Activa esta opción para añadir un formulario al banner",
+              "required": 0,
+              "conditional_logic": 0,
+              "wrapper": {
+                "width": "15",
+                "class": "",
+                "id": ""
+              },
+              "message": "",
+              "default_value": 0,
+              "allow_in_bindings": 0,
+              "ui_on_text": "",
+              "ui_off_text": "",
+              "ui": 1
+            },
+            {
+              "key": "field_6763d54d47be4",
+              "label": "ID del formulario",
+              "name": "id_form",
+              "aria-label": "",
+              "type": "text",
+              "instructions": "Introduce el ID del formulario que aparecerá en el banner",
+              "required": 0,
+              "conditional_logic": [
+                [
+                  {
+                    "field": "field_6763d56c47be5",
+                    "operator": "==",
+                    "value": "1"
+                  }
+                ]
+              ],
+              "wrapper": {
+                "width": "15",
+                "class": "",
+                "id": ""
+              },
+              "default_value": "",
+              "maxlength": "",
+              "allow_in_bindings": 0,
+              "placeholder": "",
+              "prepend": "",
+              "append": ""
+            },
+            {
+              "key": "field_675fd6470a279",
+              "label": "Color de fondo",
+              "name": "bg_color",
+              "aria-label": "",
+              "type": "radio",
+              "instructions": "Selecciona el color de fondo del banner",
+              "required": 0,
+              "conditional_logic": [
+                [
+                  {
+                    "field": "field_675fd59d0a278",
+                    "operator": "==",
+                    "value": "side_image"
+                  }
+                ]
+              ],
+              "wrapper": {
+                "width": "15",
+                "class": "",
+                "id": ""
+              },
+              "choices": {
+                "c-bg-white": "Blanco",
+                "c-bg-light": "Gris claro",
+                "c-bg-primary": "Color primario",
+                "c-bg-dark": "Oscuro"
+              },
+              "default_value": "c-bg-light",
+              "return_format": "value",
+              "allow_null": 0,
+              "other_choice": 0,
+              "allow_in_bindings": 1,
+              "layout": "vertical",
+              "save_other_choice": 0
+            },
+            {
+              "key": "field_67274d574d21e",
+              "label": "Imagen",
+              "name": "image",
+              "aria-label": "",
+              "type": "image",
+              "instructions": "Selecciona la imagen de fondo para el banner. Si no seleccionas una imagen, se usará una por defecto",
+              "required": 0,
+              "conditional_logic": 0,
+              "wrapper": {
+                "width": "15",
+                "class": "",
+                "id": ""
+              },
+              "return_format": "array",
+              "library": "all",
+              "min_width": "",
+              "min_height": "",
+              "min_size": "",
+              "max_width": "",
+              "max_height": "",
+              "max_size": "",
+              "mime_types": "",
+              "allow_in_bindings": 1,
+              "preview_size": "medium"
+            },
+            {
+              "key": "field_6763ee06c822c",
+              "label": "Posición de la imagen",
+              "name": "position_image",
+              "aria-label": "",
+              "type": "radio",
+              "instructions": "",
+              "required": 0,
+              "conditional_logic": [
+                [
+                  {
+                    "field": "field_675fd59d0a278",
+                    "operator": "==",
+                    "value": "side_image"
+                  }
+                ]
+              ],
+              "wrapper": {
+                "width": "15",
+                "class": "",
+                "id": ""
+              },
+              "choices": {
+                "right": "Derecha",
+                "left": "Izquierda"
+              },
+              "default_value": "right",
+              "return_format": "value",
+              "allow_null": 0,
+              "other_choice": 0,
+              "allow_in_bindings": 1,
+              "layout": "vertical",
+              "save_other_choice": 0
+            },
+            {
+              "key": "field_6763ddae767ba",
+              "label": "Contenido del banner",
+              "name": "",
+              "aria-label": "",
+              "type": "tab",
+              "instructions": "",
+              "required": 0,
+              "conditional_logic": 0,
+              "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+              },
+              "placement": "top",
+              "endpoint": 0,
+              "selected": 0
+            },
+            {
+              "key": "field_675fd5830a277",
+              "label": "Tagline",
+              "name": "tagline",
+              "aria-label": "",
+              "type": "text",
+              "instructions": "Opcional. Añade el tagline del banner",
+              "required": 0,
+              "conditional_logic": 0,
+              "wrapper": {
+                "width": "25",
+                "class": "",
+                "id": ""
+              },
+              "default_value": "",
+              "maxlength": "",
+              "allow_in_bindings": 1,
+              "placeholder": "",
+              "prepend": "",
+              "append": ""
+            },
+            {
+              "key": "field_6763d51447be3",
+              "label": "Htag Tagline",
+              "name": "htag_tagline",
+              "aria-label": "",
+              "type": "radio",
+              "instructions": "Selecciona el nivel de encabezado para el tagline",
+              "required": 0,
+              "conditional_logic": 0,
+              "wrapper": {
+                "width": "15",
+                "class": "",
+                "id": ""
+              },
+              "choices": ["H1", "H2", "H3", "P"],
+              "default_value": 3,
+              "return_format": "value",
+              "allow_null": 0,
+              "other_choice": 0,
+              "allow_in_bindings": 1,
+              "layout": "vertical",
+              "save_other_choice": 0
+            },
+            {
+              "key": "field_67274d574d21b",
+              "label": "Título",
+              "name": "title",
+              "aria-label": "",
+              "type": "text",
+              "instructions": "Añade el título principal del banner",
+              "required": 0,
+              "conditional_logic": 0,
+              "wrapper": {
+                "width": "35",
+                "class": "",
+                "id": ""
+              },
+              "default_value": "",
+              "maxlength": "",
+              "allow_in_bindings": 1,
+              "placeholder": "",
+              "prepend": "",
+              "append": ""
+            },
+            {
+              "key": "field_67274d574d21c",
+              "label": "Htag Título",
+              "name": "htag_title",
+              "aria-label": "",
+              "type": "radio",
+              "instructions": "Selecciona el nivel de encabezado para el título",
+              "required": 0,
+              "conditional_logic": 0,
+              "wrapper": {
+                "width": "15",
+                "class": "",
+                "id": ""
+              },
+              "choices": ["H1", "H2", "H3", "P"],
+              "default_value": 1,
+              "return_format": "value",
+              "allow_null": 0,
+              "other_choice": 0,
+              "allow_in_bindings": 1,
+              "layout": "vertical",
+              "save_other_choice": 0
+            },
+            {
+              "key": "field_67274d574d221",
+              "label": "Texto",
+              "name": "text",
+              "aria-label": "",
+              "type": "wysiwyg",
+              "instructions": "Breve cita o descripción para complementar el título principal",
+              "required": 0,
+              "conditional_logic": 0,
+              "wrapper": {
+                "width": "40",
+                "class": "",
+                "id": ""
+              },
+              "default_value": "",
+              "allow_in_bindings": 0,
+              "tabs": "all",
+              "toolbar": "full",
+              "media_upload": 0,
+              "delay": 0
+            },
+            {
+              "key": "field_67274d574d222",
+              "label": "Botón de CTA",
+              "name": "button",
+              "aria-label": "",
+              "type": "link",
+              "instructions": "Añade un enlace para el botón de Llamada a la Acción (CTA)",
+              "required": 0,
+              "conditional_logic": [
+                [
+                  {
+                    "field": "field_6763d56c47be5",
+                    "operator": "!=",
+                    "value": "1"
+                  }
+                ]
+              ],
+              "wrapper": {
+                "width": "60",
+                "class": "",
+                "id": ""
+              },
+              "return_format": "array",
+              "allow_in_bindings": 1
+            }
+          ],
+          "min": "",
+          "max": ""
+        },
         "layout_675c329bf2a3c": {
           "key": "layout_675c329bf2a3c",
           "name": "gallery-with-text",
