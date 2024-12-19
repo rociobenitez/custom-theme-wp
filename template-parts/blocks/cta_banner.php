@@ -1,51 +1,165 @@
 <?php
 /**
- * Bloque CTA Banner
+ * Componente Reutilizable: Banner / CTA
+ * 
+ * Muestra un banner dinámico con opciones configurables en ACF:
+ * - Diseño: Imagen de fondo o Imagen al lado.
+ * - Elementos opcionales: Tagline, Texto, Botón y Formulario.
+ * 
+ * Campos esperados:
+ * - Diseño (`banner_layout`): bg_image | side_image
+ * - Ancho (`banner_width`): full | container
+ * - Tagline (`tagline`): Texto opcional
+ * - Título (`title`): Título principal
+ * - Texto (`text`): Texto descriptivo
+ * - Botón (`button`): Enlace con título y destino
+ * - Imagen (`image`): Imagen del banner
+ * - Posición de la Imagen (`position_image`): right | left
+ * - Color de fondo (`bg_color`): Para diseño "imagen al lado"
+ * - Mostrar formulario (`show_form`): Booleano
+ * - ID del formulario (`form_id`): ID del formulario opcional
  */
 
-$title = $bloque['title'] ?? '';
-$htag = $bloque['htag'] ?? 3;
-$description = $bloque['description'] ?? '';
-$cta_boton = $bloque['cta_button'] ?? null;
-$image_id = $bloque['background_image']['id'] ?? null;
+// Variables principales
+$layout         = $bloque['banner_layout'] ?? 'bg_image';
+$width          = $bloque['banner_width'] ?? '';
+$tagline        = $bloque['tagline'] ?? '';
+$htag_tagline   = $bloque['htag_tagline'] ?? 3;
+$title          = $bloque['title'] ?? '';
+$htag_title     = $bloque['htag_title'] ?? 3;
+$description    = $bloque['text'] ?? '';
+$button         = !$bloque['show_form'] ? $bloque['button'] : null;
+$banner_image   = $bloque['image'] ?? null;
+$image_position = $bloque['position_image'] ?? 'right';
+$bg_color       = $bloque['bg_color'] ?? 'c-bg-light';
+$show_form      = $bloque['show_form'] ?? false;
+$form_id        = $bloque['id_form'] ?? '';
 
-// Cargar imágenes de diferentes tamaños para diferentes dispositivos
-$bg_image_large = $image_id ? wp_get_attachment_image_url($image_id, 'large') : get_template_directory_uri() . '/assets/img/default-banner-background.jpg';
-$bg_image_medium = $image_id ? wp_get_attachment_image_url($image_id, 'medium') : get_template_directory_uri() . '/assets/img/default-banner-background.jpg';
-$bg_image_small = $image_id ? wp_get_attachment_image_url($image_id, 'small') : get_template_directory_uri() . '/assets/img/default-banner-background.jpg';
+// Datos del botón
+$button_text    = $button['title'] ?? 'Contactar';
+$button_url     = $button['url'] ?? '/contacto/';
+$button_target  = $button['target'] ?? '_self';
+$button_class   = in_array($bg_color, ['c-bg-white', 'c-bg-light'])
+                    ? 'btn btn-md btn-primary mt-2'
+                    : 'btn btn-md btn-secondary mt-2';
 
-$linear_gradient = "linear-gradient(0deg, rgba(10, 25, 47, 0.5), rgba(10, 25, 47, 0.6)), linear-gradient(260deg, rgba(16, 42, 67, 0.5) 0%, rgba(0, 0, 0, 0.3) 100%)";
+// Imagen del banner (si no hay imagen, usar una por defecto)
+$default_image  = get_template_directory_uri() . '/img/img-default.png';
 
-if($title):
+// Optimización de imágenes según el dispositivo
+$image_id = $banner_image['id'] ?? null;
+$bg_image_large  = $image_id ? wp_get_attachment_image_url($image_id, 'block_large') : $default_image;
+$bg_image_medium = $image_id ? wp_get_attachment_image_url($image_id, 'block_medium') : $default_image;
+$bg_image_small  = $image_id ? wp_get_attachment_image_url($image_id, 'block_small') : $default_image;
+
+// Shortcode del formulario
+$shortcode_form = $show_form && !empty($form_id) ? '[gravityform id="' . esc_attr($form_id) . '" title="false" description="false"]' : '';
+
+// Clases css dinámicas
+$is_light_bg   = in_array( $bg_color, ['c-bg-white', 'c-bg-light'] );
+$class_tagline = $is_light_bg || $layout === 'bg_image' 
+                    ? 'tagline c-primary'
+                    : 'tagline c-black text-uppercase';
+
+$class_title   = $layout === 'side_image' && $is_light_bg 
+                    ? 'heading-2 c-black'
+                    : 'heading-2 c-white';
+
+$class_title   .= $layout === 'bg_image' ? ' text-shadow' : '';
+$text_color    = $is_light_bg && $layout === 'side_image' ? 'c-black' : 'c-white';
+
+// Clases y estilos del contenedor del banner
+$section_classes = [
+    $layout === 'bg_image' ? $layout . ' cover' : $layout,
+    $bg_color,
+    $width === 'container' ? $width . ' rounded' : $width,
+];
+
+$section_class = implode(' ', $section_classes);
+$linear_gradient = 'linear-gradient(0deg, rgba(0, 0, 0, 0.20) 0%, rgba(0, 0, 0, 0.20) 100%)';
 ?>
+
 <style>
-   .cta-banner { background: <?php echo $linear_gradient; ?>, url('<?php echo esc_url($bg_image_large); ?>'); }
+    .banner-component.bg_image {
+        background: <?php echo $linear_gradient; ?>, url('<?php echo esc_url($bg_image_large); ?>');
+    }
 
-   @media (max-width: 1023px) {
-      .cta-banner { background: <?php echo $linear_gradient; ?>, url('<?php echo esc_url($bg_image_medium); ?>'); }
-   }
+    @media (max-width: 1024px) {
+        .banner-component.bg_image {
+            background: <?php echo $linear_gradient; ?>, url('<?php echo esc_url($bg_image_medium); ?>');
+        }
+    }
 
-   @media (max-width: 767px) {
-      .cta-banner { background: <?php echo $linear_gradient; ?>, url('<?php echo esc_url($bg_image_small); ?>'); }
-   }
+    @media (max-width: 768px) {
+        .banner-component.bg_image {
+            background: <?php echo $linear_gradient; ?>, url('<?php echo esc_url($bg_image_small); ?>');
+        }
+    }
 </style>
 
-<section class="cta-banner d-flex flex-column align-items-center justify-content-center text-center cover c-white p-5">
-   <div class="container py-4">
-      <div class="col-md-9 mx-md-auto">
-         <?php if ($title):
-            echo tagTitle($htag, $title, 'heading-3 c-white cta-title', '');
-         endif;
-         if ($description): ?>
-            <div class="cta-description"><?php echo $description; ?></div>
-         <?php endif; ?>
+<section class="banner-component my-5 <?php echo esc_attr($section_class); ?>">
+    <?php if ($layout === 'side_image') : ?>
+        <?php // Contenido ?>
+        <div class="d-flex justify-content-between align-items-center position-relative">
+            <div class="container">
+                <div class="col-lg-5 py-5 <?php echo esc_attr($text_color); ?> <?php echo $image_position === 'left' ? 'ms-auto' : ''; ?>">
+                    <?php
+                    // Encabezado del banner
+                    get_component('template-parts/components/section-heading', [
+                        'style'         => 'minimal',
+                        'show_heading'  => true,
+                        'tagline'       => $tagline,
+                        'htag_tagline'  => $htag_tagline,
+                        'class_tagline' => $class_tagline,
+                        'title'         => $title,
+                        'htag_title'    => $htag_title,
+                        'class_title'   => $class_title,
+                        'text'          => $description,
+                        'cta_button'    => $button,
+                        'class_button'  => $button_class
+                    ]);
+                    ?>
+                    <?php if ($show_form && !empty($form_id)) : ?>
+                        <div class="banner-form mt-4">
+                            <?php echo do_shortcode($shortcode_form); ?>
+                        </div>
+                    <?php endif; ?>
+                </div>
+            </div>
 
-         <?php if ($cta_boton): ?>
-            <a href="<?php echo esc_url($cta_boton['url']); ?>" class="btn btn-lg btn-transparent mt-3" target="<?php echo esc_attr($cta_boton['target']); ?>">
-                  <?php echo esc_html($cta_boton['title']); ?>
-            </a>
-         <?php endif; ?>
-      </div>
-   </div>
+            <?php // Imagen ?>
+            <div class="col-lg-6 position-absolute top-0 h-100 cover <?php echo $image_position === 'left' ? 'start-1' : 'end-0'; ?>"
+                style="background-image: url('<?php echo esc_url($bg_image_medium); ?>');">
+            </div>
+        </div>
+    <?php else : ?>
+        <?php // Imagen de fondo con contenido centrado ?>
+        <div class="container">
+            <div class="row justify-content-between align-items-center position-relative">
+                <div class="col-12 col-md-10 col-lg-8 mx-auto text-center py-5 <?php echo esc_attr($text_color); ?>">
+                    <?php
+                    // Encabezado del banner
+                    get_component('template-parts/components/section-heading', [
+                        'style'         => 'minimal',
+                        'show_heading'  => true,
+                        'tagline'       => $tagline,
+                        'htag_tagline'  => $htag_tagline,
+                        'class_tagline' => $class_tagline,
+                        'title'         => $title,
+                        'htag_title'    => $htag_title,
+                        'class_title'   => $class_title,
+                        'text'          => $description,
+                        'cta_button'    => $button,
+                        'class_button'  => $button_class
+                    ]);
+                    ?>
+                    <?php if ($show_form && !empty($form_id)) : ?>
+                        <div class="banner-form mt-4">
+                            <?php echo do_shortcode($shortcode_form); ?>
+                        </div>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </div>
+    <?php endif; ?>
 </section>
-<?php endif; ?>
