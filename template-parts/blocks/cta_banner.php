@@ -21,19 +21,19 @@
  */
 
 // Variables principales
-$layout         = $bloque['banner_layout'] ?? 'bg_image';
-$width          = $bloque['banner_width'] ?? '';
-$tagline        = $bloque['tagline'] ?? '';
-$htag_tagline   = $bloque['htag_tagline'] ?? 3;
-$title          = $bloque['title'] ?? '';
-$htag_title     = $bloque['htag_title'] ?? 3;
-$description    = $bloque['text'] ?? '';
-$button         = !$bloque['show_form'] ? $bloque['button'] : null;
-$banner_image   = $bloque['image'] ?? null;
-$image_position = $bloque['position_image'] ?? 'right';
-$bg_color       = $bloque['bg_color'] ?? 'c-bg-light';
-$show_form      = $bloque['show_form'] ?? false;
-$form_id        = $bloque['id_form'] ?? '';
+$layout         = $block['banner_layout'] ?? 'bg_image';
+$width          = $block['banner_width'] ?? '';
+$tagline        = $block['tagline'] ?? '';
+$htag_tagline   = $block['htag_tagline'] ?? 3;
+$title          = $block['title'] ?? '';
+$htag_title     = $block['htag_title'] ?? 3;
+$description    = $block['text'] ?? '';
+$button         = !$block['show_form'] ? $block['button'] : null;
+$banner_image   = $block['image'] ?? null;
+$image_position = $block['position_image'] ?? 'right';
+$bg_color       = $block['bg_color'] ?? 'c-bg-light';
+$show_form      = $block['show_form'] ?? false;
+$form_id        = $block['id_form'] ?? '';
 
 // Datos del botón
 $button_text    = $button['title'] ?? 'Contactar';
@@ -44,7 +44,7 @@ $button_class   = in_array($bg_color, ['c-bg-white', 'c-bg-light'])
                     : 'btn btn-md btn-secondary mt-2';
 
 // Imagen del banner (si no hay imagen, usar una por defecto)
-$default_image  = get_template_directory_uri() . '/img/img-default.png';
+$default_image  = get_template_directory_uri() . '/assets/img/default-background.jpg';
 
 // Optimización de imágenes según el dispositivo
 $image_id = $banner_image['id'] ?? null;
