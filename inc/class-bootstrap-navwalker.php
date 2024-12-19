@@ -8,7 +8,7 @@
  * @package CustomTheme
  */
 
- class Bootstrap_NavWalker extends Walker_Nav_Menu {
+ class bootstrap_5_wp_nav_menu_walker extends Walker_Nav_Menu {
  
      /**
       * Start Level.
