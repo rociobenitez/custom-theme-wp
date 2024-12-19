@@ -49,18 +49,18 @@ $feature_title_class = 'heading-4 feature-item-title c-dark';
 ?>
 <section class="features-block py-5" style="background-color: <?php echo esc_attr($bg_color); ?>">
     <div class="container">
-        <?php
-        get_component('template-parts/components/section-heading', [
-            'container_class'  => 'col-md-8 mx-auto mb-4',
-            'show_heading'     => $show_heading,
-            'tagline'          => $tagline,
-            'htag_tagline'     => $htag_tagline,
-            'title'            => $title,
-            'htag_title'       => $htag_title,
-            'class_title'      => 'heading-2',
-            'text'             => $description
-        ]);
-        ?>
+        <?php if (!empty($title)) :
+            get_component('template-parts/components/section-heading', [
+                'container_class'  => 'col-md-8 mx-auto mb-4',
+                'show_heading'     => $show_heading,
+                'tagline'          => $tagline,
+                'htag_tagline'     => $htag_tagline,
+                'title'            => $title,
+                'htag_title'       => $htag_title,
+                'class_title'      => 'heading-2',
+                'text'             => $description
+            ]);
+        endif; ?>
         <div class="row justify-content-center">
             <?php foreach ($features as $feature): 
                 $title       = $feature['title'] ?? '';
@@ -69,45 +69,51 @@ $feature_title_class = 'heading-4 feature-item-title c-dark';
                 $image       = $feature['image']['url'] ?? $default_image;
 
                 // Diseño con imagen tipo "top"
-                if ($featured_with_image && $position_image === 'top'): ?>
-                    <div class="<?php echo esc_attr($col_class); ?> mb-4">
-                        <div class="feature-item feature-item-img-top">
-                            <figure class="overflow-hidden rounded">
-                                <img src="<?php echo esc_url($image); ?>" 
-                                     alt="<?php echo esc_attr($title); ?>" 
-                                     class="card-img-top fit rounded">
-                            </figure>
-                            <?php echo tagTitle($htag_title, $title, $feature_title_class, ''); ?>
-                            <div class="feature-description">
-                                <?php echo wp_kses_post($description); ?>
-                            </div>
-                        </div>
-                    </div>
-                <?php 
-                // Diseño con imagen tipo "bg"
-                elseif ($featured_with_image && $position_image === 'bg'): ?>
-                    <div class="<?php echo esc_attr($col_class); ?> mb-4">
-                        <div class="feature-item feature-item-img-bg position-relative overflow-hidden rounded cover p-4 d-flex justify-content-center align-items-center"
-                             style="background-image: url('<?php echo esc_url($image); ?>');">
-                            <div class="feature-content p-4 c-bg-white rounded position-relative">
-                                <div class="feature-description text-center fw600">
+                if ($featured_with_image && $position_image === 'top'):
+                    if(!empty($image) && !empty($title)): ?>
+                        <div class="<?php echo esc_attr($col_class); ?> mb-4">
+                            <div class="feature-item feature-item-img-top">
+                                <figure class="overflow-hidden rounded">
+                                    <img src="<?php echo esc_url($image); ?>" 
+                                        alt="<?php echo esc_attr($title); ?>" 
+                                        class="card-img-top fit rounded">
+                                </figure>
+                                <?php echo tagTitle($htag_title, $title, $feature_title_class, ''); ?>
+                                <div class="feature-description">
                                     <?php echo wp_kses_post($description); ?>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    <?php endif; ?>
                 <?php 
-                // Diseño sin imagen
-                else: ?>
-                    <div class="<?php echo esc_attr($col_class); ?> mb-4">
-                        <div class="feature-item feature-item-text text-center">
-                            <?php echo tagTitle($htag_title, $title, $feature_title_class, ''); ?>
-                            <div class="feature-description">
-                                <?php echo wp_kses_post($description); ?>
+                // Diseño con imagen tipo "bg"
+                elseif ($featured_with_image && $position_image === 'bg'):
+                    if(!empty($image) && !empty($title)): ?>
+                        <div class="<?php echo esc_attr($col_class); ?> mb-4">
+                            <div class="feature-item feature-item-img-bg position-relative overflow-hidden rounded cover p-4 d-flex justify-content-center align-items-center"
+                                style="background-image: url('<?php echo esc_url($image); ?>');">
+                                <div class="feature-content p-4 c-bg-white rounded position-relative">
+                                    <div class="feature-description text-center fw600">
+                                        <?php echo wp_kses_post($description); ?>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                <?php endif; 
+                    <?php endif; ?>
+                <?php 
+                // Diseño sin imagen
+                else:
+                    if(!empty($title)): ?>
+                        <div class="<?php echo esc_attr($col_class); ?> mb-4">
+                            <div class="feature-item feature-item-text text-center">
+                                <?php echo tagTitle($htag_title, $title, $feature_title_class, ''); ?>
+                                <div class="feature-description">
+                                    <?php echo wp_kses_post($description); ?>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endif; 
+                endif;
             endforeach; ?>
         </div>
     </div>
