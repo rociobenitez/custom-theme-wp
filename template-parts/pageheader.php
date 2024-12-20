@@ -109,7 +109,7 @@ if ($title) :
          <?php // Columna de Contenido ?>
          <div class="content-wrapper d-flex align-items-center py-5">
             <div class="container">
-               <div class="content col-12 col-lg-5 p-4">
+               <div class="content col-12 col-lg-5 py-4">
                   <?php if ($tagline) : ?>
                      <?php echo tagTitle($htag_tagline, $tagline, $class_tagline, ''); ?>
                   <?php endif; ?>
