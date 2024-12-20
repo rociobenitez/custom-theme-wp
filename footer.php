@@ -179,7 +179,7 @@ $icon_schedule_src = get_template_directory_uri() . "/assets/img/icons/schedule.
 
 <?php
 // // Descomentar si el proyecto es de 'Kit digital'
-// $kitdigital_template = 'template-parts/footer-kitdigital.php';
+// $kitdigital_template = 'template-parts/footers/footer-kitdigital.php';
 // if (file_exists(get_stylesheet_directory() . '/' . $kitdigital_template)) {
 //     include locate_template($kitdigital_template);
 // }
