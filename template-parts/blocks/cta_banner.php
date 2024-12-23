@@ -20,6 +20,10 @@
  * - ID del formulario (`form_id`): ID del formulario opcional
  */
 
+// Variables de la página de Opciones
+$contact_page_id  = get_fields('page_contacto', 'option'); 
+$contact_page_url = $contact_page_id ? get_permalink($contact_page_id) : '/contacto/';
+
 // Variables principales
 $layout         = $block['banner_layout'] ?? 'bg_image';
 $width          = $block['banner_width'] ?? '';
@@ -37,7 +41,7 @@ $form_id        = $block['id_form'] ?? '';
 
 // Datos del botón
 $button_text    = $button['title'] ?? 'Contactar';
-$button_url     = $button['url'] ?? '/contacto/';
+$button_url     = $button['url'] ?? $contact_page_url;
 $button_target  = $button['target'] ?? '_self';
 $button_class   = in_array($bg_color, ['c-bg-white', 'c-bg-light'])
                     ? 'btn btn-md btn-primary mt-2'
@@ -47,7 +51,7 @@ $button_class   = in_array($bg_color, ['c-bg-white', 'c-bg-light'])
 $default_image  = get_template_directory_uri() . '/assets/img/default-background.jpg';
 
 // Optimización de imágenes según el dispositivo
-$image_id = $banner_image['id'] ?? null;
+$image_id        = $banner_image['id'] ?? null;
 $bg_image_large  = $image_id ? wp_get_attachment_image_url($image_id, 'block_large') : $default_image;
 $bg_image_medium = $image_id ? wp_get_attachment_image_url($image_id, 'block_medium') : $default_image;
 $bg_image_small  = $image_id ? wp_get_attachment_image_url($image_id, 'block_small') : $default_image;
@@ -61,12 +65,12 @@ $class_tagline = $is_light_bg || $layout === 'bg_image'
                     ? 'tagline c-primary'
                     : 'tagline c-black text-uppercase';
 
-$class_title   = $layout === 'side_image' && $is_light_bg 
+$class_title = $layout === 'side_image' && $is_light_bg 
                     ? 'heading-2 c-black'
                     : 'heading-2 c-white';
 
-$class_title   .= $layout === 'bg_image' ? ' text-shadow' : '';
-$text_color    = $is_light_bg && $layout === 'side_image' ? 'c-black' : 'c-white';
+$class_title .= $layout === 'bg_image' ? ' text-shadow' : '';
+$text_color   = $is_light_bg && $layout === 'side_image' ? 'c-black' : 'c-white';
 
 // Clases y estilos del contenedor del banner
 $section_classes = [

@@ -83,8 +83,11 @@ if (is_singular('cursos')) {
 
 // --- Configuración del botón ---
 if (!empty($button)) {
+   $contact_page_id = get_fields('page_contacto', 'option'); 
+   $contact_page_url = $contact_page_id ? get_permalink($contact_page_id) : '/contacto/';
+   
    $button_text = $button['title'] ?? 'Contacto';
-   $button_url  = $button['url'] ?? '/contacto/';
+   $button_url  = $button['url'] ?? $contact_page_url;
 }
 
 // --- Configuración específica para el estilo "cols" ---

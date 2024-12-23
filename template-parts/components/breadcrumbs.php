@@ -50,11 +50,20 @@ function generate_breadcrumbs() {
     // Post Simple
     } elseif (is_single()) {
         $post_type = get_post_type();
-        if ($post_type !== 'post') {
+        // Si es un post del blog
+        if ($post_type === 'post') {
+            // Enlace al archivo del blog
+            $blog_page_id  = get_fields('page_blog', 'option');
+            $blog_page_url = $blog_page_id ? get_permalink($blog_page_id) : '/blog/';
+            echo '<a href="' . esc_url($blog_page_url) . '" class="' . esc_attr($class_link) . '">Blog</a>' . $separator;
+        } elseif ($post_type !== 'post') {
+            // Para otros tipos de post personalizados (CPT)
             $post_type_object = get_post_type_object($post_type);
             echo '<a href="' . esc_url(get_post_type_archive_link($post_type)) . '" class="' . esc_attr($class_link) . '">'
-                 . esc_html($post_type_object->labels->name) . '</a>' . $separator;
+                . esc_html($post_type_object->labels->name) . '</a>' . $separator;
         }
+
+        // Mostrar el título del post actual
         echo esc_html(get_the_title());
 
     // Página Estática
