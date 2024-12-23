@@ -50,22 +50,9 @@ get_header();
 			<!-- Contenido Principal -->
 			<div class="col-lg-9 lg-5 mt-3 mb-5 ps-lg-4 order-lg-2">
 				<?php
-				// Cargar bloques flexibles dinámicamente
-				if ($fields && isset($fields['flexible_content']) && is_array($fields['flexible_content'])) {
-					// Obtener los bloques flexibles
-					$flexible_content = '';
-					foreach ($fields['flexible_content'] as $block) {
-						if (isset($block['acf_fc_layout']) && !empty($block['acf_fc_layout'])) {
-							$block_file = 'template-parts/blocks/' . $block['acf_fc_layout'] . '.php';
-
-							if (file_exists(get_stylesheet_directory() . '/' . $block_file)) {
-								ob_start();
-								include locate_template($block_file);
-								$flexible_content .= ob_get_clean();
-							}
-						}
-					}
-				}
+				// Cargar bloques flexibles dinámicamente y capturar el contenido
+				require_once get_template_directory() . '/template-parts/load-flexible-blocks.php';
+				$flexible_content = load_flexible_blocks($fields['flexible_content'], true);
 
 				// Generar el array de TOC items
 				$toc_items = generate_table_of_contents_items($flexible_content);
