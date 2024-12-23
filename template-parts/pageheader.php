@@ -62,6 +62,14 @@ if (is_singular('cursos')) {
    $bg_image     = get_term_meta($current_term->term_id, 'thumbnail_id', true) 
                      ? wp_get_attachment_url(get_term_meta($current_term->term_id, 'thumbnail_id', true)) 
                      : $default_img;
+
+} elseif (is_category()) {
+   $current_category = get_queried_object(); // Categoría actual
+   $title = esc_html($current_category->name); // Nombre de la categoría como título
+   $description = esc_html($current_category->description); // Descripción de la categoría, si está configurada
+   $htag_title = 2; 
+   $bg_image = $default_img; 
+   
 } else {
    // --- Variables ACF ---
    $tagline       = $fields['pageheader_tagline'] ?? '';

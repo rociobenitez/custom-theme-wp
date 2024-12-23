@@ -80,6 +80,15 @@ function generate_breadcrumbs() {
         }
         echo esc_html(get_the_title());
 
+    // Página de Categorías del blog
+    } elseif (is_category()) {
+        $current_category = get_queried_object(); // Obtiene el objeto de la categoría actual
+        echo esc_html($current_category->name); // Muestra el nombre de la categoría
+        
+    // Página de Archivo
+    } elseif (is_archive()) {
+        echo esc_html__('Archivo', 'textdomain');
+
     // Resultados de Búsqueda
     } elseif (is_search()) {
         echo esc_html__('Resultados de búsqueda para: ', 'textdomain') . esc_html(get_search_query());
