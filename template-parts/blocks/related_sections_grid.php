@@ -40,7 +40,7 @@ if ($blocks && is_array($blocks)) :
                $title    = $block['title'] ?? '';
                $subtitle = $block['description'] ?? '';
                $image    = $block['bg_img'] ?? '';
-               $link     = $block['link_page']['url'] ?? '#';
+               $link     = $block['link_page'] ?? '#';
 
                // Obtener las imágenes en diferentes tamaños
                $image_small  = wp_get_attachment_image_url($image['ID'], 'block_small');
