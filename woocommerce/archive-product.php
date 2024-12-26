@@ -17,7 +17,10 @@
 
 defined( 'ABSPATH' ) || exit;
 
-get_header( 'shop' );
+get_header();
+
+$current_term = get_queried_object(); // Obtener el término actual (categoría de producto)
+$fields = get_fields($current_term); // Obtener los campos de ACF para este término
 
 // Mostrar la cabecera de la página
 get_template_part('template-parts/pageheader', null, ['pageheader_style' => 'bg-image']);
@@ -56,6 +59,12 @@ get_template_part('template-parts/pageheader', null, ['pageheader_style' => 'bg-
             </div>
         </div>
     </div>
+    <?php // Cargar bloques flexibles dinámicamente
+    if ($fields && isset($fields['flexible_content']) && is_array($fields['flexible_content'])) {
+        require_once get_template_directory() . '/template-parts/load-flexible-blocks.php';
+        load_flexible_blocks($fields['flexible_content']);
+    }
+    ?>
 </div>
 
-<?php get_footer( 'shop' ); ?>
+<?php get_footer(); ?>
