@@ -155,5 +155,5 @@ function generate_vehicle_schema() {
     }
 }
 
-add_action('wp_head', 'generate_vehicle_schema');
+// add_action('wp_head', 'generate_vehicle_schema'); // Descomentar esta línea si se desea incluir el schema 'vehicle'
 ?>

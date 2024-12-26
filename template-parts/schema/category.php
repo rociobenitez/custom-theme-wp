@@ -191,5 +191,5 @@ function generate_categoria_schema() {
    }
 }
 
-add_action('wp_head', 'generate_categoria_schema');
+// add_action('wp_head', 'generate_categoria_schema'); // Descomentar esta línea si se desea incluir el schema 'category'
 ?>
