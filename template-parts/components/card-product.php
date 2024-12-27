@@ -28,8 +28,8 @@ if (!isset($product_obj) || !isset($product_id)) {
       </div>
 
       <!-- Detalles del producto -->
-      <div class="card-body">
-         <?php echo tagTitle($htag_products, get_the_title($product_id), 'heading-5 product-title', ''); ?>
+      <div class="card-body px-0">
+         <?php echo tagTitle($htag_products, get_the_title($product_id), 'heading-6 product-title', ''); ?>
 
          <?php if ($show_price && $product_obj->get_price_html()) : ?>
             <p class="product-price text-muted mb-0">

@@ -1162,7 +1162,6 @@ ul.dropdown-submenu.show {
 # Flexible Blocks: Related Products
 --------------------------------------------------------------*/
 section.product-listing .product-image img {
-  height: 17.6875rem;
   width: 100%;
   object-fit: cover;
 }
@@ -1464,6 +1463,9 @@ select.orderby:focus {
 --------------------------------------------------------------*/
 /* portrait phones */
 @media (max-width: 575.98px) {
+  section.product-listing .product-image img {
+    height: 200px;
+  }
 }
 
 /* landscape phones */
@@ -1471,6 +1473,9 @@ select.orderby:focus {
   #hero,
   .carousel-background {
     padding-top: var(--padding-top-body);
+  }
+  section.product-listing .product-image img {
+    height: 17.6875rem;
   }
 }
 
