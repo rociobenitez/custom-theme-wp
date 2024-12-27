@@ -41,7 +41,7 @@ $card_style = $bloque['card_style'] ?? 'image';
                   
       <?php if ($view_all_button) : ?>
          <div class="text-center">
-               <a href="<?php echo esc_url($view_all_button['url']); ?>" class="btn btn-lg btn-secondary" target="<?php echo esc_attr($view_all_button['target']); ?>">
+               <a href="<?php echo esc_url($view_all_button['url']); ?>" class="btn btn-md btn-secondary" target="<?php echo esc_attr($view_all_button['target']); ?>">
                   <?php echo esc_html($view_all_button['title']); ?>
                </a>
          </div>

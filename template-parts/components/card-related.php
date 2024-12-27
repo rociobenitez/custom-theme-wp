@@ -3,7 +3,7 @@ $title = $args['title'] ?: '';
 $htag = $args['htag'] ?: 2;
 $image_url = $args['image_url'] ?: get_template_directory_uri() . '/assets/img/default-card-background.jpg';
 $link = $args['link'] ?: '#';
-$cols = $args['cols'] ?: 'col-lg-4 col-md-6';
+$cols = $args['cols'] ?: 'col-md-4';
 $description = $args['description'] ?: '';
 $class_card = $args['class_card'] ?? '';
 $card_style = $args['card_style'] ?? 'image';
@@ -15,7 +15,7 @@ $link_target = is_array($link) && isset($link['target']) ? esc_attr($link['targe
 $link_title = is_array($link) && isset($link['title']) ? esc_html($link['title']) : '';
 ?>
 
-<div class="<?php echo esc_attr( $cols ); ?> mb-4">
+<div class="<?php echo esc_attr( $cols ); ?> mb-4 px-md-2">
 
     <?php if ($card_style === 'text'): ?>
 
