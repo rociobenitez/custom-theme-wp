@@ -188,6 +188,10 @@ $icon_schedule_src = get_template_directory_uri() . "/assets/img/icons/schedule.
 <!-- Scroll to Top Button -->
 <a href="#" class="scroll-to-top" aria-label="Scroll to top"><i class="bi bi-arrow-up"></i></a>
 
+<?php // Mostrar botones de contacto (WhatsApp, Teléfono, Email)
+get_template_part('template-parts/components/footer-contacts');
+?>
+
 <?php wp_footer(); ?>
 
 </body>
