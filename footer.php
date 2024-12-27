@@ -46,7 +46,7 @@ $footer_columns = [
 // Filtra las columnas activas
 $active_cols  = array_filter($footer_columns, fn($col) => has_nav_menu($col['menu']));
 $column_count = count($active_cols) + 1; // Agregamos la columna de Contacto como adicional
-$column_class = 'col-lg-' . ($column_count === 1 ? '5' : (12 / $column_count));
+$column_class = 'col-md-' . ($column_count === 1 ? '5' : (12 / $column_count));
 
 // Variables de contacto
 $contact_info = [
@@ -136,9 +136,8 @@ $icon_schedule_src = get_template_directory_uri() . "/assets/img/icons/schedule.
         </div>
     </div>
 
-    <!-- Incluir la plantilla de footer según el diseño seleccionado -->
     <?php
-    // Ruta a las plantillas de footer
+    // Incluir la plantilla de footer según el diseño seleccionado
     $footer_templates = [
         '4columns' => 'template-parts/footers/footer-4columns.php',
         '3columns' => 'template-parts/footers/footer-3columns.php'
@@ -160,7 +159,7 @@ $icon_schedule_src = get_template_directory_uri() . "/assets/img/icons/schedule.
     ?>
 
     <div class="footer-bottom">
-        <div class="container d-flex flex-column-reverse flex-lg-row justify-content-between align-items-center py-4 border-top <?php echo esc_attr($border_color); ?>">
+        <div class="container d-flex flex-column-reverse flex-lg-row justify-content-between align-items-center mt-5 py-3 border-top <?php echo esc_attr($border_color); ?>">
             <div class="footer-copy my-auto text-center text-lg-start">
                 <p class="text-secondary fs13 lh140 mb-0 px-4 px-sm-0"><?php change_footer_admin(); ?></p>
             </div>

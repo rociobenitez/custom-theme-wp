@@ -48,7 +48,7 @@
                   </li>
                <?php endif; ?>
             </ul>
-            <div class="d-flex footer-social"><?php echo sociales(); ?></div>  
+            <div class="d-flex footer-social justify-content-center justify-content-md-start"><?php echo sociales(); ?></div>  
          </div>
       <?php endif; ?>
    </div>
