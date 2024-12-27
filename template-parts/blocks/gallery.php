@@ -115,14 +115,18 @@ $image_count  = count($images);
    </div>
 </section>
 
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+   const galleryItems = document.querySelectorAll('.gallery-item');
+   const modalImage = document.getElementById('galleryModalImage');
 
-<style>
-.gallery-block .gallery-image-wrapper img {
-   transition: transform 0.3s ease;
-}
-
-/* Efecto hover para las imágenes */
-.gallery-block .gallery-item:hover img {
-   transform: scale(1.05); /* Pequeño zoom */
-}
-</style>
+   if (galleryItems && modalImage) {
+      galleryItems.forEach(item => {
+         item.addEventListener('click', function () {
+            const imageUrl = this.getAttribute('data-bs-image');
+            modalImage.setAttribute('src', imageUrl);
+         });
+      });
+   }
+});
+</script>
