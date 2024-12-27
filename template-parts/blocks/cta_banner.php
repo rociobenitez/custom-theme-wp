@@ -101,7 +101,7 @@ $linear_gradient = 'linear-gradient(0deg, rgba(0, 0, 0, 0.20) 0%, rgba(0, 0, 0, 
     }
 </style>
 
-<section class="banner-component my-5 <?php echo esc_attr($section_class); ?>">
+<section class="banner-component <?php echo esc_attr($section_class); ?>">
     <?php if ($layout === 'side_image') : ?>
         <?php // Contenido ?>
         <div class="d-flex justify-content-between align-items-center position-relative">
