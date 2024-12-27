@@ -313,11 +313,11 @@
                 "id": ""
               },
               "choices": {
-                "col-10": "83%",
-                "col-8": "67%",
-                "col-6": "50%"
+                "col-lg-10": "83%",
+                "col-lg-8": "67%",
+                "col-lg-6": "50%"
               },
-              "default_value": "col-8",
+              "default_value": "col-lg-8",
               "return_format": "value",
               "allow_null": 0,
               "other_choice": 0,
