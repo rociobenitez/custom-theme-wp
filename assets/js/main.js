@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const header = document.querySelector("header.header");
   const scrollToTopButton = document.querySelector(".scroll-to-top");
   const dropdownToggles = document.querySelectorAll(".dropdown-toggle");
+  const galleryBlock = document.querySelector(".gallery-block");
 
   const scrollThreshold = 100;
   let lastScrollTop = 0;
@@ -68,5 +69,20 @@ document.addEventListener("DOMContentLoaded", function () {
         behavior: "smooth",
       });
     });
+  }
+
+  // Verificar si existe el elemento con la clase "gallery-block"
+  if (galleryBlock) {
+    const galleryItems = document.querySelectorAll(".gallery-item");
+    const modalImage = document.getElementById("galleryModalImage");
+
+    if (galleryItems && modalImage) {
+      galleryItems.forEach((item) => {
+        item.addEventListener("click", function () {
+          const imageUrl = this.getAttribute("data-bs-image");
+          modalImage.setAttribute("src", imageUrl);
+        });
+      });
+    }
   }
 });
