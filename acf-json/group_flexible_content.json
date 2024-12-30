@@ -2516,6 +2516,526 @@
           "min": "",
           "max": ""
         },
+        "layout_6772a7f55f9fc": {
+          "key": "layout_6772a7f55f9fc",
+          "name": "rates",
+          "label": "Tarifas",
+          "display": "block",
+          "sub_fields": [
+            {
+              "key": "field_6772a7f55fa00",
+              "label": "Tagline",
+              "name": "tagline",
+              "aria-label": "",
+              "type": "text",
+              "instructions": "Opcional. Introduce un texto breve que aparecerá como subtítulo encima del título principal del bloque",
+              "required": 0,
+              "conditional_logic": [
+                [
+                  {
+                    "field": "field_6772a7f55fa05",
+                    "operator": "=="
+                  }
+                ]
+              ],
+              "wrapper": {
+                "width": "25",
+                "class": "",
+                "id": ""
+              },
+              "wpml_cf_preferences": 0,
+              "default_value": "",
+              "maxlength": 50,
+              "allow_in_bindings": 1,
+              "placeholder": "Ejemplo: Conoce nuestros servicios"
+            },
+            {
+              "key": "field_6772a7f55fa01",
+              "label": "Tagline Htag",
+              "name": "htag_tagline",
+              "aria-label": "",
+              "type": "radio",
+              "instructions": "Selecciona la etiqueta HTML adecuada para el subtítulo (Tagline)",
+              "required": 0,
+              "conditional_logic": [
+                [
+                  {
+                    "field": "field_6772a7f55fa05",
+                    "operator": "=="
+                  }
+                ]
+              ],
+              "wrapper": {
+                "width": "15",
+                "class": "",
+                "id": ""
+              },
+              "wpml_cf_preferences": 0,
+              "choices": ["H1", "H2", "H3", "P"],
+              "default_value": "H3",
+              "return_format": "value",
+              "allow_null": 0,
+              "other_choice": 0,
+              "allow_in_bindings": 1
+            },
+            {
+              "key": "field_6772a7f55fa02",
+              "label": "Título",
+              "name": "title",
+              "aria-label": "",
+              "type": "text",
+              "instructions": "Introduce el título principal del bloque",
+              "required": 0,
+              "conditional_logic": [
+                [
+                  {
+                    "field": "field_6772a7f55fa05",
+                    "operator": "=="
+                  }
+                ]
+              ],
+              "wrapper": {
+                "width": "45",
+                "class": "",
+                "id": ""
+              },
+              "wpml_cf_preferences": 0,
+              "default_value": "",
+              "maxlength": 60,
+              "allow_in_bindings": 1,
+              "placeholder": "Ejemplo: Nuestros Servicios"
+            },
+            {
+              "key": "field_6772a7f55fa03",
+              "label": "Title Htag",
+              "name": "htag_title",
+              "aria-label": "",
+              "type": "radio",
+              "instructions": "Selecciona la etiqueta HTML adecuada para el título principal",
+              "required": 0,
+              "conditional_logic": [
+                [
+                  {
+                    "field": "field_6772a7f55fa05",
+                    "operator": "=="
+                  }
+                ]
+              ],
+              "wrapper": {
+                "width": "15",
+                "class": "",
+                "id": ""
+              },
+              "wpml_cf_preferences": 0,
+              "choices": ["H1", "H2", "H3", "P"],
+              "default_value": "H2",
+              "return_format": "value",
+              "allow_null": 0,
+              "other_choice": 0,
+              "allow_in_bindings": 1
+            },
+            {
+              "key": "field_6772a7f55fa04",
+              "label": "Texto",
+              "name": "text",
+              "aria-label": "",
+              "type": "wysiwyg",
+              "instructions": "Opcional. Añade una breve descripción o explicación para complementar el título",
+              "required": 0,
+              "conditional_logic": [
+                [
+                  {
+                    "field": "field_6772a7f55fa05",
+                    "operator": "=="
+                  }
+                ]
+              ],
+              "wrapper": {
+                "width": "70",
+                "class": "",
+                "id": ""
+              },
+              "wpml_cf_preferences": 0,
+              "default_value": "",
+              "allow_in_bindings": 1,
+              "tabs": "all",
+              "toolbar": "basic",
+              "media_upload": 0,
+              "placeholder": ""
+            },
+            {
+              "key": "field_6772a7f55fa05",
+              "label": "Mostrar encabezado",
+              "name": "show_heading",
+              "aria-label": "",
+              "type": "true_false",
+              "instructions": "",
+              "required": 0,
+              "conditional_logic": 0,
+              "wrapper": {
+                "width": "15",
+                "class": "",
+                "id": ""
+              },
+              "wpml_cf_preferences": 0,
+              "message": "",
+              "default_value": 1,
+              "allow_in_bindings": 1,
+              "ui_on_text": "No",
+              "ui_off_text": "Sí",
+              "ui": 1
+            },
+            {
+              "key": "field_6772a7f55fa06",
+              "label": "Color de fondo",
+              "name": "bg_color",
+              "aria-label": "",
+              "type": "radio",
+              "instructions": "",
+              "required": 0,
+              "conditional_logic": 0,
+              "wrapper": {
+                "width": "15",
+                "class": "",
+                "id": ""
+              },
+              "wpml_cf_preferences": 0,
+              "choices": {
+                "bg-white": "Blanco",
+                "bg-light": "Gris claro"
+              },
+              "default_value": "bg-white",
+              "return_format": "value",
+              "allow_null": 0,
+              "other_choice": 0,
+              "allow_in_bindings": 1,
+              "layout": "vertical",
+              "save_other_choice": 0
+            },
+            {
+              "key": "field_6772a7f55fa07",
+              "label": "Sección tarifas",
+              "name": "section_rates",
+              "aria-label": "",
+              "type": "repeater",
+              "instructions": "Añade las categorías principales de tarifas. Cada categoría puede incluir múltiples servicios con precios específicos.",
+              "required": 0,
+              "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+              },
+              "wpml_cf_preferences": 0,
+              "layout": "block",
+              "min": 2,
+              "max": 8,
+              "collapsed": "",
+              "button_label": "Agregar categoría de tarifas",
+              "sub_fields": [
+                {
+                  "key": "field_6772a7f55fa08",
+                  "label": "Título",
+                  "name": "title",
+                  "type": "text",
+                  "instructions": "Introduce el nombre de la categoría de tarifas",
+                  "required": 0,
+                  "conditional_logic": 0,
+                  "wrapper": {
+                    "width": "20",
+                    "class": "",
+                    "id": ""
+                  },
+                  "wpml_cf_preferences": 0,
+                  "default_value": "",
+                  "maxlength": "",
+                  "allow_in_bindings": 1,
+                  "placeholder": "",
+                  "prepend": "",
+                  "append": "",
+                  "parent_repeater": "field_6772a7f55fa07"
+                },
+                {
+                  "key": "field_6772a7f55fa09",
+                  "label": "Etiqueta del Título (Htag)",
+                  "name": "htag_title",
+                  "aria-label": "",
+                  "type": "radio",
+                  "instructions": "",
+                  "required": 0,
+                  "conditional_logic": 0,
+                  "wrapper": {
+                    "width": "10",
+                    "class": "",
+                    "id": ""
+                  },
+                  "wpml_cf_preferences": 0,
+                  "choices": ["H1", "H2", "H3", "P"],
+                  "default_value": 2,
+                  "return_format": "value",
+                  "allow_null": 0,
+                  "other_choice": 0,
+                  "allow_in_bindings": 1,
+                  "layout": "vertical",
+                  "save_other_choice": 0,
+                  "parent_repeater": "field_6772a7f55fa07"
+                },
+                {
+                  "key": "field_6772a7f55fa0a",
+                  "label": "Descripción corta",
+                  "name": "description",
+                  "type": "wysiwyg",
+                  "instructions": "Añade una breve descripción de la categoría para proporcionar contexto",
+                  "required": 0,
+                  "conditional_logic": 0,
+                  "wrapper": {
+                    "width": "40",
+                    "class": "",
+                    "id": ""
+                  },
+                  "wpml_cf_preferences": 0,
+                  "default_value": "",
+                  "allow_in_bindings": 1,
+                  "tabs": "all",
+                  "toolbar": "basic",
+                  "media_upload": 0,
+                  "delay": 0,
+                  "parent_repeater": "field_6772a7f55fa07"
+                },
+                {
+                  "key": "field_6772a84d5fa0d",
+                  "label": "Servicios",
+                  "name": "service",
+                  "type": "repeater",
+                  "instructions": "Añade los servicios dentro de esta categoría. Para cada servicio, puedes especificar su nombre, precio y descripción.",
+                  "required": 0,
+                  "conditional_logic": 0,
+                  "wrapper": {
+                    "width": "100",
+                    "class": "",
+                    "id": ""
+                  },
+                  "wpml_cf_preferences": 0,
+                  "layout": "block",
+                  "min": 0,
+                  "max": 0,
+                  "collapsed": "",
+                  "button_label": "Agregar servicio",
+                  "rows_per_page": 20,
+                  "sub_fields": [
+                    {
+                      "key": "field_6772a8d55fa12",
+                      "label": "Precio único",
+                      "name": "unique_price",
+                      "aria-label": "",
+                      "type": "true_false",
+                      "instructions": "",
+                      "required": 0,
+                      "conditional_logic": 0,
+                      "wrapper": {
+                        "width": "100",
+                        "class": "",
+                        "id": ""
+                      },
+                      "wpml_cf_preferences": 0,
+                      "message": "",
+                      "default_value": 0,
+                      "allow_in_bindings": 0,
+                      "ui_on_text": "",
+                      "ui_off_text": "",
+                      "ui": 1,
+                      "parent_repeater": "field_6772a84d5fa0d"
+                    },
+                    {
+                      "key": "field_6772a8805fa0f",
+                      "label": "Nombre del servicio",
+                      "name": "name",
+                      "aria-label": "",
+                      "type": "text",
+                      "instructions": "",
+                      "required": 0,
+                      "conditional_logic": 0,
+                      "wrapper": {
+                        "width": "30",
+                        "class": "",
+                        "id": ""
+                      },
+                      "wpml_cf_preferences": 0,
+                      "default_value": "",
+                      "maxlength": "",
+                      "allow_in_bindings": 0,
+                      "placeholder": "",
+                      "prepend": "",
+                      "append": "",
+                      "parent_repeater": "field_6772a84d5fa0d"
+                    },
+                    {
+                      "key": "field_6772a86d5fa0e",
+                      "label": "Precio",
+                      "name": "price",
+                      "aria-label": "",
+                      "type": "text",
+                      "instructions": "",
+                      "required": 0,
+                      "conditional_logic": [
+                        [
+                          {
+                            "field": "field_6772a8d55fa12",
+                            "operator": "==",
+                            "value": "1"
+                          }
+                        ]
+                      ],
+                      "wrapper": {
+                        "width": "20",
+                        "class": "",
+                        "id": ""
+                      },
+                      "wpml_cf_preferences": 0,
+                      "default_value": "",
+                      "maxlength": "",
+                      "allow_in_bindings": 0,
+                      "placeholder": "",
+                      "prepend": "",
+                      "append": "",
+                      "parent_repeater": "field_6772a84d5fa0d"
+                    },
+                    {
+                      "key": "field_6772a8ac5fa11",
+                      "label": "Descripción del servicio",
+                      "name": "description",
+                      "aria-label": "",
+                      "type": "text",
+                      "instructions": "",
+                      "required": 0,
+                      "conditional_logic": 0,
+                      "wrapper": {
+                        "width": "30",
+                        "class": "",
+                        "id": ""
+                      },
+                      "wpml_cf_preferences": 0,
+                      "default_value": "",
+                      "maxlength": "",
+                      "allow_in_bindings": 0,
+                      "placeholder": "",
+                      "prepend": "",
+                      "append": "",
+                      "parent_repeater": "field_6772a84d5fa0d"
+                    },
+                    {
+                      "key": "field_6772a8975fa10",
+                      "label": "Imagen",
+                      "name": "image",
+                      "aria-label": "",
+                      "type": "image",
+                      "instructions": "",
+                      "required": 0,
+                      "conditional_logic": 0,
+                      "wrapper": {
+                        "width": "20",
+                        "class": "",
+                        "id": ""
+                      },
+                      "wpml_cf_preferences": 0,
+                      "return_format": "array",
+                      "library": "all",
+                      "min_width": "",
+                      "min_height": "",
+                      "min_size": "",
+                      "max_width": "",
+                      "max_height": "",
+                      "max_size": "",
+                      "mime_types": "",
+                      "allow_in_bindings": 0,
+                      "preview_size": "medium",
+                      "parent_repeater": "field_6772a84d5fa0d"
+                    },
+                    {
+                      "key": "field_6772a9295fa13",
+                      "label": "Precios",
+                      "name": "prices",
+                      "aria-label": "",
+                      "type": "repeater",
+                      "instructions": "",
+                      "required": 0,
+                      "conditional_logic": [
+                        [
+                          {
+                            "field": "field_6772a8d55fa12",
+                            "operator": "!=",
+                            "value": "1"
+                          }
+                        ]
+                      ],
+                      "wrapper": {
+                        "width": "100",
+                        "class": "",
+                        "id": ""
+                      },
+                      "wpml_cf_preferences": 0,
+                      "layout": "table",
+                      "min": 0,
+                      "max": 0,
+                      "collapsed": "",
+                      "button_label": "Agregar Fila",
+                      "rows_per_page": 20,
+                      "sub_fields": [
+                        {
+                          "key": "field_6772a9345fa14",
+                          "label": "Descripción",
+                          "name": "description",
+                          "aria-label": "",
+                          "type": "text",
+                          "instructions": "",
+                          "required": 0,
+                          "conditional_logic": 0,
+                          "wrapper": {
+                            "width": "75",
+                            "class": "",
+                            "id": ""
+                          },
+                          "wpml_cf_preferences": 0,
+                          "default_value": "",
+                          "maxlength": "",
+                          "allow_in_bindings": 0,
+                          "placeholder": "",
+                          "prepend": "",
+                          "append": "",
+                          "parent_repeater": "field_6772a9295fa13"
+                        },
+                        {
+                          "key": "field_6772a9485fa15",
+                          "label": "Precio",
+                          "name": "price",
+                          "aria-label": "",
+                          "type": "text",
+                          "instructions": "",
+                          "required": 0,
+                          "conditional_logic": 0,
+                          "wrapper": {
+                            "width": "25",
+                            "class": "",
+                            "id": ""
+                          },
+                          "wpml_cf_preferences": 0,
+                          "default_value": "",
+                          "maxlength": "",
+                          "allow_in_bindings": 0,
+                          "placeholder": "",
+                          "prepend": "",
+                          "append": "",
+                          "parent_repeater": "field_6772a9295fa13"
+                        }
+                      ],
+                      "parent_repeater": "field_6772a84d5fa0d"
+                    }
+                  ],
+                  "parent_repeater": "field_6772a7f55fa07"
+                }
+              ]
+            }
+          ]
+        },
         "layout_676036e26fee7": {
           "key": "layout_676036e26fee7",
           "name": "course",
