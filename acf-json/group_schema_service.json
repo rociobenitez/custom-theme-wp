@@ -1,0 +1,110 @@
+{
+  "key": "group_schema_service",
+  "title": "Schema Service",
+  "fields": [
+    {
+      "key": "field_6773a42d8a46d",
+      "label": "Service Name",
+      "name": "service_name",
+      "aria-label": "",
+      "type": "text",
+      "instructions": "Introduce el nombre del servicio que deseas mostrar en el esquema. Si no se rellena este campo, se usará el título de la cabecera (H1). En caso de que no haya una cabecera H1, se utilizará el título de la página.",
+      "required": 1,
+      "conditional_logic": 0,
+      "wrapper": {
+        "width": "50",
+        "class": "",
+        "id": ""
+      },
+      "default_value": "",
+      "maxlength": "255",
+      "allow_in_bindings": 0,
+      "placeholder": "Ej. Consultoría de Marketing",
+      "prepend": "",
+      "append": ""
+    },
+    {
+      "key": "field_6773a4838a46e",
+      "label": "Service Description",
+      "name": "service_description",
+      "aria-label": "",
+      "type": "textarea",
+      "instructions": "Proporciona una breve descripción del servicio que aparecerá en el esquema. Si no se rellena este campo, se intentará usar la meta description generada por Yoast SEO. Si tampoco está disponible, el campo quedará vacío.",
+      "required": 1,
+      "conditional_logic": 0,
+      "wrapper": {
+        "width": "50",
+        "class": "",
+        "id": ""
+      },
+      "default_value": "",
+      "maxlength": "500",
+      "allow_in_bindings": 0,
+      "rows": 4,
+      "placeholder": "Ej. Ofrecemos servicios de consultoría estratégica para pequeñas y medianas empresas.",
+      "new_lines": "br"
+    },
+    {
+      "key": "field_6773a5748a46f",
+      "label": "Additional Type URLs",
+      "name": "service_additionaltype",
+      "aria-label": "",
+      "type": "repeater",
+      "instructions": "Agrega una o más URLs que describan el tipo adicional del servicio (p. ej., categorías relacionadas o definiciones estándar). Estas URLs deben ser específicas y relevantes.",
+      "required": 0,
+      "conditional_logic": 0,
+      "wrapper": {
+        "width": "100",
+        "class": "",
+        "id": ""
+      },
+      "layout": "table",
+      "pagination": 0,
+      "min": 0,
+      "max": 0,
+      "collapsed": "",
+      "button_label": "Agregar URL",
+      "rows_per_page": 20,
+      "sub_fields": [
+        {
+          "key": "field_6773a5918a470",
+          "label": "URL",
+          "name": "url",
+          "aria-label": "",
+          "type": "url",
+          "instructions": "Introduce la URL completa que define el tipo adicional del servicio.",
+          "required": 1,
+          "conditional_logic": 0,
+          "wrapper": {
+            "width": "",
+            "class": "",
+            "id": ""
+          },
+          "default_value": "",
+          "allow_in_bindings": 0,
+          "placeholder": "Ej. https://schema.org/Service",
+          "parent_repeater": "field_6773a5748a46f"
+        }
+      ]
+    }
+  ],
+  "location": [
+    [
+      {
+        "param": "post_template",
+        "operator": "==",
+        "value": "page-service.php"
+      }
+    ]
+  ],
+  "menu_order": 0,
+  "position": "normal",
+  "style": "default",
+  "label_placement": "top",
+  "instruction_placement": "label",
+  "hide_on_screen": "",
+  "active": true,
+  "description": "Configura los datos estructurados del servicio utilizando este grupo de campos.",
+  "show_in_rest": 0,
+  "modified": 1735632463
+}

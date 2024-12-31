@@ -1,4 +1,8 @@
 <?php
+/**
+ * Schema service
+ */
+
 if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly.
 }
@@ -14,52 +18,74 @@ if ( ! defined( 'ABSPATH' ) ) {
 function generate_service_schema() {
 
    // Obtener datos dinámicos desde ACF
-   $options        = get_fields('option');
-   $localbusiness  = $options['localbusiness'];
+   $options = get_fields('option');
+   $fields  = get_fields();
+
+   if ( ! $options ) {
+      return ''; // No hay datos, salir
+   }
+
+   $localbusiness = isset( $options['localbusiness'] ) ? $options['localbusiness'] : [];
+
+   if ( empty( $localbusiness ) ) {
+      return ''; // No hay datos de localbusiness, salir
+   }
+
+   // Obtener el ID del esquema
    $id_schema      = isset($localbusiness['id']) ? $localbusiness['id'] : 'Local';
    $additionaltype = isset($localbusiness['additionaltype']) ? $localbusiness['additionaltype'] : [];
-   $sameAs         = isset($localbusiness['same_as']) ? $localbusiness['same_as'] : [];
-   $description    = isset($localbusiness['description']) ? $localbusiness['description'] : '';
-   $name           = isset($localbusiness['name']) ? $localbusiness['name'] : '';
-   $alternate_name = isset($localbusiness['alternate_name']) ? $localbusiness['alternate_name'] : '';
-   $areaServed     = isset($localbusiness['area_served']) ? $localbusiness['area_served'] : '';
-   $priceRange     = isset($localbusiness['price_range']) ? $localbusiness['price_range'] : '$$$';
-   $longitude      = isset($localbusiness['longitude']) ? $localbusiness['longitude'] : '';
-   $latitude       = isset($localbusiness['latitude']) ? $localbusiness['latitude'] : '';
-   $openHoursSpec  = isset($localbusiness['openinghoursspecification']) ? $localbusiness['openinghoursspecification'] : [];
 
-   // Datos de contacto y dirección
-   $email           = $options['email'];
-   $maplink         = $options['link_google_maps'];
-   $phone           = $options['telefono'];
-   $direccion       = $options['direccion'];
-   $ciudad          = $options['ciudad'];
-   $provincia       = $options['provincia'];
-   $codpos          = $options['codpos'];
-   $address_country = 'ES';
+   // Obtener los campos de servicio
+   // 1. Nombre
+   if ( ! empty( $fields['service_name'] ) ) {
+      $name = esc_html( $fields['service_name'] );
+   } elseif ( ! empty( $fields['title_pageheader'] ) ) {
+      $name = esc_html( $fields['title_pageheader'] );
+   } else {
+       $name = esc_html( get_the_title() );
+   }
 
-   // Logotipo
-   $site_logo   = $options['site_logo'];
-   $logo_url    = $site_logo
-                     ? esc_url($site_logo['url'])
-                     : get_template_directory_uri() . '/assets/img/logotipo.svg';
+   // 2. Descripción
+   if ( ! empty( $fields['service_description'] ) ) {
+      $description = esc_html( $fields['service_description'] );
+   } else {
+      // Obtener la meta descripción de Yoast SEO
+      $description = get_post_meta( get_the_ID(), '_yoast_wpseo_metadesc', true );
+      $description = ! empty( $description ) ? esc_html( $description ) : '';
+   }
 
-   // Imagen
-   $img_default = $options['default_image'];
-   $image       = $img_default
-                     ? esc_url($img_default['url'])
-                     : get_template_directory_uri() . '/assets/img/default-background.jpg';
+   // 3. Imagen
+   if ( has_post_thumbnail() ) {
+      $image_id  = get_post_thumbnail_id();
+      $image_url = wp_get_attachment_image_url( $image_id, 'full' );
+      $image     = esc_url( $image_url );
+   } elseif ( ! empty( $options['default_image']['url'] ) ) {
+      $image = esc_url( $options['default_image']['url'] );
+   } else {
+      $image = get_template_directory_uri() . '/assets/img/default-image.webp';
+   }
 
-   $page_url    = get_permalink(); // URL de la página actual
+   // 4. AdditionalType
+   $additionalTypeUrls = [];
+   if ( ! empty( $fields['service_additionaltype'] ) && is_array( $fields['service_additionaltype'] ) ) {
+      foreach ( $fields['service_additionaltype'] as $item ) {
+         if ( isset( $item['url'] ) && ! empty( $item['url'] ) ) {
+            $additionalTypeUrls[] = esc_url( $item['url'] );
+         }
+      }
+   }
+
+   // Obtener la URL actual de la página
+   $page_url = get_permalink();
 
    // Construir el array del esquema Service
    $service_schema = [
       "@context"    => "https://schema.org",
       "@type"       => "Service",
       "@id"         => "#Service",
-      "description" => !empty($description) ? esc_html( $description ) : '',
-      "image"       => !empty($image) ? esc_url( $image ) : '',
-      "name"        => !empty($name) ? esc_html( $name ) : '',
+      "name"        => $name,
+      "description" => $description,
+      "image"       => $image,
       "url"         => esc_url( $page_url ),
       "provider"    => [
          "@id" => '#' . $id_schema,
@@ -70,12 +96,7 @@ function generate_service_schema() {
    ];
 
    if (!empty($additionaltype)) {
-      $additionalTypeUrls = array_map(function($item) {
-         return esc_url($item['url']);
-      }, $additionaltype);
-      if (!empty($additionalTypeUrls)) {
-         $service_schema['additionalType'] = $additionalTypeUrls;
-      }
+      $service_schema['additionalType'] = $additionalTypeUrls;
    }
    
    // Eliminar campos vacíos para mantener el esquema limpio
@@ -85,7 +106,6 @@ function generate_service_schema() {
    
    return json_encode( $service_schema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT );
 }
-
 
 /**
  * Inserta los esquemas JSON-LD en las páginas específicas.
