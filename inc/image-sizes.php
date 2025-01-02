@@ -10,15 +10,15 @@
  */
 function register_custom_image_sizes() {
    // Tamaños optimizados para bloques pequeños, medianos y grandes.
-   add_image_size('block_small', 480, 400, true);  // Para bloques pequeños (e.g., cards, grids).
-   add_image_size('block_medium', 768, 400, true); // Para bloques medianos (e.g., banners pequeños).
-   add_image_size('block_large', 1200, 400, true); // Para bloques grandes (e.g., sliders, hero).
+   add_image_size('block_small', 480, 400, false);  // Para bloques pequeños (e.g., cards, grids).
+   add_image_size('block_medium', 768, 400, false); // Para bloques medianos (e.g., banners pequeños).
+   add_image_size('block_large', 1200, 400, false); // Para bloques grandes (e.g., sliders, hero).
 
    // Tamaño cuadrado para miniaturas de galerías.
-   add_image_size('gallery_thumbnail', 400, 400, true);
+   add_image_size('gallery_thumbnail', 400, 400, false);
 
    // Tamaño para fondos de cards, con relación 2:1.
-   add_image_size('card_background', 520, 260, true);
+   add_image_size('card_background', 520, 260, false);
 }
 add_action('after_setup_theme', 'register_custom_image_sizes');
 
