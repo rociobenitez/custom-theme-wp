@@ -49,6 +49,10 @@ $column_count = count($active_cols) + 1; // Agregamos la columna de Contacto com
 $column_class = 'col-md-' . ($column_count === 1 ? '5' : (12 / $column_count));
 
 // Variables de contacto
+$whatsapp = $options['whatsapp'] ?? '';
+$phone    = $options['phone'] ?? '';
+$email    = $options['email'] ?? '';
+
 $contact_info = [
 	'address'   => [
 		 'icon' => get_template_directory_uri() . "/assets/img/icons/location.svg",
@@ -59,18 +63,18 @@ $contact_info = [
 	],
 	'phone'     => [
 		 'icon' => get_template_directory_uri() . "/assets/img/icons/phone.svg",
-		 'link' => !empty($options['phone']) ? 'tel:' . $options['phone'] : '',
-		 'text' => $options['phone'] ?? ''
+		 'link' => !empty($phone) ? 'tel:' . $phone : '',
+		 'text' => $phone ?? ''
 	],
 	'whatsapp'  => [
 		 'icon' => get_template_directory_uri() . "/assets/img/icons/whatsapp.svg",
-		 'link' => !empty($options['whatsapp']) ? 'https://wa.me/+34' . str_replace(' ', '', $options['whatsapp']) : '',
-		 'text' => $options['whatsapp'] ?? ''
+		 'link' => !empty($whatsapp) ? 'https://wa.me/+34' . str_replace(' ', '', $whatsapp) : '',
+		 'text' => $whatsapp ?? ''
 	],
 	'email'     => [
 		 'icon' => get_template_directory_uri() . "/assets/img/icons/mail.svg",
-		 'link' => !empty($options['email']) ? 'mailto:' . $options['email'] : '',
-		 'text' => $options['email'] ?? ''
+		 'link' => !empty($email) ? 'mailto:' . $email : '',
+		 'text' => $email ?? ''
 	]
 ];
 
