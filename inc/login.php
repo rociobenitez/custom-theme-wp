@@ -34,6 +34,9 @@ function custom_login_background() {
          border-color: #0c0d19db;
          color: #fff;
       }
+      .language-switcher {
+         display: none;
+      }
    </style>';
 }
 add_action( 'login_head', 'custom_login_background' );
