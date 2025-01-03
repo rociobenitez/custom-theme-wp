@@ -18,6 +18,22 @@ function custom_login_background() {
          width: 100%;
          height: 40px;
       }
+      #login a, .dashicons-translation:before {
+         color: #fff !important;
+      }
+      #login a:hover {
+         text-decoration: underline;
+      }
+      .wp-core-ui .button-primary {
+         background: #0c0d19;
+         border-color: #0c0d19;
+         color: #fff;
+      }
+      .wp-core-ui .button-primary:hover {
+         background: #0c0d19db;
+         border-color: #0c0d19db;
+         color: #fff;
+      }
    </style>';
 }
 add_action( 'login_head', 'custom_login_background' );
