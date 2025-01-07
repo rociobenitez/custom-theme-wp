@@ -25,13 +25,19 @@ $bg_image     = $default_img;
 // --- Verificar si estamos en distintas secciones ---
 if (is_singular('cursos')) {
    // Datos desde el propio CPT
-   $tagline       = 'Detalles del Curso';
-   $title         = $page_title;
-   $htag_title    = 2;
-   $description   = get_the_excerpt(); // El extracto como descripción
-   $bg_image      = has_post_thumbnail() ? esc_url(get_the_post_thumbnail_url(null, 'full')) : $default_img;
-   $button_text   = 'Ver Cursos';
-   $button_url    = get_post_type_archive_link('cursos'); // Enlace a la página de archivo de cursos
+   $tagline       = $fields['pageheader_tagline'] ?? 'Detalles del Curso';
+   $title         = $fields['pageheader_title'] ?? $page_title;
+   $htag_title    = $fields['pageheader_htag_tagline'] ?? 2;
+   $description   = $fields['pageheader_text'] ?? get_the_excerpt(); // El extracto como descripción
+   $bg_image      = !empty($fields['pageheader_image'])
+                     ? esc_url($fields['pageheader_image']['url'])
+                     : (has_post_thumbnail()
+                        ? esc_url(get_the_post_thumbnail_url(null, 'full'))
+                        : $default_img); // Imagen por defecto si no hay ninguna configurada
+   $button        = $fields['pageheader_button'] ?? null;
+   $button_text   = $button ? $button['title'] : 'Ver todos los Cursos';
+   $button_url    = $button ? $button['url'] : get_post_type_archive_link('cursos'); // Enlace a la página de archivo de cursos
+   $course_price  = $fields['course_price'] ?? '';
 
 } elseif (is_shop()) {
    $shop_page_id = wc_get_page_id('shop'); // ID de la página asignada como tienda
