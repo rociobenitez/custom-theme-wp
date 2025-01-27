@@ -714,6 +714,98 @@
           ]
         },
         {
+          "key": "field_679755b45cbf1",
+          "label": "sameAs",
+          "name": "sameas",
+          "aria-label": "",
+          "type": "repeater",
+          "instructions": "",
+          "required": 0,
+          "conditional_logic": 0,
+          "wrapper": {
+              "width": "",
+              "class": "",
+              "id": ""
+          },
+          "layout": "table",
+          "pagination": 0,
+          "min": 0,
+          "max": 0,
+          "collapsed": "",
+          "button_label": "Agregar Fila",
+          "rows_per_page": 20,
+          "sub_fields": [
+              {
+                  "key": "field_679755b45cbf2",
+                  "label": "url",
+                  "name": "url",
+                  "aria-label": "",
+                  "type": "text",
+                  "instructions": "",
+                  "required": 0,
+                  "conditional_logic": 0,
+                  "wrapper": {
+                      "width": "",
+                      "class": "",
+                      "id": ""
+                  },
+                  "default_value": "",
+                  "maxlength": "",
+                  "allow_in_bindings": 0,
+                  "placeholder": "",
+                  "prepend": "",
+                  "append": "",
+                  "parent_repeater": "field_679755b45cbf1"
+              }
+          ]
+      },
+      {
+        "key": "field_679755b45cbf1",
+        "label": "knowsAbout",
+        "name": "knowsabout",
+        "aria-label": "",
+        "type": "repeater",
+        "instructions": "",
+        "required": 0,
+        "conditional_logic": 0,
+        "wrapper": {
+            "width": "",
+            "class": "",
+            "id": ""
+        },
+        "layout": "table",
+        "pagination": 0,
+        "min": 0,
+        "max": 0,
+        "collapsed": "",
+        "button_label": "Agregar Fila",
+        "rows_per_page": 20,
+        "sub_fields": [
+            {
+                "key": "field_679755b45cbf2",
+                "label": "url",
+                "name": "url",
+                "aria-label": "",
+                "type": "text",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "",
+                "maxlength": "",
+                "allow_in_bindings": 0,
+                "placeholder": "",
+                "prepend": "",
+                "append": "",
+                "parent_repeater": "field_679755b45cbf1"
+            }
+        ]
+    },
+        {
           "key": "field_66eace651ab01",
           "label": "name",
           "name": "name",
@@ -736,7 +828,7 @@
         {
           "key": "field_66eace6f1ab02",
           "label": "alternateName",
-          "name": "alternatename",
+          "name": "alternate_name",
           "aria-label": "",
           "type": "text",
           "instructions": "",
@@ -776,7 +868,7 @@
         {
           "key": "field_66eaceaf1ab04",
           "label": "areaServed",
-          "name": "areaServed",
+          "name": "area_served",
           "aria-label": "",
           "type": "text",
           "instructions": "",
@@ -796,7 +888,7 @@
         {
           "key": "field_66eaceb81ab05",
           "label": "priceRange",
-          "name": "priceRange",
+          "name": "price_range",
           "aria-label": "",
           "type": "text",
           "instructions": "",
@@ -938,6 +1030,71 @@
               "append": "",
               "parent_repeater": "field_66eacee91ab08"
             }
+          ]
+        },
+        {
+          "key": "field_67975429e0600",
+          "label": "founders",
+          "name": "founders",
+          "aria-label": "",
+          "type": "repeater",
+          "instructions": "",
+          "required": 0,
+          "conditional_logic": 0,
+          "wrapper": {
+              "width": "",
+              "class": "",
+              "id": ""
+          },
+          "layout": "table",
+          "pagination": 0,
+          "min": 0,
+          "max": 0,
+          "collapsed": "",
+          "button_label": "Agregar Fila",
+          "rows_per_page": 20,
+          "sub_fields": [
+              {
+                  "key": "field_67975429e0602",
+                  "label": "name",
+                  "name": "name",
+                  "aria-label": "",
+                  "type": "text",
+                  "instructions": "",
+                  "required": 0,
+                  "conditional_logic": 0,
+                  "wrapper": {
+                      "width": "",
+                      "class": "",
+                      "id": ""
+                  },
+                  "default_value": "",
+                  "maxlength": "",
+                  "allow_in_bindings": 0,
+                  "placeholder": "",
+                  "prepend": "",
+                  "append": "",
+                  "parent_repeater": "field_67975429e0600"
+              },
+              {
+                  "key": "field_67975429e0603",
+                  "label": "sameAs",
+                  "name": "sameAs",
+                  "aria-label": "",
+                  "type": "url",
+                  "instructions": "",
+                  "required": 0,
+                  "conditional_logic": 0,
+                  "wrapper": {
+                      "width": "",
+                      "class": "",
+                      "id": ""
+                  },
+                  "default_value": "",
+                  "allow_in_bindings": 0,
+                  "placeholder": "",
+                  "parent_repeater": "field_67975429e0600"
+              }
           ]
         }
       ]

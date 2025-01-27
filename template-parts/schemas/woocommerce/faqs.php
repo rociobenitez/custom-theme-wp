@@ -9,28 +9,55 @@
  *
  * @hook wp_head Se engancha a la acción 'wp_head' para insertar el script en el encabezado de la página.
  */
+
+ if (!defined('ABSPATH')) {
+   exit; // Evita el acceso directo al archivo
+}
+
 function generate_faqpage_schema() {
 
    // Obtener la URL actual
    $current_url = get_permalink();
 
-   // Obtener todos los campos de ACF
-   $fields = get_fields();
    $faqs = [];
 
-   // Verifica si 'flexible_content' está definido y es un array
-   if ($fields && isset($fields['flexible_content']) && is_array($fields['flexible_content'])) {
-      foreach ($fields['flexible_content'] as $block) {
-         // Verifica si el bloque es del tipo 'faqs'
-         if (isset($block['acf_fc_layout']) && $block['acf_fc_layout'] === 'faqs') {
-            if (isset($block['faq']) && is_array($block['faq'])) {
-               $faqs = $block['faq'];
-               break; // Asumiendo que solo hay un bloque de FAQs
+   // Obtener todos los campos de ACF
+   if ( is_product_category() ) {
+      // Categoría de producto
+      $term = get_queried_object();
+      $fields = get_fields($term);
+
+      if (isset($fields['faqs']) && is_array($fields['faqs'])) {
+         $faqs = $fields['faqs'];
+      }
+
+   } elseif ( is_tax( 'product_tag' ) ) { 
+      // Etiqueta de producto
+      $term = get_queried_object();
+      $tag_id = $term->term_id;
+      $fields = get_fields('product_tag_' . $tag_id);
+
+      if (isset($fields['faqs']) && is_array($fields['faqs'])) {
+         $faqs = $fields['faqs'];
+      }
+
+   } else {
+      // Bloques flexibles
+      $fields = get_fields();
+
+      if ($fields && isset($fields['flexible_content']) && is_array($fields['flexible_content'])) {
+         foreach ($fields['flexible_content'] as $block) {
+            // Verificar si el bloque es del tipo 'faqs'
+            if (isset($block['acf_fc_layout']) && $block['acf_fc_layout'] === 'faqs') {
+               if (isset($block['faq']) && is_array($block['faq'])) {
+                  $faqs = $block['faq'];
+                  break; // Asumiendo que solo hay un bloque de FAQs
+               }
             }
          }
       }
    }
-
+   
    // Si no hay FAQs, retorna
    if (empty($faqs) || !is_array($faqs)) {
       return;
@@ -39,7 +66,7 @@ function generate_faqpage_schema() {
    $faqItems = [];
 
    foreach ($faqs as $faq) {
-      // Asegúrate de que cada $faq es un array y tiene 'pregunta' y 'respuesta'
+      // AComprobar que cada $faq es un array y tiene 'pregunta' y 'respuesta'
       if (is_array($faq) && !empty($faq['pregunta']) && !empty($faq['respuesta'])) {
          $faqItems[] = [
             "@type" => "Question",
