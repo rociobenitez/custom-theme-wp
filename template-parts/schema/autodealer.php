@@ -4,28 +4,28 @@
  *
  * Esta función recopila datos desde los campos de opciones configurados con Advanced Custom Fields (ACF)
  * y construye un esquema estructurado siguiendo las directrices de Schema.org para un negocio local.
- * También puede utilizrse para el schema 'AutoDealer'.
+ * También puede utilizarse para el schema 'AutoDealer'.
  *
  * @hook wp_head Se engancha a la acción 'wp_head' para insertar el script en el encabezado de la página.
  */
 function generate_localbusiness_schema() {
    // Obtener el valor de los campos de opciones
    $email           = get_field('email', 'option');
-   $maplink         = get_field('link_google_maps', 'option');
-   $phone           = get_field('telefono', 'option');
-   $direccion       = get_field('direccion', 'option');
-   $ciudad          = get_field('ciudad', 'option');
-   $provincia       = get_field('provincia', 'option');
-   $codpos          = get_field('codpos', 'option');
+   $maplink         = get_field('google_maps_link', 'option');
+   $phone           = get_field('phone', 'option');
+   $direccion       = get_field('address', 'option');
+   $ciudad          = get_field('city', 'option');
+   $provincia       = get_field('province', 'option');
+   $codpos          = get_field('postal_code', 'option');
    $facebook        = get_field('facebook', 'option');
    $x_rrss          = get_field('x', 'option');
    $instagram       = get_field('instagram', 'option');
    $linkedin        = get_field('linkedin', 'option');
    $youtube         = get_field('youtube', 'option');
    $site_logo       = get_field('site_logo', 'option');
-   $logo_url        = $site_logo ? esc_url($site_logo['url']) : get_template_directory_uri() . '/img/logotipo.png';
+   $logo_url        = $site_logo ? esc_url($site_logo['url']) : get_template_directory_uri() . 'assets/img/logo.svg';
    $img_default     = get_field('default_image', 'option');
-   $img_default_url = $img_default ? esc_url($img_default['url']) : get_template_directory_uri() . '/img/default_image.jpg';
+   $img_default_url = $img_default ? esc_url($img_default['url']) : get_template_directory_uri() . 'assets/img/default-image.webp';
    
    // Schema localbusiness 
    $localbusiness = get_field('localbusiness', 'option');
