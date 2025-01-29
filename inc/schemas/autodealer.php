@@ -10,31 +10,39 @@
  */
 function generate_localbusiness_schema() {
    // Obtener el valor de los campos de opciones
-   $email           = get_field('email', 'option');
-   $maplink         = get_field('google_maps_link', 'option');
-   $phone           = get_field('phone', 'option');
-   $direccion       = get_field('address', 'option');
-   $ciudad          = get_field('city', 'option');
-   $provincia       = get_field('province', 'option');
-   $codpos          = get_field('postal_code', 'option');
-   $facebook        = get_field('facebook', 'option');
-   $x_rrss          = get_field('x', 'option');
-   $instagram       = get_field('instagram', 'option');
-   $linkedin        = get_field('linkedin', 'option');
-   $youtube         = get_field('youtube', 'option');
-   $site_logo       = get_field('site_logo', 'option');
-   $logo_url        = $site_logo ? esc_url($site_logo['url']) : get_template_directory_uri() . 'assets/img/logo.svg';
-   $img_default     = get_field('default_image', 'option');
-   $img_default_url = $img_default ? esc_url($img_default['url']) : get_template_directory_uri() . 'assets/img/default-image.webp';
-   
+   $options     = get_fields('option');
+
    // Schema localbusiness 
-   $localbusiness = get_field('localbusiness', 'option');
+   $localbusiness = $options['localbusiness'];
    if (!$localbusiness) {
       return;
    }
 
-   // Taxonomías personalizadas
-   $taxonomies = ['cambio', 'carroceria', 'combustible'];
+   // Datos de contacto (Opciones)
+   $email       = $options['email'];
+   $maplink     = $options['google_maps_link'];
+   $phone       = $options['phone'];
+   $direccion   = $options['address'];
+   $city        = $options['city'];
+   $provincia   = $options['province'];
+   $codpos      = $options['postal_code'];
+   $facebook    = $options['facebook'];
+   $x_rrss      = $options['x'];
+   $instagram   = $options['instagram'];
+   $linkedin    = $options['linkedin'];
+   $youtube     = $options['youtube'];
+
+
+   // Logotipo e Imagen por defecto
+   $site_logo   = $options['site_logo'];
+   $logo_url    = $site_logo
+                     ? esc_url($site_logo['url'])
+                     : get_template_directory_uri() . 'assets/img/logo.svg';
+   
+   $img_default     = $options['default_image'];
+   $img_default_url = $img_default
+                        ? esc_url($img_default['url'])
+                        : get_template_directory_uri() . 'assets/img/default-image.webp';
 
    // Inicializar arrays para "sameAs"
    $sameAsUrls = [];
@@ -114,12 +122,10 @@ function generate_localbusiness_schema() {
       $schema['url'] = esc_url($main_url);
    }
 
-   if (!is_product_category() && !is_tax($taxonomies)) {
-      if (!empty($current_page_url)) {
-         $schema['mainEntityOfPage'] = [
-            "@id" => esc_url($current_page_url)
-         ];
-      }
+   if (!empty($current_page_url)) {
+      $schema['mainEntityOfPage'] = [
+         "@id" => esc_url($current_page_url)
+      ];
    }
 
    if (!empty($email)) {
@@ -178,14 +184,14 @@ function generate_localbusiness_schema() {
       $schema['telephone'] = sanitize_text_field($phone);
    }
 
-   if (!empty($direccion) || !empty($ciudad) || !empty($provincia) || !empty($codpos)) {
+   if (!empty($direccion) || !empty($city) || !empty($provincia) || !empty($codpos)) {
       $address = [
          "@type" => "PostalAddress",
          "addressCountry" => "ES"
       ];
 
-      if (!empty($ciudad)) {
-         $address['addressLocality'] = esc_html($ciudad);
+      if (!empty($city)) {
+         $address['addressLocality'] = esc_html($city);
       }
 
       if (!empty($provincia)) {
@@ -248,5 +254,4 @@ function generate_localbusiness_schema() {
 }
 
 // Hook para imprimir el schema en el head de la página
-// add_action('wp_head', 'generate_localbusiness_schema'); // Descomentar esta línea si se desea incluir el schema 'localbusiness'
-?>
+add_action('wp_head', 'generate_localbusiness_schema'); 

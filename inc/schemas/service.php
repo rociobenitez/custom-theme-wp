@@ -1,6 +1,6 @@
 <?php
 /**
- * Schema service
+ * Genera e inserta el esquema JSON-LD para 'Service'
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -132,10 +132,9 @@ function insert_custom_schemas() {
     
     // Generar y mostrar el esquema Service
     $service_json_ld = generate_service_schema();
-    if ( ! empty( $service_json_ld ) ) {
-        echo '<script type="application/ld+json">' . $service_json_ld . '</script>' . "\n";
-    }
+
+    // Imprimir el script JSON-LD en el head
+    echo '<script type="application/ld+json">' . PHP_EOL . $service_json_ld . '</script>' . PHP_EOL;
 }
 
-// add_action( 'wp_head', 'insert_custom_schemas' );  // Descomentar esta línea si se desea incluir el schema 'service'
-?>
+add_action( 'wp_head', 'insert_custom_schemas' ); 

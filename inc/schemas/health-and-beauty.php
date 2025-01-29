@@ -1,64 +1,16 @@
 <?php
 /**
- * Genera e inserta los esquemas JSON-LD para AboutPage y HealthAndBeautyBusiness.
- */
-
-if (!defined('ABSPATH')) {
-    exit; // Evita el acceso directo al archivo
-}
-
-/**
- * Genera el esquema JSON-LD para AboutPage.
- */
-function generate_schema_about_page() {
-    // Verifica si estamos en una página
-    if (!is_page()) {
-        return;
-    }
-
-    // Obtiene el template de la página actual
-    $template = get_page_template_slug();
-
-    // Verifica si el template es 'page-about.php'
-    if ('page-about.php' !== $template) {
-        return;
-    }
-
-    // Obtiene la URL actual de la página
-    $current_url = get_permalink();
-
-    // Construye el arreglo del esquema AboutPage
-    $about_page = [
-        "@context" => "https://schema.org",
-        "@id" => $current_url,
-        "@type" => "AboutPage",
-        "mainEntity" => [
-            "@id" => "#Local"
-        ]
-    ];
-
-    // Convierte el arreglo a JSON con formato legible
-    $about_page_json = json_encode($about_page, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
-
-    // Imprime el script JSON-LD en el head
-    echo '<script type="application/ld+json">' . PHP_EOL;
-    echo $about_page_json;
-    echo '</script>' . PHP_EOL;
-}
-
-/**
  * Genera el esquema JSON-LD para HealthAndBeautyBusiness.
  */
 function generate_schema_health_and_beauty_business() {
     // Obtiene todos los campos de las opciones de ACF
     $options = get_fields('option');
+    $localbusiness = $options['localbusiness'];
 
     // Verifica si existen campos de 'localbusiness' en las opciones
-    if (empty($options['localbusiness'])) {
+    if ( empty( $localbusiness ) ) {
         return;
     }
-
-    $localbusiness = $options['localbusiness'];
 
     // Obtiene la URL principal del sitio (Dominio)
     $site_url = home_url();
@@ -66,37 +18,45 @@ function generate_schema_health_and_beauty_business() {
     // Obtiene la URL de la página actual
     $page_url = get_permalink();
 
+    // Imagen por defecto y logotipo
+    $default_image_option = $options['default_image']['url'];
+    $default_image_path   = get_template_directory_uri() . '/assets/img/default-image.webp';
+    $logo_option          = $options['site_logo']['url'];
+    $logo_path            = get_template_directory_uri() . '/assets/img/logo.svg'
+
     // Obtiene campos de ACF desde 'localbusiness' y 'options'
-    $id_schema        = !empty($localbusiness['id']) ? sanitize_text_field($localbusiness['id']) : '';
-    $name             = !empty($localbusiness['name']) ? sanitize_text_field($localbusiness['name']) : '';
-    $alternate_name   = !empty($localbusiness['alternate_name']) ? sanitize_text_field($localbusiness['alternate_name']) : '';
-    $area_served      = !empty($localbusiness['area_served']) ? sanitize_text_field($localbusiness['area_served']) : '';
-    $description      = !empty($localbusiness['description']) ? sanitize_textarea_field($localbusiness['description']) : '';
-    $email            = !empty($options['email']) ? sanitize_email($options['email']) : '';
-    $has_map          = !empty($options['link_google_maps']) ? esc_url($options['link_google_maps']) : '';
+    $id_schema       = !empty($localbusiness['id']) ? sanitize_text_field($localbusiness['id']) : '';
+    $additional_type = isset($localbusiness['additionaltype']) ? $localbusiness['additionaltype'] : [];
+    $name            = !empty($localbusiness['name']) ? sanitize_text_field($localbusiness['name']) : '';
+    $alternate_name  = !empty($localbusiness['alternate_name']) ? sanitize_text_field($localbusiness['alternate_name']) : '';
+    $area_served     = !empty($localbusiness['area_served']) ? sanitize_text_field($localbusiness['area_served']) : '';
+    $description     = !empty($localbusiness['description']) ? sanitize_textarea_field($localbusiness['description']) : '';
+    $email           = !empty($options['email']) ? sanitize_email($options['email']) : '';
+    $has_map         = !empty($options['link_google_maps']) ? esc_url($options['link_google_maps']) : '';
 
     // Maneja la imagen destacada o la imagen por defecto
-    if (has_post_thumbnail()) {
+    if ( has_post_thumbnail() ) {
         $image_id  = get_post_thumbnail_id();
         $image_url = wp_get_attachment_image_url($image_id, 'full');
         $image     = esc_url($image_url);
-    } elseif (!empty($options['default_image']['url'])) {
-        $image = esc_url($options['default_image']['url']);
+    } elseif ( !empty( $default_image_option ) ) {
+        $image = esc_url($default_image_option);
     } else {
-        $image = get_template_directory_uri() . '/assets/img/default-image.webp';
+        $image = esc_url($default_image_path);
     }
 
-    $latitude         = !empty($localbusiness['latitude']) ? floatval($localbusiness['latitude']) : 0.0000;
-    $longitude        = !empty($localbusiness['longitude']) ? floatval($localbusiness['longitude']) : 0.0000;
+    $latitude  = !empty($localbusiness['latitude']) ? floatval($localbusiness['latitude']) : 0.0000;
+    $longitude = !empty($localbusiness['longitude']) ? floatval($localbusiness['longitude']) : 0.0000;
 
     // Maneja el logo del sitio
-    if (!empty($options['site_logo']['url'])) {
-        $logo = esc_url($options['site_logo']['url']);
+    if (!empty($logo_option)) {
+        $logo = esc_url($logo_option);
     } else {
-        $logo = get_template_directory_uri() . '/assets/img/logo.svg';
+        $logo = $logo_path;
     }
 
     $price_range      = !empty($localbusiness['price_range']) ? sanitize_text_field($localbusiness['price_range']) : '$$';
+    $same_as          = isset($localbusiness['same_as']) ? $localbusiness['same_as'] : [];
     $telephone        = !empty($options['phone']) ? sanitize_text_field($options['phone']) : '';
     $address_country  = 'ES'; // Valor fijo según requerimiento
     $address_locality = !empty($options['city']) ? sanitize_text_field($options['city']) : '';
@@ -104,9 +64,7 @@ function generate_schema_health_and_beauty_business() {
     $postal_code      = !empty($options['postal_code']) ? sanitize_text_field($options['postal_code']) : '';
     $street_address   = !empty($options['address']) ? sanitize_text_field($options['address']) : '';
 
-    $additional_type    = isset($localbusiness['additional_type']) ? $localbusiness['additional_type'] : [];
-    $same_as            = isset($localbusiness['same_as']) ? $localbusiness['same_as'] : [];
-    $opening_hours_spec = isset($localbusiness['opening_hours']) ? $localbusiness['opening_hours'] : [];
+    $opening_hours_spec = isset($localbusiness['openinghoursspecification']) ? $localbusiness['openinghoursspecification'] : [];
     $founders           = isset($localbusiness['founders']) ? $localbusiness['founders'] : [];
 
     // Procesa el campo repetidor 'additional_type'
@@ -181,34 +139,31 @@ function generate_schema_health_and_beauty_business() {
         "@id" => "#Local",
         "name" => $name,
         "alternateName" => $alternate_name,
-        "areaServed"    => $area_served,
-        "description"   => $description,
+        "areaServed" => $area_served,
+        "description" => $description,
         "url" => esc_url($site_url),
         "mainEntityOfPage" => [
             "@id" => esc_url($page_url)
         ],
-        "email"  => sanitize_email($email),
+        "email" => sanitize_email($email),
         "hasMap" => $has_map,
-        "image"  => $image,
+        "image" => $image,
         "geo" => [
-            "@type"     => "GeoCoordinates",
-            "latitude"  => $latitude,
+            "@type" => "GeoCoordinates",
+            "latitude" => $latitude,
             "longitude" => $longitude
         ],
-        "logo"       => $logo,
+        "logo" => $logo,
         "priceRange" => $price_range,
-        "sameAs"     => $sameAsUrls,
-        "telephone"  => $telephone,
+        "telephone" => $telephone,
         "address" => [
-            "@type"           => "PostalAddress",
-            "addressCountry"  => $address_country,
+            "@type" => "PostalAddress",
+            "addressCountry" => $address_country,
             "addressLocality" => $address_locality,
-            "addressRegion"   => $address_region,
-            "postalCode"      => $postal_code,
-            "streetAddress"   => $street_address
+            "addressRegion" => $address_region,
+            "postalCode" => $postal_code,
+            "streetAddress" => $street_address
         ],
-        "openingHoursSpecification" => $openingHours,
-        "founders" => $founders_arr
     ];
 
     // Añade 'additionalType' si existen URLs adicionales
@@ -216,25 +171,27 @@ function generate_schema_health_and_beauty_business() {
         $health_and_beauty_business['additionalType'] = $additionalTypeUrls;
     }
 
+    // Añade 'sameAs' si existen URLs adicionales
+    if (!empty($sameAsUrls)) {
+        $health_and_beauty_business['sameAs'] = $sameAsUrls;
+    }
+
+    // Añade 'openingHoursSpecification' si no está vacío
+    if (!empty($openingHours)) {
+        $health_and_beauty_business['openingHoursSpecification'] = $openingHours;
+    }
+
+    // Añade 'founders' si existen datos adicionales
+    if (!empty($founders_arr)) {
+        $health_and_beauty_business['founders'] = $founders_arr;
+    }
+
     // Convierte el arreglo a JSON con formato legible
     $health_and_beauty_business_json = json_encode($health_and_beauty_business, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
 
     // Imprime el script JSON-LD en el head
-    echo '<script type="application/ld+json">' . PHP_EOL;
-    echo $health_and_beauty_business_json;
-    echo '</script>' . PHP_EOL;
+    echo '<script type="application/ld+json">' . PHP_EOL . $health_and_beauty_business_json . '</script>' . PHP_EOL;
 }
 
-/**
- * Inserta los esquemas JSON-LD en el head mediante hooks.
- */
-function insert_schema_structured_data() {
-    // Genera el esquema AboutPage si corresponde
-    generate_schema_about_page();
-
-    // Genera el esquema HealthAndBeautyBusiness
-    generate_schema_health_and_beauty_business();
-}
-
-// Añade la función al hook 'wp_head' para insertar los esquemas en el <head>
-add_action('wp_head', 'insert_schema_structured_data');
+// Hook para agregar el schema 'HealthAndBeautyBusiness'
+add_action('wp_head', 'generate_schema_health_and_beauty_business');

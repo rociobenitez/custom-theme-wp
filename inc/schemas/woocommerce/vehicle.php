@@ -9,15 +9,19 @@
  *
  * @hook wp_head Se engancha a la acción 'wp_head' para insertar el script en el encabezado de la página.
  */
+
+if (!defined('ABSPATH')) {
+    exit; // Evita el acceso directo al archivo
+}
+
 function generate_vehicle_schema() {
-    if (!is_product()) {
+    // Verificar si es una página de producto
+    if ( !is_product() ) {
         return;
     }
 
-    global $post;
-
-    // Obtener el objeto del producto
-    $product = wc_get_product( $post->ID );
+    // Obtener el objeto del producto de WooCommerce
+    $product = wc_get_product(get_the_ID());
 
     if ( ! $product ) {
         return;
@@ -149,11 +153,8 @@ function generate_vehicle_schema() {
     // Convertir el array a JSON con opciones para una mejor legibilidad
     $json_ld = json_encode($schema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
 
-    // Imprimir el script solo si JSON es válido
-    if ($json_ld !== false) {
-        echo '<script type="application/ld+json">' . $json_ld . '</script>';
-    }
+    // Imprimir el script JSON-LD en el head
+    echo '<script type="application/ld+json">' . PHP_EOL . $json_ld . '</script>' . PHP_EOL;
 }
 
-// add_action('wp_head', 'generate_vehicle_schema'); // Descomentar esta línea si se desea incluir el schema 'vehicle'
-?>
+add_action('wp_head', 'generate_vehicle_schema');

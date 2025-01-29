@@ -9,6 +9,7 @@
  *
  * @hook wp_head Se engancha a la acción 'wp_head' para insertar el script en el encabezado de la página.
  */
+
 function generate_categoria_schema() {
    // Taxonomías personalizadas
    $taxonomies = ['cambio', 'carroceria', 'combustible'];
@@ -177,7 +178,7 @@ function generate_categoria_schema() {
          "availability"  => "https://schema.org/InStock",
          "seller"        => [
                "@type" => $type_local,
-               "@id"   => "#$id_schema_local"
+               "@id"   => "#" . $id_schema_local,
          ]
       ];
    }
@@ -185,11 +186,9 @@ function generate_categoria_schema() {
    // Convertir el array a JSON con opciones para una mejor legibilidad
    $json_ld = json_encode($schema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
 
-   // Imprimir el script solo si JSON es válido
-   if ($json_ld !== false) {
-      echo '<script type="application/ld+json">' . $json_ld . '</script>';
-   }
+   // Imprimir el script
+   echo '<script type="application/ld+json">' . PHP_EOL . $json_ld . '</script>' . PHP_EOL;
+
 }
 
-// add_action('wp_head', 'generate_categoria_schema'); // Descomentar esta línea si se desea incluir el schema 'category'
-?>
+add_action('wp_head', 'generate_categoria_schema');

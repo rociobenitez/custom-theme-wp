@@ -14,45 +14,23 @@
    exit; // Evita el acceso directo al archivo
 }
 
-function generate_faqpage_schema() {
+function generate_schema_faqs() {
 
    // Obtener la URL actual
    $current_url = get_permalink();
 
    $faqs = [];
 
-   // Obtener todos los campos de ACF
-   if ( is_product_category() ) {
-      // Categoría de producto
-      $term = get_queried_object();
-      $fields = get_fields($term);
+   // Obtener todos los campos de ACF (Bloques flexibles)
+   $fields = get_fields();
 
-      if (isset($fields['faqs']) && is_array($fields['faqs'])) {
-         $faqs = $fields['faqs'];
-      }
-
-   } elseif ( is_tax( 'product_tag' ) ) { 
-      // Etiqueta de producto
-      $term = get_queried_object();
-      $tag_id = $term->term_id;
-      $fields = get_fields('product_tag_' . $tag_id);
-
-      if (isset($fields['faqs']) && is_array($fields['faqs'])) {
-         $faqs = $fields['faqs'];
-      }
-
-   } else {
-      // Bloques flexibles
-      $fields = get_fields();
-
-      if ($fields && isset($fields['flexible_content']) && is_array($fields['flexible_content'])) {
-         foreach ($fields['flexible_content'] as $block) {
-            // Verificar si el bloque es del tipo 'faqs'
-            if (isset($block['acf_fc_layout']) && $block['acf_fc_layout'] === 'faqs') {
-               if (isset($block['faq']) && is_array($block['faq'])) {
-                  $faqs = $block['faq'];
-                  break; // Asumiendo que solo hay un bloque de FAQs
-               }
+   if ($fields && isset($fields['flexible_content']) && is_array($fields['flexible_content'])) {
+      foreach ($fields['flexible_content'] as $block) {
+         // Verificar si el bloque es del tipo 'faqs'
+         if (isset($block['acf_fc_layout']) && $block['acf_fc_layout'] === 'faqs') {
+            if (isset($block['faq']) && is_array($block['faq'])) {
+               $faqs = $block['faq'];
+               break; // Asumiendo que solo hay un bloque de FAQs
             }
          }
       }
@@ -119,5 +97,5 @@ function generate_faqpage_schema() {
    }
 }
 
-add_action('wp_head', 'generate_faqpage_schema');
-?>
+// Hook para agregar el schema de FAQs
+add_action('wp_head', 'generate_schema_faqs');
