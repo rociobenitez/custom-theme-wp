@@ -1,6 +1,6 @@
 <?php
 /**
- * Genera e inserta los esquemas JSON-LD para AboutPage y HealthAndBeautyBusiness.
+ * Genera e inserta los esquemas JSON-LD para 'AboutPage' y 'HealthAndBeautyBusiness'
  */
 
 if (!defined('ABSPATH')) {

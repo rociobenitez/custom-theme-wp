@@ -1,15 +1,13 @@
 <?php
 /**
- * Genera e inserta el esquema JSON-LD para Service en páginas de servicios.
+ * Genera e inserta el esquema JSON-LD para Service en páginas
+ * de categoría de producto que actúan de páginas de servicios.
  */
 
 if (!defined('ABSPATH')) {
     exit; // Evita el acceso directo al archivo
 }
 
-/**
- * Genera el esquema JSON-LD para Service.
- */
 function generate_schema_service() {
     if ( !is_product_category() ) {
         return;
@@ -65,12 +63,16 @@ function generate_schema_service() {
     ];
 
     $query = new WP_Query($args);
-    $itemList = [];
 
     if ($query->have_posts()) {
+
+        $itemList = []; // Inicializar el array para almacenar los productos
+
         while ($query->have_posts()) {
             $query->the_post();
-            global $product;
+
+            // Obtener el producto correctamente desde WooCommerce
+            $product = wc_get_product(get_the_ID());
 
             if (!$product || !is_a($product, 'WC_Product')) {
                 continue;
@@ -85,11 +87,11 @@ function generate_schema_service() {
             $availability = ($product->is_in_stock()) ? "https://schema.org/InStock" : "https://schema.org/OutOfStock";
 
             // Construcción del esquema de cada producto
-            $itemList = [
-                "@type" => "Product",
-                "name" => $product_name,
-                "url" => $product_url,
-                "image" => $product_image,
+            $product_schema = [
+                "@type"  => "Product",
+                "name"   => $product_name,
+                "url"    => $product_url,
+                "image"  => $product_image,
                 "offers" => [
                     "@type" => "Offer",
                     "price" => $product_price,
@@ -101,8 +103,11 @@ function generate_schema_service() {
 
             // Agregar la descripción si existe
             if (!empty($product_description)) {
-                $itemList["description"] = $product_description;
+                $product_schema["description"] = $product_description;
             }
+
+            // Agregar el producto a la lista de productos
+            $itemList[] = $product_schema;
         }
         wp_reset_postdata(); // Restaurar datos originales de la consulta
     }
@@ -110,10 +115,10 @@ function generate_schema_service() {
     // Construir el array del esquema Service
     $schema_service = [
         "@context" => "https://schema.org",
-        "@type" => "Service",
-        "@id" => "#Service",
-        "name" => $title_service,
-        "url" => esc_url(get_term_link($term)),
+        "@type"    => "Service",
+        "@id"      => "#Service",
+        "name"     => $title_service,
+        "url"      => esc_url(get_term_link($term)),
         "provider" => [
             "@id" => "#Local"
         ],

@@ -7,9 +7,6 @@ if (!defined('ABSPATH')) {
     exit; // Evita el acceso directo al archivo
 }
 
-/**
- * Genera el esquema JSON-LD para Product.
- */
 function generate_schema_product() {
     // Verificar si es una página de producto
     if ( !is_product() ) {
@@ -26,8 +23,13 @@ function generate_schema_product() {
     // Obtener la URL actual de la página
     $current_url = get_permalink();
 
+    // Obtener los campos de ACF
+    $term = get_queried_object();
+    $fields = get_fields($term);
+
     // Obtener el título de la página (nombre del producto)
-    $title_product = get_the_title();
+    $h1 = $fields['cabecera']['title'];
+    $title_product = !empty($h1) ? $h1 : get_the_title();
 
     // Obtener la URL de la imagen del producto
     $image_product = wp_get_attachment_url(get_post_thumbnail_id());
