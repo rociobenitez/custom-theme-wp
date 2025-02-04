@@ -2,7 +2,7 @@
 /**
  * Configuración básica del theme
  *
- * @package NombreTheme
+ * @package custom_theme
  */
 
 /**
@@ -23,7 +23,7 @@ function custom_theme_setup() {
 	add_theme_support( 'post-thumbnails' );
 
    // Soporte para formatos de publicación
-   add_theme_support( 'post-formats', array( 'aside', 'gallery' ) );
+   add_theme_support( 'post-formats', array( 'aside', 'gallery', 'audio', 'video', 'image', 'link', 'quote', 'status' ) );
 
 	// Soporte para logotipo personalizado
 	add_theme_support('custom-logo', array(
@@ -42,7 +42,7 @@ function custom_theme_setup() {
 			'main'    => esc_html__( 'Menú Principal', THEME_TEXTDOMAIN ),
 			'footer1' => esc_html__( 'Menú Footer 1', THEME_TEXTDOMAIN ),
 			'footer2' => esc_html__( 'Menú Footer 2', THEME_TEXTDOMAIN ),
-			'legales' => esc_html__( 'Menú Legales', THEME_TEXTDOMAIN )
+			'legal' => esc_html__( 'Menú Páginas Legales', THEME_TEXTDOMAIN )
 		)
 	);
 
@@ -55,3 +55,76 @@ function custom_theme_setup() {
 }
 
 add_action( 'after_setup_theme', 'custom_theme_setup' );
+
+/**
+ * Crear menús por defecto.
+ */
+function custom_create_default_menus() {
+    // --- Menú Principal ---
+    $main_menu = wp_get_nav_menu_object( 'main' );
+    if ( ! $main_menu ) {
+        // Crear menú principal
+        $main_menu_id = wp_create_nav_menu( 'main' );
+
+        // Array de páginas para el menú principal
+        $main_pages = [
+            'home'         => '/',
+            'quienes-somos'=> 'quienes-somos',
+            'blog'         => 'blog',
+            'contacto'     => 'contacto',
+        ];
+        foreach ( $main_pages as $label => $slug ) {
+            $page = get_page_by_path( $slug );
+            if ( $page ) {
+                wp_update_nav_menu_item( $main_menu_id, 0, [
+                    'menu-item-title'     => $page->post_title,
+                    'menu-item-object'    => 'page',
+                    'menu-item-object-id' => $page->ID,
+                    'menu-item-type'      => 'post_type',
+                    'menu-item-status'    => 'publish',
+                ] );
+            }
+        }
+        // Asignar el menú a la ubicación 'main'
+        $locations = get_theme_mod( 'nav_menu_locations' );
+        if ( ! is_array( $locations ) ) {
+            $locations = [];
+        }
+        $locations['main'] = $main_menu_id;
+        set_theme_mod( 'nav_menu_locations', $locations );
+    }
+
+    // --- Menú de Legales ---
+    $legal_menu = wp_get_nav_menu_object( 'legal' );
+    if ( ! $legal_menu ) {
+        // Crear menú legal
+        $legal_menu_id = wp_create_nav_menu( 'legal' );
+
+        // Array de páginas para el menú de legales
+        $legal_pages = [
+            'aviso-legal'         => 'aviso-legal',
+            'politica-privacidad' => 'politica-privacidad',
+            'politica-cookies'    => 'politica-cookies',
+        ];
+        foreach ( $legal_pages as $label => $slug ) {
+            $page = get_page_by_path( $slug );
+            if ( $page ) {
+                wp_update_nav_menu_item( $legal_menu_id, 0, [
+                    'menu-item-title'     => $page->post_title,
+                    'menu-item-object'    => 'page',
+                    'menu-item-object-id' => $page->ID,
+                    'menu-item-type'      => 'post_type',
+                    'menu-item-status'    => 'publish',
+                ] );
+            }
+        }
+        // Asignar el menú a la ubicación 'legal'
+        $locations = get_theme_mod( 'nav_menu_locations' );
+        if ( ! is_array( $locations ) ) {
+            $locations = [];
+        }
+        $locations['legal'] = $legal_menu_id;
+        set_theme_mod( 'nav_menu_locations', $locations );
+    }
+}
+add_action( 'after_switch_theme', 'custom_create_default_menus' );

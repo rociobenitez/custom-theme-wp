@@ -9,8 +9,8 @@
  *
  * @link https://developer.wordpress.org/themes/basics/template-hierarchy/
  *
- * @package CustomTheme
+ * @package custom_theme
  */
 
- include('page-home.php'); 
- ?>
+ include('page-home.php');
+ 

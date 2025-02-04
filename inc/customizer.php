@@ -2,10 +2,10 @@
 /**
  * Opciones Generales del Theme Customizer
  *
- * @package NombreTheme
+ * @package custom_theme
  */
 
-function nombretheme_customize_register( $wp_customize ) {
+function custom_theme_customize_register( $wp_customize ) {
 	// SECCIÓN PARA EL LOGOTIPO
 	$wp_customize->add_setting( 'site_logo' );
 	$wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'site_logo', array(
@@ -211,4 +211,4 @@ function nombretheme_customize_register( $wp_customize ) {
 		'settings' => 'heading_color',
 	)));
 }
-add_action( 'customize_register', 'nombretheme_customize_register' );
+add_action( 'customize_register', 'custom_theme_customize_register' );

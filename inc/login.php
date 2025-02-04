@@ -2,7 +2,7 @@
 /**
  * Personalización de la página de inicio de sesión de WordPress.
  *
- * @package NombreTheme
+ * @package custom_theme
  */
 
 function custom_login_background() {

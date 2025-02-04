@@ -2,7 +2,7 @@
 /**
  * Funciones de ayuda y utilidades generales
  *
- * @package NombreTheme
+ * @package custom_theme
  */
 
 /**
@@ -46,7 +46,9 @@ function tagTitleFaq($h, $titulo, $class, $id = '', $class2 = '', $content = '')
     );
 }
 
-// Función personalizada de paginación
+/**
+ * Genera un paginador HTML con clases y atributos personalizados.
+ */
 function custom_pagination($total_pages = null, $current_page = null) {
    // Si no se define el total de páginas, intenta obtenerlo de la consulta global
    if (!$total_pages) {
@@ -81,4 +83,59 @@ function custom_pagination($total_pages = null, $current_page = null) {
 
    // Mostrar la paginación
    echo paginate_links($args);
+}
+
+/**
+ * Obtiene las opciones de contacto desde ACF.
+ * @return array Un array con las opciones de contacto.
+ */
+function get_contact_options() {
+   $options = get_fields('option');
+   return [
+      'phone' => $options['phone'] ?? '',
+      'whatsapp' => $options['whatsapp'] ?? '',
+      'email' => $options['email'] ?? '',
+   ];
+}
+
+/**
+ * Genera un enlace de contacto con icono y texto.
+ * @param string $type Tipo de enlace ('phone', 'whatsapp', 'email').
+ * @param string $value Valor del enlace.
+ */
+function generate_contact_link($type, $value) {
+   if (!empty($value)) {
+      $href = '';
+      $icon_src = '';
+      $alt = '';
+      $class = '';
+      switch ($type) {
+         case 'phone':
+            $href = 'tel:' . esc_attr(preg_replace('/\D/', '', $value));
+            $icon_src = get_template_directory_uri() . '/assets/img/icons/phone.svg';
+            $alt = 'Icono Teléfono';
+            $class = 'topbar-link phone text-decoration-none';
+            break;
+         case 'whatsapp':
+            $href = 'https://wa.me/' . esc_attr(preg_replace('/\D/', '', $value));
+            $icon_src = get_template_directory_uri(). '/assets/img/icons/whatsapp.svg';
+            $alt = 'Icono WhatsApp';
+            $class = 'topbar-link whatsapp text-decoration-none';
+            break;
+         case 'email':
+            $email = filter_var($value, FILTER_SANITIZE_EMAIL); // Elimina caracteres peligrosos
+            $href = 'mailto:'. esc_attr($value);
+            $icon_src = get_template_directory_uri(). '/assets/img/icons/mail.svg';
+            $alt = 'Icono Correo electrónico';
+            $class = 'topbar-link email text-decoration-none';
+            break;
+      }
+
+      echo '<a href="'. esc_url($href) .'" class="'. esc_attr($class) .'">
+         <div class="topbar-link-icon">
+            <img src="'. esc_url($icon_src).'" alt="'. esc_attr($alt).'" class="fs20 me-2">
+         </div>
+         <div class="topbar-link-text">'. esc_html($value).'</div>
+      </a>';
+   }
 }

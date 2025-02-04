@@ -2,7 +2,7 @@
 /**
  * Limpieza del head para mejorar seguridad y optimización.
  *
- * @package NombreTheme
+ * @package custom_theme
  */
 
 // Elimina enlaces de feeds adicionales (categorías, etiquetas, etc.)

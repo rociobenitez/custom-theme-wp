@@ -1,6 +1,7 @@
 <?php
-
-// Crear entradas de prueba al activar el tema (controlado por get_option)
+/**
+ * Creación de entradas de prueba al activar el tema
+ */
 function create_sample_blog_posts() {
    if (get_option('sample_posts_created')) {
       return;
@@ -11,8 +12,8 @@ function create_sample_blog_posts() {
    require_once ABSPATH . 'wp-admin/includes/file.php';
    require_once ABSPATH . 'wp-admin/includes/image.php';
 
-   $default_image_path = get_template_directory() . '/assets/img/default-blog-image.jpg';
-   $default_image_uri = get_template_directory_uri() . '/assets/img/default-blog-image.jpg';
+   $default_image_path = get_template_directory() . '/assets/img/default-blog-image.webp';
+   $default_image_uri = get_template_directory_uri() . '/assets/img/default-blog-image.webp';
 
    // Array de títulos de publicaciones de prueba
    $sample_posts = [
