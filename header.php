@@ -71,10 +71,10 @@ $contact_options = get_contact_options();
 		<nav class="navbar navbar-expand-xl navbar-light">
 			<div class="container" id="navbar-container">
 				<a class="navbar-brand" href="<?php echo esc_url( home_url('/') ); ?>">
-					<?php if (function_exists('the_custom_logo') && has_custom_logo()) : 
+					<?php if ( function_exists('the_custom_logo') && has_custom_logo() ) : 
 						the_custom_logo(); 
 					else : ?>
-						<img src="<?php echo esc_url($logo_src); ?>"
+						<img src="<?php echo esc_url( $logo_src ); ?>"
 							<?php echo $srcset; ?> 
 							class="img-brand logo-default" id="logo-default"
 							alt="<?php echo esc_attr( get_bloginfo('name') ); ?>" 

@@ -40,13 +40,8 @@ $footer_columns = [
 ];
 
 // Filtra las columnas activas
-if ( ! empty( $footer_columns ) && is_array( $footer_columns ) ) {
-    $active_cols  = array_filter( $footer_columns, fn( $col ) => has_nav_menu( $col['menu']) );
-    $column_count = count($active_cols) + 1; // Agregamos la columna de Contacto como adicional
-} else {
-    $column_count = 2;
-}
-
+$active_cols  = array_filter( $footer_columns, fn( $col ) => has_nav_menu( $col['menu']) );
+$column_count = count($active_cols) + 1; // Agregar la columna de Contacto como adicional
 $column_class = 'col-md-' . ($column_count === 1 ? '5' : (12 / $column_count));
 
 // Variables de contacto
@@ -58,7 +53,7 @@ $contact_info = [
 	'address'   => [
 		 'icon' => get_template_directory_uri() . "/assets/img/icons/location.svg",
 		 'link' => !empty($options['google_maps_link']) ? $options['google_maps_link'] : '',
-         'alt'  => __('Icono de ubicación', CUSTOM_THEME),
+         'alt'  => __('Icono de ubicación', THEME_TEXTDOMAIN),
 		 'text' => trim(($options['address'] ?? '') . 
 							(!empty($options['city']) ? ', ' . $options['city'] : '') . 
 							(!empty($options['postal_code']) ? ', ' . $options['postal_code'] : ''))
@@ -66,19 +61,19 @@ $contact_info = [
 	'phone'     => [
 		 'icon' => get_template_directory_uri() . "/assets/img/icons/phone.svg",
 		 'link' => !empty($phone) ? 'tel:' . $phone : '',
-         'alt'  => __('Icono de teléfono', CUSTOM_THEME),
+         'alt'  => __('Icono de teléfono', THEME_TEXTDOMAIN),
 		 'text' => $phone ?? ''
 	],
 	'whatsapp'  => [
 		 'icon' => get_template_directory_uri() . "/assets/img/icons/whatsapp.svg",
 		 'link' => !empty($whatsapp) ? 'https://wa.me/+34' . str_replace(' ', '', $whatsapp) : '',
-         'alt'  => __('Icono de WhatsApp', CUSTOM_THEME),
+         'alt'  => __('Icono de WhatsApp', THEME_TEXTDOMAIN),
 		 'text' => $whatsapp ?? ''
 	],
 	'email'     => [
 		 'icon' => get_template_directory_uri() . "/assets/img/icons/mail.svg",
 		 'link' => !empty($email) ? 'mailto:' . $email : '',
-         'alt'  => __('Icono de correo electrónico', CUSTOM_THEME),
+         'alt'  => __('Icono de correo electrónico', THEME_TEXTDOMAIN),
 		 'text' => $email ?? ''
 	]
 ];
@@ -133,7 +128,7 @@ $icon_schedule_src = get_template_directory_uri() . "/assets/img/icons/schedule.
                                 <?php endforeach; ?>
                                 <?php if ( $opening_hours ) : ?>
                                     <li class="footer-contact-item">
-                                        <img src="<?php echo esc_attr( $icon_schedule_src ); ?>" class="footer-contact-icon me-1" alt=<?php _e("Icono horario de apertura", CUSTOM_THEME ); ?>>
+                                        <img src="<?php echo esc_attr( $icon_schedule_src ); ?>" class="footer-contact-icon me-1" alt=<?php _e("Icono horario de apertura", THEME_TEXTDOMAIN ); ?>>
                                         <?php echo esc_html( $opening_hours ); ?>
                                     </li>
                                 <?php endif; ?>
@@ -195,7 +190,7 @@ $icon_schedule_src = get_template_directory_uri() . "/assets/img/icons/schedule.
 ?>
 
 <!-- Scroll to Top Button -->
-<a href="#" class="scroll-to-top" aria-label="<?php esc_attr_e( 'Scroll to top', CUSTOM_THEME ); ?>"><i class="bi bi-arrow-up"></i></a>
+<a href="#" class="scroll-to-top" aria-label="<?php esc_attr_e( 'Scroll to top', THEME_TEXTDOMAIN ); ?>"><i class="bi bi-arrow-up"></i></a>
 
 <?php // Mostrar botones de contacto (WhatsApp, Teléfono, Email)
 if( !empty( $whatsapp ) || !empty( $phone ) || !empty( $email ) ) {

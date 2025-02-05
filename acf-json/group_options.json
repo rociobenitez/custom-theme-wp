@@ -671,7 +671,32 @@
       "append": ""
     },
     {
-      "key": "field_666c20bcfbea1",
+      "key": "field_footer_layout",
+      "label": "Layout footer",
+      "name": "footer_layout",
+      "aria-label": "",
+      "type": "radio",
+      "instructions": "Número de columnas que aparecen en el pie de página",
+      "required": 0,
+      "conditional_logic": 0,
+      "wrapper": {
+          "width": "33",
+          "class": "",
+          "id": ""
+      },
+      "choices": {
+          "4columns": "4 columnas",
+          "3columns": "3 columnas"
+      },
+      "default_value": "4columns",
+      "return_format": "value",
+      "allow_null": 0,
+      "other_choice": 0,
+      "layout": "vertical",
+      "save_other_choice": 0
+    },
+    {
+      "key": "field_link_btn_movil_group",
       "label": "Botón móvil",
       "name": "",
       "aria-label": "",
@@ -689,7 +714,7 @@
       "selected": 0
     },
     {
-      "key": "field_666c2262fbead",
+      "key": "field_link_btn_movil",
       "label": "Enlace de contacto botón móvíl",
       "name": "link_btn_movil",
       "aria-label": "",

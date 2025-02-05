@@ -17,7 +17,7 @@
 
    <!-- Footer Menus -->
    <div class="row">
-      <?php foreach ($active_columns as $col) : ?>
+      <?php foreach ($active_cols as $col) : ?>
          <div class="<?php echo esc_attr($column_class); ?> footer-menu text-center text-md-start mb-4 mb-lg-0">
             <p class="footer-menu-title mb-2"><?php echo esc_html($col['title']); ?></p>
             <?php wp_nav_menu([
