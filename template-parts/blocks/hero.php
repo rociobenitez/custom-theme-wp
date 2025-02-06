@@ -1,64 +1,112 @@
 <?php
 /**
- * Hero
+ * Bloque Hero
  */
 
 // Obtener los valores de los campos ACF
-$fields   = get_fields();
-$title    = $fields['hero_main_title'] ?: '';
-$htag     = $fields['hero_heading_htag'] ?: 0;
-$subtitle = $fields['hero_subtitle'] ?: '';
-$bg_type  = $fields['hero_background_type'] ?: 'image';
-$img_bg   = $fields['hero_background_image'];
-$video_bg = $fields['hero_background_video'];
+$fields           = get_fields();
+$title            = $fields['hero_main_title'] ?? '';
+$htag             = $fields['hero_heading_htag'] ?? 0;
+$subtitle         = $fields['hero_subtitle'] ?? '';
+$htag_subtitle    = $fields['hero_subtitle_htag'] ?? 3;
+$tagline_position = $fields['hero_tagline_position'] ?? 'below'; // 'above' o 'below'
+$text_alignment   = $fields['hero_text_alignment'] ?? 'center';  // 'center', 'left' o 'right'
+$description      = $fields['hero_description'] ?? '';
+$bg_type          = $fields['hero_background_type'] ?? 'image';
+$img_bg           = $fields['hero_background_image'] ?? [];
+$video_bg         = $fields['hero_background_video'] ?? [];
 
-// Configuración de los botones
-$link_1 = $fields['hero_cta_button'] ?: '';
-$link_2 = $fields['hero_secondary_cta_button'] ?: '';
+// Botones
+$link_1 = $fields['hero_cta_button'] ?? [];
+$link_2 = $fields['hero_secondary_cta_button'] ?? [];
 
-// Verificar si no hay imagen ni video, y usar la imagen por defecto en ese caso
-if (empty($img_bg['url']) && empty($video_bg['url'])) {
+// Si no hay un video o imagen de fondo, usar la imagen por defecto
+if ( empty( $img_bg['url'] ) && empty( $video_bg['url'] ) ) {
     $bg_type = 'image';
     $img_bg  = ['url' => get_template_directory_uri() . '/assets/img/hero.jpg'];
+}
+
+// Mapear la clase de alineación del texto según el valor seleccionado
+switch ( $text_alignment ) {
+    case 'left':
+        $text_align_class = 'text-start';
+        $margin_text = 'me-auto';
+        $align_container = 'justify-content-start';
+        break;
+    case 'right':
+        $text_align_class = 'text-end';
+        $margin_text = 'ms-auto';
+        $align_container = 'justify-content-end';
+        break;
+    default:
+        $text_align_class = 'text-center';
+        $margin_text = 'mx-auto';
+        $align_container = 'justify-content-center';
+        break;
 }
 ?>
 
 <div id="hero">
-    <?php if ($bg_type == 'image' && !empty($img_bg['url'])) : ?>
-        <div class="hero-bg cover d-flex align-items-end"
+    <?php if ( 'image' === $bg_type && ! empty( $img_bg['url'] ) ) : ?>
+        <div class="hero-bg cover d-flex <?php echo esc_attr( $align_container ); ?>"
             style="background:
-                linear-gradient(0deg, rgba(10, 25, 47, 0.5), rgba(10, 25, 47, 0.6)),
-                linear-gradient(260deg, rgba(16, 42, 67, 0.5) 0%, rgba(0, 0, 0, 0.3) 100%),
-                url('<?php echo esc_url($img_bg['url']); ?>');">
-    <?php elseif ($bg_type == 'video' && !empty($video_bg['url'])) : ?>
-        <div class="hero-bg cover d-flex align-items-end relative overflow-hidden">
+                linear-gradient(0deg, rgba(20, 20, 20, 0.6), rgba(20, 20, 20, 0.8)),
+                linear-gradient(260deg, rgba(50, 50, 50, 0.5) 0%, rgba(20, 20, 20, 0.3) 100%),
+                url('<?php echo esc_url( $img_bg['url'] ); ?>');">
+    <?php elseif ( 'video' === $bg_type && ! empty( $video_bg['url'] ) ) : ?>
+        <div class="hero-bg cover d-flex <?php echo esc_attr( $align_container ); ?> relative overflow-hidden">
             <video autoplay muted loop class="background-video absolute">
-                <source src="<?php echo esc_url($video_bg['url']); ?>" type="video/mp4">
-                Tu navegador no soporta este vídeo.
+                <source src="<?php echo esc_url( $video_bg['url'] ); ?>" type="video/mp4">
+                <?php esc_html_e( 'Tu navegador no soporta este vídeo.', THEME_TEXTDOMAIN ); ?>
             </video>
             <div class="video-overlay absolute"></div>
     <?php endif; ?>
     
-        <div class="row h-100 container mx-auto py-5">
-            <div class="col-md-10 col-lg-8 col-xl-6 d-flex flex-column justify-content-center h-100 py-5 my-5">
-                <?php echo tagTitle($htag, esc_html($title), 'heading-1 hero-title c-white', ''); ?>
-                <div class="hero-subtitle-container">
-                    <p class="hero-subtitle fs20 c-white lh160"><?php echo esc_html($subtitle); ?></p>
-                </div>
-                <div class="hero-buttons d-flex flex-column flex-md-row gap-2 mt-3">
-                    <?php if (!empty($link_1['url']) && !empty($link_1['title'])) : ?>
-                        <a href="<?php echo esc_url($link_1['url']); ?>" 
+        <div class="row h-100 container mx-auto py-5 <?php echo esc_attr( $text_align_class ); ?>">
+            <div class="col-md-10 col-lg-8 col-xl-6 d-flex flex-column justify-content-center h-100 py-5 my-5 <?php echo esc_attr( $margin_text ); ?>">
+                <?php 
+                // Si el subtítulo debe aparecer arriba, muéstralo antes del título
+                if ( 'above' === $tagline_position && ! empty( $subtitle ) ) : ?>
+                    <div class="hero-subtitle-container">
+                        <p class="hero-subtitle fs20 c-white lh160"><?php echo esc_html( $subtitle ); ?></p>
+                    </div>
+                <?php endif; ?>
+                
+                <?php
+                // Mostrar el título si existe
+                if ( ! empty( $title ) ) :
+                    echo tagTitle( $htag, esc_html( $title ), 'heading-1 hero-title c-white', '');
+                endif;
+                ?>
+
+                <?php
+                // Si el subtítulo debe aparecer debajo, muéstralo después del título
+                if ( 'below' === $tagline_position && ! empty( $subtitle ) ) : ?>
+                    <div class="hero-subtitle-container">
+                        <p class="hero-subtitle fs20 c-white lh160"><?php echo esc_html( $subtitle ); ?></p>
+                    </div>
+                <?php endif; ?>
+
+                <?php if ( ! empty( $description ) ) : ?>
+                    <div class="hero-description text-white">
+                        <?php echo wp_kses_post( $description ); ?>
+                    </div>
+                <?php endif; ?>
+
+                <div class="hero-buttons d-flex flex-column flex-md-row gap-2 mt-3 <?php echo esc_attr( $align_container ); ?>">
+                    <?php if ( !empty($link_1['url'] ) && !empty( $link_1['title'] ) ) : ?>
+                        <a href="<?php echo esc_url( $link_1['url'] ); ?>" 
                            class="btn btn-xl btn-primary hero-button" 
-                           target="<?php echo esc_attr($link_1['target']); ?>">
-                            <?php echo esc_html($link_1['title']); ?>
+                           target="<?php echo esc_attr( $link_1['target']) ; ?>">
+                            <?php echo esc_html( $link_1['title'] ); ?>
                         </a>
                     <?php endif; ?>
 
-                    <?php if (!empty($link_2['url']) && !empty($link_2['title'])) : ?>
-                        <a href="<?php echo esc_url($link_2['url']); ?>" 
+                    <?php if ( !empty($link_2['url'] ) && !empty( $link_2['title'] ) ) : ?>
+                        <a href="<?php echo esc_url( $link_2['url'] ); ?>" 
                            class="btn btn-xl btn-transparent hero-button" 
-                           target="<?php echo esc_attr($link_2['target']); ?>">
-                            <?php echo esc_html($link_2['title']); ?>
+                           target="<?php echo esc_attr( $link_2['target'] ); ?>">
+                            <?php echo esc_html( $link_2['title'] ); ?>
                         </a>
                     <?php endif; ?>
                 </div>
