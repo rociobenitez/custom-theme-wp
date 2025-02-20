@@ -44,7 +44,7 @@ get_template_part('template-parts/pageheader', null, ['pageheader_style' => 'bg-
                     </div>
 
                     <!-- Lista de productos -->
-                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
+                    <div class="grid-products row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
                         <?php while ( have_posts() ) : the_post(); ?>
                             <div class="col">
                                 <?php wc_get_template_part( 'content', 'product' ); ?>

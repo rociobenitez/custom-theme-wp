@@ -2,7 +2,7 @@
  # Woocommerce
  --------------------------------------------------------------*/
 /* Catálogo de productos (página de tienda) */
-div.product.type-product {
+.grid-products div.product.type-product {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -209,6 +209,20 @@ select.orderby {
 /**
 * Ficha producto
 */
+
+.summary.entry-summary {
+  margin-top: 2em !important;
+}
+
+.summary.entry-summary .product_meta a {
+  text-decoration: underline;
+  color: var(--color-primary-500);
+}
+
+.summary.entry-summary .product_meta a:hover {
+  text-decoration: underline;
+  color: var(--color-primary-400);
+}
 
 /* Encabezados */
 .product_title.entry-title {
@@ -446,7 +460,7 @@ section.related div.card.product-card {
 
 /* Bloque Tabs */
 .woocommerce-tabs.wc-tabs-wrapper {
-  display: none;
+  display: block !important;
 }
 
 /* Catálogo */

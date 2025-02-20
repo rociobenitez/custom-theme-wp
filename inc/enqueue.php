@@ -17,7 +17,7 @@ function custom_theme_enqueue_scripts() {
    // CSS Principal del theme, panel de administración y Woocommerce
    wp_enqueue_style( 'theme-style', get_stylesheet_uri(), array('bootstrap-css'), _THEME_VERSION );
    wp_enqueue_style( 'my-admin-style', get_template_directory_uri() . '/css/admin-styles.css', array('bootstrap-css'), _THEME_VERSION );
-   wp_enqueue_style( 'my-admin-style', get_template_directory_uri() . '/css/woocommerce.css', array('bootstrap-css'), _THEME_VERSION );
+   wp_enqueue_style( 'woocommerce-style', get_template_directory_uri() . '/css/woocommerce.css', array('bootstrap-css'), _THEME_VERSION );
 
    // JS Principal del theme
    wp_enqueue_script( 'theme-scripts', get_template_directory_uri() . '/assets/js/main.js', array(), _THEME_VERSION, true );
