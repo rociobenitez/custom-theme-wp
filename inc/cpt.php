@@ -24,74 +24,89 @@ function register_custom_post_types() {
       'supports'           => array('title', 'editor', 'author', 'thumbnail', 'excerpt', 'revisions'),
       'public'             => true,
       'publicly_queryable' => true,
-      '_builtin'           => true, // Esto define el tipo de publicación como integrado
+      '_builtin'           => true,  // Esto define el tipo de publicación como integrado
       '_edit_link'         => 'post.php?post=%d', // URL de edición en admin
       'capability_type'    => 'post', // Derechos de usuario similares a publicaciones estándar
       'map_meta_cap'       => true,
       'query_var'          => false, // Define la variable de consulta en URLs
-      'hierarchical'       => true, // Determina si es jerárquico (con hijos)
+      'hierarchical'       => true,  // Determina si es jerárquico (con hijos)
       'has_archive'        => false,
       'rewrite'            => array('slug' => 'blog', 'with_front' => false),
    ));
 
-   /*
+   
    // CPT Servicios (Descomentarlo para habilitarlo)
-   // Este bloque de código permite registrar el CPT de Servicios. 
-   // Descomenta y personaliza según sea necesario.
-   register_post_type('servicios', array(
-      'label'       => __('Servicios', 'theme'),
-      'description' => __('Custom post type para servicios', 'theme'),
-      'labels'      => array(
-         'name'               => __('Servicios', 'theme'),
-         'singular_name'      => __('Servicio', 'theme'),
-         'menu_name'          => __('Servicios', 'theme'),
-         'parent_item_colon'  => __('Servicio padre:', 'theme'),
-         'all_items'          => __('Ver todos', 'theme'),
-         'view_item'          => __('Ver Servicio', 'theme'),
-         'add_new_item'       => __('Añadir Nuevo Servicio', 'theme'),
-         'add_new'            => __('Nuevo Servicio', 'theme'),
-         'edit_item'          => __('Editar Servicio', 'theme'),
-         'update_item'        => __('Actualizar Servicio', 'theme'),
-         'search_items'       => __('Buscar Servicio', 'theme'),
-         'not_found'          => __('No se encontraron servicios', 'theme'),
-         'not_found_in_trash' => __('No se encontraron servicios en la papelera', 'theme')
-      ),
-      'public'             => true,
-      'has_archive'        => true,
-      'publicly_queryable' => true,
-      'query_var'          => true,
-      'rewrite'            => array('slug' => 'servicios', 'with_front' => false),
-      'supports'           => array('title', 'editor', 'thumbnail', 'revisions', 'excerpt'),
-      'menu_icon'          => 'dashicons-universal-access',
-      'hierarchical'       => false,
-   ));
-   */
+   // register_post_type('servicios', array(
+   //    'label'       => __('Servicios', 'theme'),
+   //    'description' => __('Custom post type para servicios', 'theme'),
+   //    'labels'      => array(
+   //       'name'               => __('Servicios', 'theme'),
+   //       'singular_name'      => __('Servicio', 'theme'),
+   //       'menu_name'          => __('Servicios', 'theme'),
+   //       'parent_item_colon'  => __('Servicio padre:', 'theme'),
+   //       'all_items'          => __('Ver todos', 'theme'),
+   //       'view_item'          => __('Ver Servicio', 'theme'),
+   //       'add_new_item'       => __('Añadir Nuevo Servicio', 'theme'),
+   //       'add_new'            => __('Nuevo Servicio', 'theme'),
+   //       'edit_item'          => __('Editar Servicio', 'theme'),
+   //       'update_item'        => __('Actualizar Servicio', 'theme'),
+   //       'search_items'       => __('Buscar Servicio', 'theme'),
+   //       'not_found'          => __('No se encontraron servicios', 'theme'),
+   //       'not_found_in_trash' => __('No se encontraron servicios en la papelera', 'theme')
+   //    ),
+   //    'public'             => true,
+   //    'has_archive'        => true,
+   //    'publicly_queryable' => true,
+   //    'query_var'          => true,
+   //    'rewrite'            => array('slug' => 'servicios', 'with_front' => false),
+   //    'supports'           => array('title', 'editor', 'thumbnail', 'revisions', 'excerpt'),
+   //    'menu_icon'          => 'dashicons-universal-access',
+   //    'hierarchical'       => false,
+   // ));
 
-   /*
    // Taxonomía Tipo de Servicio para CPT Servicios (Descomentarlo para habilitarlo)
-   // Descomenta este bloque para añadir la taxonomía "Tipo de Servicio" al CPT Servicios.
+   // register_taxonomy('tipo_servicio', 'servicios', array(
+   //    'hierarchical'      => true,
+   //    'labels'            => array(
+   //       'name'              => __('Tipos de Servicio', 'theme'),
+   //       'singular_name'     => __('Tipo de Servicio', 'theme'),
+   //       'search_items'      => __('Buscar Tipo de Servicio', 'theme'),
+   //       'all_items'         => __('Todos los Tipos de Servicio', 'theme'),
+   //       'parent_item'       => __('Tipo de Servicio Padre', 'theme'),
+   //       'parent_item_colon' => __('Tipo de Servicio Padre:', 'theme'),
+   //       'edit_item'         => __('Editar Tipo de Servicio', 'theme'),
+   //       'update_item'       => __('Actualizar Tipo de Servicio', 'theme'),
+   //       'add_new_item'      => __('Añadir Nuevo Tipo de Servicio', 'theme'),
+   //       'new_item_name'     => __('Nuevo Nombre de Tipo de Servicio', 'theme'),
+   //       'menu_name'         => __('Tipos de Servicio', 'theme')
+   //    ),
+   //    'show_ui'           => true,
+   //    'show_admin_column' => true,
+   //    'query_var'         => true,
+   //    'rewrite'           => array('slug' => 'tipo-servicio'),
+   // ));
 
-   register_taxonomy('tipo_servicio', 'servicios', array(
-      'hierarchical'      => true,
-      'labels'            => array(
-         'name'              => __('Tipos de Servicio', 'theme'),
-         'singular_name'     => __('Tipo de Servicio', 'theme'),
-         'search_items'      => __('Buscar Tipo de Servicio', 'theme'),
-         'all_items'         => __('Todos los Tipos de Servicio', 'theme'),
-         'parent_item'       => __('Tipo de Servicio Padre', 'theme'),
-         'parent_item_colon' => __('Tipo de Servicio Padre:', 'theme'),
-         'edit_item'         => __('Editar Tipo de Servicio', 'theme'),
-         'update_item'       => __('Actualizar Tipo de Servicio', 'theme'),
-         'add_new_item'      => __('Añadir Nuevo Tipo de Servicio', 'theme'),
-         'new_item_name'     => __('Nuevo Nombre de Tipo de Servicio', 'theme'),
-         'menu_name'         => __('Tipos de Servicio', 'theme')
-      ),
-      'show_ui'           => true,
-      'show_admin_column' => true,
-      'query_var'         => true,
-      'rewrite'           => array('slug' => 'tipo-servicio'),
-   ));
-   */
+   // Taxonomía de Producto de Woocommerce (Descomentarlo para habilitarlo)
+   // register_taxonomy('material','product', array(
+   //    'hierarchical'      => true,
+   //    'labels'            => array(
+   //       'name'              => __('Materiales', 'theme'),
+   //       'singular_name'     => __('Material', 'theme'),
+   //       'search_items'      => __('Buscar Material', 'theme'),
+   //       'all_items'         => __('Todas las Materiales', 'theme'),
+   //       'parent_item'       => __('Material Padre', 'theme'),
+   //       'parent_item_colon' => __('Material Padre:', 'theme'),
+   //       'edit_item'         => __('Editar Material', 'theme'),
+   //       'update_item'       => __('Actualizar Material', 'theme'),
+   //       'add_new_item'      => __('Añadir Material', 'theme'),
+   //       'new_item_name'     => __('Nuevo Material', 'theme'),
+   //       'menu_name'         => __('Materiales', 'theme')
+   //    ),
+   //    'show_ui'           => true,
+   //    'show_admin_column' => true,
+   //    'query_var'         => true,
+   //    'rewrite'           => array('slug' => 'producto'),
+   // ));
 }
 
 // Habilitar soporte para miniaturas en los tipos de publicación personalizados
