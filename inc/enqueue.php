@@ -14,8 +14,10 @@ function custom_theme_enqueue_scripts() {
    wp_enqueue_style( 'font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css', array(), null );
    wp_enqueue_style( 'bootstrap-icons', 'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css', array(), null );
 
-   // CSS Principal del theme
+   // CSS Principal del theme, panel de administración y Woocommerce
    wp_enqueue_style( 'theme-style', get_stylesheet_uri(), array('bootstrap-css'), _THEME_VERSION );
+   wp_enqueue_style( 'my-admin-style', get_template_directory_uri() . '/css/admin-styles.css', array('bootstrap-css'), _THEME_VERSION );
+   wp_enqueue_style( 'my-admin-style', get_template_directory_uri() . '/css/woocommerce.css', array('bootstrap-css'), _THEME_VERSION );
 
    // JS Principal del theme
    wp_enqueue_script( 'theme-scripts', get_template_directory_uri() . '/assets/js/main.js', array(), _THEME_VERSION, true );
