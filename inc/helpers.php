@@ -139,3 +139,46 @@ function generate_contact_link($type, $value) {
       </a>';
    }
 }
+
+/**
+ * Genera una lista de redes sociales con iconos.
+ */
+function sociales(){
+   $redes_sociales = array(
+       'facebook'  => 'fa-facebook-f',
+       'twitter'   => 'fa-x-twitter',
+       'instagram' => 'fa-instagram',
+       'linkedin'  => 'fa-linkedin-in',
+       'youtube'  => 'fa-youtube',
+   );
+   $lista = '';
+   $lista .= '<div class="d-flex">';
+   $links = get_field('social_links', 'options');
+   foreach($links as $social) :
+       if (!empty($social['social_url'])) {
+           $lista .= sprintf(
+               '<a href="%s" class="m-2 text-black text-decoration-none d-flex" target="_blank" title="%s"><i class="but-round round-black p-2 fa-brands %s fs24"></i></a>',
+               $social['social_url'],
+               ucfirst($social['social_network']),
+               esc_attr($redes_sociales[$social['social_network']])
+           );
+       }
+   endforeach;
+   $lista .= '</div>';
+   return $lista;
+}
+
+/**
+ * Genera el texto de derechos de autor en el pie de página.
+ */
+function footer_copy() {
+   $year = date("Y");
+   $site_name = get_bloginfo('name'); // Obtener el nombre del sitio
+   $footer_text = sprintf(
+       '&copy; %s %s, S.L. Todos los derechos reservados | Desarrollado por <a href="%s" target="_blank">Rocío Benítez</a>',
+       esc_html($year),
+       esc_html($site_name), // Escapar el nombre del sitio
+       esc_url('https://github.com/rociobenitez')
+   );
+   echo $footer_text;
+}
