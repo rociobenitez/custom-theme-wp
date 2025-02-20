@@ -149,7 +149,7 @@ function sociales(){
        'twitter'   => 'fa-x-twitter',
        'instagram' => 'fa-instagram',
        'linkedin'  => 'fa-linkedin-in',
-       'youtube'  => 'fa-youtube',
+       'youtube'   => 'fa-youtube',
    );
    $lista = '';
    $lista .= '<div class="d-flex">';

@@ -9,6 +9,14 @@
  */
 
 /**
+ * Añadir soporte para WooCommerce
+ */
+add_action( 'after_setup_theme', 'mytheme_add_woocommerce_support' );
+function mytheme_add_woocommerce_support() {
+    add_theme_support( 'woocommerce' );
+}
+
+/**
  * Eliminar la pestaña "Valoraciones" de la ficha de producto
  *
  * Esta función elimina la pestaña de valoraciones (reviews) en las páginas de productos.
