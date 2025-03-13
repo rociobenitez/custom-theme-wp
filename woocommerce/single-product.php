@@ -67,7 +67,7 @@ get_header( 'shop' ); ?>
 	</div>
 </div>
 
-<div class="container my-5">
+<!-- <div class="container my-5"> -->
 <?php
 	/**
 	 * Hook: woocommerce_after_single_product_summary.
@@ -76,9 +76,9 @@ get_header( 'shop' ); ?>
 	 * @hooked woocommerce_upsell_display - 15
 	 * @hooked woocommerce_output_related_products - 20
 	 */
-	do_action( 'woocommerce_after_single_product_summary' );
+	//do_action( 'woocommerce_after_single_product_summary' );
 ?>
-</div>
+<!-- </div> -->
 
 <?php
 /**
