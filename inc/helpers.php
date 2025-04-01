@@ -182,3 +182,15 @@ function footer_copy() {
    );
    echo $footer_text;
 }
+
+/**
+ * Obtiene un componente de la plantilla y lo muestra.
+ * @param string $template_path Ruta relativa al archivo del componente.
+ * @param array $args Argumentos para el componente.
+ */
+function get_component($template_path, $args = []) {
+   if (!empty($args) && is_array($args)) {
+      extract($args); // Extrae las claves del array como variables
+   }
+   include locate_template($template_path . '.php', false, false);
+}
