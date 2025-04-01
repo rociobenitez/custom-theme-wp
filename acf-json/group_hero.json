@@ -318,7 +318,7 @@
   "instruction_placement": "label",
   "hide_on_screen": "",
   "active": true,
-  "description": "",
+  "description": "Configuración del Hero de la página de inicio.",
   "show_in_rest": 0,
   "modified": 1730487385
 }

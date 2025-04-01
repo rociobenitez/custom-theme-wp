@@ -1,6 +1,6 @@
 [
   {
-    "key": "group_671755056662d",
+    "key": "group_pageheader",
     "title": "Page Header",
     "fields": [
       {
@@ -166,7 +166,7 @@
     "label_placement": "top",
     "instruction_placement": "label",
     "active": true,
-    "description": "Configuración de la cabecera de la página",
+    "description": "Configuración de la cabecera de la página.",
     "show_in_rest": 0
   }
 ]

@@ -157,7 +157,7 @@
     "instruction_placement": "label",
     "hide_on_screen": "",
     "active": true,
-    "description": "",
+    "description": "Slider para la página de inicio.",
     "show_in_rest": 0,
     "modified": 1727879936
   }

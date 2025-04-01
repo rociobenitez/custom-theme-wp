@@ -149,7 +149,7 @@
     "instruction_placement": "label",
     "hide_on_screen": "",
     "active": true,
-    "description": "",
+    "description": "Configuración de opciones para la página de autor.",
     "show_in_rest": 0,
     "modified": 1730397921
 }

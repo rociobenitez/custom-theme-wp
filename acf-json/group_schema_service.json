@@ -104,7 +104,7 @@
   "instruction_placement": "label",
   "hide_on_screen": "",
   "active": true,
-  "description": "Configura los datos estructurados del servicio utilizando este grupo de campos.",
+  "description": "Configuración de los datos estructurados del servicio.",
   "show_in_rest": 0,
   "modified": 1735632463
 }
