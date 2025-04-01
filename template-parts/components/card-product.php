@@ -21,8 +21,11 @@ if (!isset($product_obj) || !isset($product_id)) {
       <div class="product-image">
          <?php if (has_post_thumbnail($product_id)) : ?>
             <?php echo get_the_post_thumbnail($product_id, 'medium', ['class' => 'card-img-top rounded']); ?>
-         <?php else : ?>
+         <?php elseif ($default_product_img) : ?>
             <img src="<?php echo esc_url($default_product_img); ?>" class="card-img-top rounded"
+               alt="<?php echo esc_attr(get_the_title($product_id)); ?>" >
+         <?php else : ?>
+            <img src="<?php echo esc_url(wc_placeholder_img_src()); ?>" class="card-img-top rounded"
                alt="<?php echo esc_attr(get_the_title($product_id)); ?>" >
          <?php endif; ?>
       </div>
