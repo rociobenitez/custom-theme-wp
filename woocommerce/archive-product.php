@@ -29,6 +29,14 @@ get_template_part('template-parts/pageheader', null, ['pageheader_style' => 'bg-
 <!-- Contenido principal de la tienda -->
 <div class="woocommerce-shop py-5">
     <div class="container">
+        <?php
+        /**
+         * Hook: woocommerce_before_main_content
+         * 
+         * @hooked woocommerce_breadcrumb - 20
+         */
+        do_action('woocommerce_before_main_content');
+        ?>
         <div class="row">
             <!-- Sidebar -->
             <aside class="col-12 col-lg-3">
@@ -44,9 +52,9 @@ get_template_part('template-parts/pageheader', null, ['pageheader_style' => 'bg-
                     </div>
 
                     <!-- Lista de productos -->
-                    <div class="grid-products row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
+                    <div class="grid-products row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4 mb-5">
                         <?php while ( have_posts() ) : the_post(); ?>
-                            <div class="col">
+                            <div class="col mb-3 text-center">
                                 <?php wc_get_template_part( 'content', 'product' ); ?>
                             </div>
                         <?php endwhile; ?>

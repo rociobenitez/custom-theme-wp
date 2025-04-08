@@ -7,7 +7,7 @@ $cols = $args['cols'] ?: 'col-md-4';
 $description = $args['description'] ?: '';
 $class_card = $args['class_card'] ?? '';
 $card_style = $args['card_style'] ?? 'image';
-$background_css = 'linear-gradient(rgba(16, 42, 67, 0.8), rgba(16, 42, 67, 0.8)';
+$background_css = 'linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25))';
 
 // Validación del enlace
 $link_url = is_array($link) ? esc_url($link['url']) : esc_url($link);
@@ -35,20 +35,22 @@ $link_title = is_array($link) && isset($link['title']) ? esc_html($link['title']
 
     <?php else: ?>
 
-        <a href="<?php echo $link_url; ?>" class="card <?php echo esc_attr($class_card); ?> text-white cover relative overflow-hidden" target="<?php echo $link_target; ?>">
-            <div class="card-background position-absolute top-0 start-0 w-100 h-100 cover" style="background: <?php echo $background_css; ?>, url('<?php echo esc_url($image_url); ?>');"></div>
-            <div class="card-body relative d-flex flex-column justify-content-center align-items-center text-center p-4">
-                <?php if(!empty($title)): ?>
-                    <?php echo tagTitle($htag, esc_html($title), 'card-title fs20 fw500', ''); ?>
-                <?php endif; ?>
-                <span class="card-underline"></span>
-                <?php if(!empty($description)): ?>
-                    <div class="card-description back-content position-absolute w-100 p-4 c-white">
-                        <?php echo $description; ?>
-                    </div>
-                <?php endif; ?>
+        <a href="<?php echo $link_url; ?>" class="card related-card text-white cover position-relative h-100 overflow-hidden rounded shadow-sm" target="<?php echo $link_target; ?>" aria-label="<?php echo esc_attr($title); ?>">
+         <div class="card-background position-absolute top-0 start-0 w-100 h-100" style="background: <?php echo $background_css; ?>, url('<?php echo esc_url($image_url); ?>'); background-size: cover; background-position: center;" aria-hidden="true"></div>
+         
+         <div class="card-body position-relative d-flex flex-column justify-content-center align-items-center text-center p-4 h-100">
+            <div class="card-content">
+               <?php if ($title): ?>
+                  <?php echo tagTitle($htag, $title, 'card-title fs20 fw500 mb-0 transition-all', ''); ?>
+               <?php endif; ?>
+               <?php if ($description): ?>
+                  <div class="card-description hidden-description mt-2 small fw300">
+                     <?php echo $description; ?>
+                  </div>
+               <?php endif; ?>
             </div>
-        </a>
+         </div>
+      </a>
 
     <?php endif; ?>
 
