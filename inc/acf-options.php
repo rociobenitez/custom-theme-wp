@@ -50,10 +50,10 @@ add_action('admin_notices', 'custom_acf_options_update_message');
 /**
  *  Clave API de Google Maps (Opcional)
  */
-// function custom_acf_init() {
-//    $google_api_key = get_field('api_google', 'option');
-//    if ($google_api_key) {
-//        acf_update_setting('google_api_key', $google_api_key);
-//    }
-// }
-// add_action('acf/init', 'custom_acf_init');
+function custom_acf_init() {
+   $google_api_key = get_field('google_maps_api', 'option');
+   if ($google_api_key) {
+       acf_update_setting('google_api_key', $google_api_key);
+   }
+}
+add_action('acf/init', 'custom_acf_init');

@@ -1169,6 +1169,36 @@ ul.dropdown-submenu.show {
 /*--------------------------------------------------------------
 # Flexible Blocks: Related Content
 --------------------------------------------------------------*/
+.related-card {
+  min-height: 490px;
+}
+
+.related-card .card-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.related-card .card-description {
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+}
+
+.related-card :is(.card-title, .card-description) {
+  transition: all 0.3s ease-in-out;
+}
+
+.related-card:hover .card-description {
+  opacity: 1;
+  max-height: 100px;
+  margin-top: 0.5rem;
+}
+
+.related-card:hover .card-title {
+  margin-bottom: 0.5rem;
+}
 
 /*--------------------------------------------------------------
 # Flexible Blocks: Related Products
