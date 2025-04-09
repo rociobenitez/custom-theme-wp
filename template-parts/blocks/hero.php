@@ -30,83 +30,76 @@ if ( empty( $img_bg['url'] ) && empty( $video_bg['url'] ) ) {
 switch ( $text_alignment ) {
     case 'left':
         $text_align_class = 'text-start';
-        $margin_text = 'me-auto';
+        $margin_text = 'me-auto my-5';
         $align_container = 'justify-content-start';
         break;
     case 'right':
         $text_align_class = 'text-end';
-        $margin_text = 'ms-auto';
+        $margin_text = 'ms-auto my-5';
         $align_container = 'justify-content-end';
         break;
     default:
         $text_align_class = 'text-center';
-        $margin_text = 'mx-auto';
+        $margin_text = 'mx-auto my-5';
         $align_container = 'justify-content-center';
         break;
 }
 ?>
 
-<div id="hero">
+<div id="hero" class="overflow-hidden">
     <?php if ( 'image' === $bg_type && ! empty( $img_bg['url'] ) ) : ?>
-        <div class="hero-bg cover d-flex <?php echo esc_attr( $align_container ); ?>"
+        <div class="hero-bg cover d-flex z-1 <?= esc_attr( $align_container ); ?>"
             style="background:
-                linear-gradient(0deg, rgba(20, 20, 20, 0.6), rgba(20, 20, 20, 0.8)),
-                linear-gradient(260deg, rgba(50, 50, 50, 0.5) 0%, rgba(20, 20, 20, 0.3) 100%),
-                url('<?php echo esc_url( $img_bg['url'] ); ?>');">
+                linear-gradient(0deg, rgba(20, 20, 20, 0.4), rgba(20, 20, 20, 0.5)),
+                linear-gradient(260deg, rgba(50, 50, 50, 0.4) 0%, rgba(20, 20, 20, 0.3) 100%),
+                url('<?= esc_url( $img_bg['url'] ); ?>');">
     <?php elseif ( 'video' === $bg_type && ! empty( $video_bg['url'] ) ) : ?>
-        <div class="hero-bg cover d-flex <?php echo esc_attr( $align_container ); ?> relative overflow-hidden">
-            <video autoplay muted loop class="background-video absolute">
-                <source src="<?php echo esc_url( $video_bg['url'] ); ?>" type="video/mp4">
+        <div class="hero-bg cover d-flex <?= esc_attr( $align_container ); ?> position-relative overflow-hidden z-1">
+            <video autoplay muted loop class="hero-video">
+                <source src="<?= esc_url( $video_bg['url'] ); ?>" type="video/mp4">
                 <?php esc_html_e( 'Tu navegador no soporta este vídeo.', THEME_TEXTDOMAIN ); ?>
             </video>
-            <div class="video-overlay absolute"></div>
+            <div class="video-overlay position-absolute top-0 start-0 h-100 w-100 bg-black bg-opacity-25 z-2"></div>
     <?php endif; ?>
     
-        <div class="row h-100 container mx-auto py-5 <?php echo esc_attr( $text_align_class ); ?>">
-            <div class="col-md-10 col-lg-8 col-xl-6 d-flex flex-column justify-content-center h-100 py-5 my-5 <?php echo esc_attr( $margin_text ); ?>">
+        <div class="container position-absolute h-100 py-5 z-3">
+            <div class="col-md-10 col-lg-8 col-xl-6 d-flex flex-column justify-content-center h-100 py-5 <?= esc_attr( $text_align_class . ' ' . $margin_text ); ?>">
                 <?php 
                 // Si el subtítulo debe aparecer arriba, muéstralo antes del título
                 if ( 'above' === $tagline_position && ! empty( $subtitle ) ) : ?>
-                    <div class="hero-subtitle-container">
-                        <p class="hero-subtitle fs20 c-white lh160"><?php echo esc_html( $subtitle ); ?></p>
-                    </div>
+                    <p class="hero-subtitle fs20 c-white lh160"><?= esc_html( $subtitle ); ?></p>
                 <?php endif; ?>
                 
-                <?php
-                // Mostrar el título si existe
-                if ( ! empty( $title ) ) :
-                    echo tagTitle( $htag, esc_html( $title ), 'heading-1 hero-title c-white', '');
-                endif;
-                ?>
+                <?php if ( ! empty( $title ) ) : ?>
+                    <?= tagTitle( $htag, esc_html( $title ), 'heading-1 hero-title c-white', ''); ?>
+                <?php endif; ?>
 
                 <?php
                 // Si el subtítulo debe aparecer debajo, muéstralo después del título
                 if ( 'below' === $tagline_position && ! empty( $subtitle ) ) : ?>
-                    <div class="hero-subtitle-container">
-                        <p class="hero-subtitle fs20 c-white lh160"><?php echo esc_html( $subtitle ); ?></p>
-                    </div>
+                    <p class="hero-subtitle fs20 c-white lh160"><?= esc_html( $subtitle ); ?></p>
                 <?php endif; ?>
 
                 <?php if ( ! empty( $description ) ) : ?>
                     <div class="hero-description text-white">
-                        <?php echo wp_kses_post( $description ); ?>
+                        <?= wp_kses_post( $description ); ?>
                     </div>
                 <?php endif; ?>
 
-                <div class="hero-buttons d-flex flex-column flex-md-row gap-2 mt-3 <?php echo esc_attr( $align_container ); ?>">
+                <div class="hero-buttons d-flex flex-column flex-md-row gap-2 mt-3 <?= esc_attr( $align_container ); ?>">
                     <?php if ( !empty($link_1['url'] ) && !empty( $link_1['title'] ) ) : ?>
-                        <a href="<?php echo esc_url( $link_1['url'] ); ?>" 
+                        <a href="<?= esc_url( $link_1['url'] ); ?>" 
                            class="btn btn-xl btn-primary hero-button" 
-                           target="<?php echo esc_attr( $link_1['target']) ; ?>">
-                            <?php echo esc_html( $link_1['title'] ); ?>
+                           target="<?= esc_attr( $link_1['target']) ; ?>">
+                            <?= esc_html( $link_1['title'] ); ?>
                         </a>
                     <?php endif; ?>
 
                     <?php if ( !empty($link_2['url'] ) && !empty( $link_2['title'] ) ) : ?>
-                        <a href="<?php echo esc_url( $link_2['url'] ); ?>" 
+                        <a href="<?= esc_url( $link_2['url'] ); ?>" 
                            class="btn btn-xl btn-transparent hero-button" 
-                           target="<?php echo esc_attr( $link_2['target'] ); ?>">
-                            <?php echo esc_html( $link_2['title'] ); ?>
+                           target="<?= esc_attr( $link_2['target'] ); ?>">
+                            <?= esc_html( $link_2['title'] ); ?>
                         </a>
                     <?php endif; ?>
                 </div>
