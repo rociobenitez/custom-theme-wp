@@ -47,6 +47,32 @@
       "preview_size": "medium"
   },
   {
+    "key": "field_site_logo_white",
+    "label": "Logotipo Negativo",
+    "name": "site_logo_white",
+    "aria-label": "",
+    "type": "image",
+    "instructions": "Mismo logo que el principal pero con los colores invertidos, normalmente en blanco. Se suele utilizar sobre fondos oscuros o de color.",
+    "required": 0,
+    "conditional_logic": 0,
+    "wrapper": {
+        "width": "25",
+        "class": "",
+        "id": ""
+    },
+    "return_format": "array",
+    "library": "all",
+    "min_width": "",
+    "min_height": "",
+    "min_size": "",
+    "max_width": "",
+    "max_height": "",
+    "max_size": "",
+    "mime_types": "",
+    "allow_in_bindings": 0,
+    "preview_size": "medium"
+  },
+  {
       "key": "field_default_image",
       "label": "Imagen por defecto",
       "name": "default_image",
@@ -415,10 +441,14 @@
           "choices": {
             "linkedin": "LinkedIn",
             "facebook": "Facebook",
-            "twitter": "Twitter",
+            "x": "X",
             "instagram": "Instagram",
             "youtube": "YouTube",
-            "tiktok": "TikTok"
+            "tiktok": "TikTok",
+            "pinterest": "Pinterest",
+            "twitch": "Twitch",
+            "dribbble": "Dribbble",
+            "behance": "Behance"
           },
           "multiple": 0,
           "allow_null": 0,
@@ -546,6 +576,125 @@
       "toolbar": "full",
       "media_upload": 1,
       "delay": 0
+    },
+    {
+        "key": "field_67f65aafeedda",
+        "label": "Header",
+        "name": "",
+        "type": "tab",
+        "instructions": "Personaliza las opciones del encabezado del sitio (topbar y navbar)",
+        "placement": "top"
+    },
+    {
+        "key": "field_67f65b39eeddc",
+        "label": "Mostrar barra superior (topbar)",
+        "name": "show_topbar",
+        "type": "true_false",
+        "instructions": "Activa o desactiva la barra superior del header.",
+        "default_value": 0,
+        "wrapper": {"width": "25"},
+        "message": "",
+        "ui_on_text": "",
+        "ui_off_text": "",
+        "ui": 1
+    },
+    {
+        "key": "field_67f65b65eeddd",
+        "label": "Mostrar redes sociales",
+        "name": "show_social_links",
+        "type": "radio",
+        "instructions": "Selecciona la ubicación donde aparecerán los iconos sociales",
+        "choices": {
+            "topbar": "Barra superior (topbar)",
+            "navbar": "Menú principal",
+            "none": "No mostrar"
+        },
+        "default_value": "topbar",
+        "wrapper": {"width": "25"}
+    },
+    {
+        "key": "field_67f666e866f04",
+        "label": "Color de fondo de la barra superior",
+        "name": "bg_color_topbar",
+        "type": "radio",
+        "instructions": "Selecciona el color de fondo para la barra superior",
+        "required": 0,
+        "conditional_logic": [
+            [
+                {
+                    "field": "field_67f65b39eeddc",
+                    "operator": "==",
+                    "value": "1"
+                }
+            ]
+        ],
+        "choices": {
+            "bg-black": "Negro",
+            "bg-dark": "Oscuro",
+            "bg-primary": "Color Primario",
+            "bg-transparent": "Transparente",
+            "bg-white": "Blanco"
+        },
+        "default_value": "bg-black",
+        "wrapper": {"width": "25"}
+    },
+    {
+        "key": "field_67f6686566f06",
+        "label": "Borde inferior de la barra superior",
+        "name": "border_topbar",
+        "type": "radio",
+        "instructions": "Selecciona el estilo del borde inferior de la barra superior",
+        "required": 0,
+        "conditional_logic": [
+            [
+                {
+                    "field": "field_67f65b39eeddc",
+                    "operator": "==",
+                    "value": "1"
+                }
+            ]
+        ],
+        "choices": {
+            "border-none": "Sin borde",
+            "border-white": "Blanco",
+            "border-light": "Light",
+            "border-dark-subtle": "Gris",
+            "border-dark": "Oscuro",
+            "border-black": "Negro"
+        },
+        "default_value": "border-none",
+        "wrapper": {"width": "25"}
+    },
+    {
+        "key": "field_67f66632133cb",
+        "label": "Color de fondo del header en home",
+        "name": "bg_color_header_home",
+        "type": "radio",
+        "instructions": "Define el color del header en la página de inicio",
+        "choices": {
+            "bg-white": "Blanco",
+            "bg-transparent": "Transparente",
+            "bg-dark": "Oscuro"
+        },
+        "default_value": "bg-white",
+        "wrapper": {"width": "25"}
+    },
+    {
+        "key": "field_67f6675766f05",
+        "label": "Borde inferior del header",
+        "name": "border_header",
+        "type": "radio",
+        "instructions": "Establece el borde inferior para el header principal",
+        "choices": {
+            "border-none": "Sin borde",
+            "border-white": "Blanco",
+            "border-light": "Light",
+            "border-dark-subtle": "Gris",
+            "border-dark": "Oscuro",
+            "border-black": "Negro"
+        },
+        "default_value": "border-none",
+        "wrapper": {"width": "25"}
     },
     {
       "key": "field_666c22e7fbeaf",

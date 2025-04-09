@@ -194,3 +194,69 @@ function get_component($template_path, $args = []) {
    }
    include locate_template($template_path . '.php', false, false);
 }
+
+/**
+ * Muestra los iconos de redes sociales con sus enlaces correspondientes basados en los datos del campo repetidor de ACF.
+ * Los datos de redes sociales provienen de un campo repetidor ACF en la página de opciones.
+ * Cada elemento del repetidor contiene un campo de selección para la red social y un campo para la URL.
+ * 
+ * @return void
+ */
+function social_media() {
+   // Obtener el campo repetidor de redes sociales desde las opciones de ACF
+   $social_networks = get_field('social_links', 'option');
+
+   // Verificar si hay redes sociales configuradas
+   if (!$social_networks || !is_array($social_networks)) {
+       return;
+   }
+
+   // Definir la correspondencia de iconos de redes sociales
+   $social_icons = [
+       'facebook'  => 'facebook.svg',
+       'instagram' => 'instagram.svg',
+       'linkedin'  => 'linkedin.svg',
+       'youtube'   => 'youtube.svg',
+       'x'         => 'x.svg',
+       'tiktok'    => 'tiktok.svg',
+       'pinterest' => 'pinterest.svg',
+       'twitch'    => 'twitch.svg',
+       'dribbble'  => 'dribbble.svg',
+       'behance'   => 'behance.svg',
+   ];
+
+   // Iniciar el contenedor de redes sociales
+   echo '<div class="social-media-container">';
+
+   // Recorrer cada red social
+   foreach ($social_networks as $network) {
+       // Omitir si faltan campos requeridos
+       if (empty($network['social_network']) || empty($network['social_url'])) {
+           continue;
+       }
+
+       $network_type = strtolower($network['social_network']);
+       $network_url = esc_url($network['social_url']);
+
+       // Omitir si el tipo de red no está en nuestra lista soportada
+       if (!isset($social_icons[$network_type])) {
+           continue;
+       }
+
+       // Obtener la ruta del icono
+       $icon_path = get_template_directory_uri() . '/assets/img/icons/boxicons/' . $social_icons[$network_type];
+
+       // Generar el enlace de la red social con su icono
+       printf(
+           '<a href="%1$s" class="social-media-link %2$s" target="_blank" rel="noopener noreferrer">
+               <img src="%3$s" alt="%4$s" class="social-media-icon">
+           </a>',
+           $network_url,
+           esc_attr($network_type),
+           esc_url($icon_path),
+           sprintf(esc_attr__('Icono de %s', 'custom-theme'), ucfirst($network_type))
+       );
+   }
+
+   echo '</div>';
+}
