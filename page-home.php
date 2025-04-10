@@ -23,7 +23,7 @@ if ( !is_array($fields) ) {
  * Cargar el bloque Hero
  * Verificar si existe y si tiene contenido
  */
-if ( !empty( $fields['hero_main_title'] ) ) {
+if ( !empty( $fields['hero_background_image'] ) || !empty( $fields['hero_background_video'] ) ) {
    $hero_template = 'template-parts/blocks/hero.php';
 
    if ( file_exists( get_stylesheet_directory() . '/' . $hero_template ) ) {

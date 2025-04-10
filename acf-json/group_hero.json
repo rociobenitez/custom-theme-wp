@@ -163,19 +163,6 @@
       "key": "field_hero_type_bg",
       "label": "Tipo de Fondo",
       "name": "hero_background_type",
-      "type": "select",
-      "instructions": "Selecciona el tipo de fondo para el hero: imagen o video.",
-      "choices": {
-        "image": "Imagen",
-        "video": "Video"
-      },
-      "default_value": "image",
-      "return_format": "value"
-    },
-    {
-      "key": "field_hero_type_bg",
-      "label": "Tipo de Fondo",
-      "name": "hero_background_type",
       "aria-label": "",
       "type": "select",
       "instructions": "Selecciona el tipo de fondo para el hero: imagen o video.",
@@ -210,7 +197,7 @@
       "conditional_logic": [
         [
           {
-            "field": "field_6725234fc1821",
+            "field": "field_hero_type_bg",
             "operator": "==",
             "value": "image"
           }
@@ -244,14 +231,14 @@
       "conditional_logic": [
         [
           {
-            "field": "field_6725234fc1821",
+            "field": "field_hero_type_bg",
             "operator": "==",
             "value": "video"
           }
         ]
       ],
       "wrapper": {
-        "width": "25",
+        "width": "50",
         "class": "",
         "id": ""
       },

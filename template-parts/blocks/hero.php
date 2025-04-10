@@ -21,7 +21,7 @@ $link_1 = $fields['hero_cta_button'] ?? [];
 $link_2 = $fields['hero_secondary_cta_button'] ?? [];
 
 // Si no hay un video o imagen de fondo, usar la imagen por defecto
-if ( empty( $img_bg['url'] ) && empty( $video_bg['url'] ) ) {
+if ( empty( $img_bg['url'] ) && empty( $video_bg ) ) {
     $bg_type = 'image';
     $img_bg  = ['url' => get_template_directory_uri() . '/assets/img/hero.jpg'];
 }
@@ -53,10 +53,10 @@ switch ( $text_alignment ) {
                 linear-gradient(0deg, rgba(20, 20, 20, 0.4), rgba(20, 20, 20, 0.5)),
                 linear-gradient(260deg, rgba(50, 50, 50, 0.4) 0%, rgba(20, 20, 20, 0.3) 100%),
                 url('<?= esc_url( $img_bg['url'] ); ?>');">
-    <?php elseif ( 'video' === $bg_type && ! empty( $video_bg['url'] ) ) : ?>
+    <?php elseif ( 'video' === $bg_type && ! empty( $video_bg ) ) : ?>
         <div class="hero-bg cover d-flex <?= esc_attr( $align_container ); ?> position-relative overflow-hidden z-1">
             <video autoplay muted loop class="hero-video">
-                <source src="<?= esc_url( $video_bg['url'] ); ?>" type="video/mp4">
+                <source src="<?= esc_url( $video_bg ); ?>" type="video/mp4">
                 <?php esc_html_e( 'Tu navegador no soporta este vídeo.', THEME_TEXTDOMAIN ); ?>
             </video>
             <div class="video-overlay position-absolute top-0 start-0 h-100 w-100 bg-black bg-opacity-25 z-2"></div>
