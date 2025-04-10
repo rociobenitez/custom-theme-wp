@@ -5,8 +5,10 @@
 
 $view_all_button = $bloque['view_all_button'] ?? null;
 $card_style = $bloque['card_style'] ?? 'image'; // opciones válidas: 'image' o 'text'
-$related_items   = $block['related'] ?? [];
-$related_count   = count($related_items);
+$related_items = $block['related'] ?? [];
+$related_count = is_array($related_items) ? count($related_items) : 0;
+
+if ($related_count > 0) :
 ?>
 <section class="related-content py-5">
    <div class="container">
@@ -54,3 +56,4 @@ $related_count   = count($related_items);
       <?php endif; ?>
    </div>
 </section>
+<?php endif; ?>

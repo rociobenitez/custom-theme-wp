@@ -12,7 +12,7 @@ License URI: LICENSE
 Text Domain: customtheme
 Tags: custom-background, custom-logo, custom-menu, featured-images, threaded-comments, translation-ready
 
-CustomTheme está desarrollado para servir como punto de partida para proyectos personalizados en WordPress.
+custom_theme está desarrollado para servir como punto de partida para proyectos personalizados en WordPress.
 Sigue las pautas de Underscores (https://underscores.me/) y está licenciado bajo la GPL v2.
 */
 
@@ -1206,6 +1206,32 @@ ul.dropdown-submenu.show {
 
 .related-card:hover .card-title {
   margin-bottom: 0.5rem;
+}
+
+/* Cards CPT Vídeos */
+.card-cpt-video iframe {
+  width: 100%;
+}
+
+.card-cpt-with-overlay {
+  width: 100%;
+  aspect-ratio: 16/9;
+  background: var(--color-black);
+}
+
+.card-cpt-video-embed iframe {
+  width: 100%;
+  height: 100%;
+  display: block;
+  border: none;
+}
+
+.card-cpt-title-overlay {
+  transition: opacity 0.3s ease;
+}
+
+.card-cpt-with-overlay:hover .card-cpt-title-overlay {
+  opacity: 1;
 }
 
 /*--------------------------------------------------------------
