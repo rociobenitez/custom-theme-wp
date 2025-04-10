@@ -835,7 +835,8 @@
       },
       "choices": {
           "4columns": "4 columnas",
-          "3columns": "3 columnas"
+          "3columns": "3 columnas",
+          "minimal": "Minimalista"
       },
       "default_value": "4columns",
       "return_format": "value",
@@ -843,6 +844,26 @@
       "other_choice": 0,
       "layout": "vertical",
       "save_other_choice": 0
+    },
+    {
+      "key": "field_kit_digital",
+      "label": "Proyecto de Kit Digital",
+      "name": "kit_digital",
+      "aria-label": "",
+      "type": "true_false",
+      "instructions": "",
+      "required": 0,
+      "conditional_logic": 0,
+      "wrapper": {
+          "width": "25",
+          "class": "",
+          "id": ""
+      },
+      "message": "",
+      "default_value": 0,
+      "ui_on_text": "",
+      "ui_off_text": "",
+      "ui": 1
     },
     {
       "key": "field_link_btn_movil_group",
