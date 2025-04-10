@@ -6,6 +6,61 @@
  */
 
 /**
+ * Añadir etiquetas Open Graph de forma dinámica
+ * Solo se ejecuta si NO hay un plugin SEO que ya las maneje (ej. Yoast SEO).
+ */
+function theme_add_open_graph_tags() {
+   // Si Yoast SEO, Rank Math u otro plugin está presente, no añadimos nada
+   if (defined('WPSEO_VERSION') || defined('RANK_MATH_VERSION')) {
+       return;
+   }
+
+   // Variables por defecto (para portada, archivos, etc.)
+   $og_title       = get_bloginfo('name');
+   $og_url         = home_url();
+   $og_desc        = get_bloginfo('description');
+   $og_image       = get_template_directory_uri() . '/assets/favicons/apple-touch-icon.png';
+   
+   // Detectar si estamos en una sola entrada/página
+   if (is_singular()) {
+       global $post;
+       setup_postdata($post);
+
+       // Título
+       $og_title = get_the_title($post->ID);
+
+       // URL
+       $og_url = get_permalink($post->ID);
+
+       // Descripción: usar extracto o contenido
+       if (has_excerpt($post->ID)) {
+           $og_desc = get_the_excerpt($post->ID);
+       } else {
+           $og_desc = wp_trim_words(strip_tags($post->post_content), 30);
+       }
+
+       // Imagen destacada o fallback si no existe
+       if (has_post_thumbnail($post->ID)) {
+           $og_image = get_the_post_thumbnail_url($post->ID, 'full');
+       }
+
+       wp_reset_postdata();
+   }
+
+   // Escapar datos y mostrarlos
+   ?>
+   <!-- Open Graph (Fallback) -->
+   <meta property="og:title" content="<?php echo esc_attr($og_title); ?>">
+   <meta property="og:description" content="<?php echo esc_attr($og_desc); ?>">
+   <meta property="og:image" content="<?php echo esc_url($og_image); ?>">
+   <meta property="og:url" content="<?php echo esc_url($og_url); ?>">
+   <meta property="og:site_name" content="<?php echo esc_attr(get_bloginfo('name')); ?>">
+   <meta property="og:type" content="<?php echo is_singular() ? 'article' : 'website'; ?>">
+   <?php
+}
+add_action('wp_head', 'theme_add_open_graph_tags', 5);
+
+/**
  * Genera un encabezado HTML con clases y atributos personalizados.
  *
  * @param int $h Nivel del encabezado. Debe estar entre 0 y 3, donde 0 es h1 y 3 es p.

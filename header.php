@@ -16,8 +16,8 @@ $is_home_template = is_page_template('page-home.php');
 
 // Obtener opciones desde ACF
 $options = get_fields( 'option' );
-$default_logo = $options['site_logo'] ?: get_template_directory_uri() . '/assets/img/logo.svg';
-$white_logo = $options['site_logo_white'] ?: get_template_directory_uri() . '/assets/img/logo-white.webp';
+$default_logo = $options['site_logo'] ? $options['site_logo']['url'] : get_template_directory_uri() . '/assets/img/logo.svg';
+$white_logo = $options['site_logo_white'] ? $options['site_logo_white']['url']: get_template_directory_uri() . '/assets/img/logo-white.webp';
 $show_topbar = $options['show_topbar'] ?? false;
 $show_social_links = $options['show_social_links'] ?? false;
 $contact_options = get_contact_options();
@@ -45,6 +45,33 @@ $logo_height = 48;
 	<meta name="language" content="Spanish" />
 	<meta name="theme-color" content="#000000" />
 	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+
+	<!-- FAVICONS & APP ICONS -->
+    <link rel="shortcut icon" href="<?php echo get_template_directory_uri(); ?>/assets/favicons/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/svg+xml" href="<?php echo get_template_directory_uri(); ?>/assets/favicons/favicon.svg" />
+    <link rel="icon" type="image/png" href="<?php echo get_template_directory_uri(); ?>/assets/favicons/favicon-16x16.png" sizes="16x16" />
+    <link rel="icon" type="image/png" href="<?php echo get_template_directory_uri(); ?>/assets/favicons/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="<?php echo get_template_directory_uri(); ?>/assets/favicons/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/png" href="<?php echo get_template_directory_uri(); ?>/assets/favicons/android-chrome-192x192.png" sizes="192x192" />
+    <link rel="icon" type="image/png" href="<?php echo get_template_directory_uri(); ?>/assets/favicons/android-chrome-512x512.png" sizes="512x512" />
+    
+    <!-- Apple Touch Icon (iOS) -->
+    <link rel="apple-touch-icon" sizes="180x180" href="<?php echo get_template_directory_uri(); ?>/assets/favicons/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="<?php bloginfo('name'); ?>">
+
+    <!-- Microsoft Tiles (Windows 8 / IE10+) -->
+    <meta name="msapplication-TileColor" content="#000000">
+    <meta name="msapplication-TileImage" content="<?php echo get_template_directory_uri(); ?>/assets/favicons/mstile-144x144.png">
+    
+    <!-- Web App Manifest (PWA) -->
+    <link rel="manifest" href="<?php echo get_template_directory_uri(); ?>/assets/favicons/site.webmanifest">
+    
+    <!-- Enlaces Open Graph para compartir en redes (opcional y recomendado) -->
+    <meta property="og:title" content="Título de tu sitio o de la página">
+    <meta property="og:description" content="Descripción de la página">
+    <meta property="og:image" content="URL de tu imagen para compartir en redes">
+    <meta property="og:url" content="URL de la página">
+
 	<?php wp_head(); ?>
 </head>
  
