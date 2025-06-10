@@ -31,7 +31,7 @@ $title = get_the_title();
                                  alt="<?php esc_attr(the_title_attribute()); ?>">
                         </a>
                         <!-- Contenido del post -->
-                        <div class="post-content feature-content text-end mt-4">
+                        <div class="post-content feature-content text-start text-lg-end mt-4">
                             <a href="<?php echo esc_url(get_permalink()); ?>">
                                 <?php echo tagTitle($htag, get_the_title(), 'post-title', ''); ?>
                             </a>

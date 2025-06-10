@@ -55,9 +55,9 @@ switch ( $text_alignment ) {
                 url('<?= esc_url( $img_bg['url'] ); ?>');">
     <?php elseif ( 'video' === $bg_type && ! empty( $video_bg['url'] ) ) : ?>
         <div class="hero-bg cover d-flex <?= esc_attr( $align_container ); ?> relative overflow-hidden">
-            <video autoplay muted loop class="background-video absolute">
+            <video autoplay muted loop class="background-video absolute w-100 h-100 object-fit-cover">
                 <source src="<?= esc_url( $video_bg['url'] ); ?>" type="video/mp4">
-                <?php esc_html_e( 'Tu navegador no soporta este vídeo.', THEME_TEXTDOMAIN ); ?>
+                <?php esc_html_e( 'Tu navegador no soporta este vídeo.', CTM_TEXTDOMAIN ); ?>
             </video>
             <div class="video-overlay absolute"></div>
     <?php endif; ?>

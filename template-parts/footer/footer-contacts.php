@@ -5,9 +5,13 @@
  * Muestra botones de contacto en el footer (WhatsApp, Teléfono, Email).
  */
 
-$whatsapp = get_fields('whatsapp', 'option'); // Campo ACF global para WhatsApp
-$phone    = get_fields('phone', 'option');    // Campo ACF global para Teléfono
-$email    = get_fields('email', 'option');    // Campo ACF global para Email
+if ( ! defined( 'ABSPATH' ) ) exit;
+
+$whatsapp = $args['whatsapp'];
+$phone    = $args['phone'];
+$email    = $args['email'];
+
+if( !empty( $whatsapp ) || !empty( $phone ) || !empty( $email ) ) :
 ?>
 
 <div class="footer-contacts">
@@ -30,3 +34,4 @@ $email    = get_fields('email', 'option');    // Campo ACF global para Email
         </a>
     <?php endif; ?>
 </div>
+<?php endif; ?>

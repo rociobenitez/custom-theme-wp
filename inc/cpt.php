@@ -1,6 +1,14 @@
 <?php
+/**
+ * Registrar Custom Post Types
+ *
+ * @package custom_theme
+ */
 
-// Registrar todos los Custom Post Types
+if ( ! defined( 'ABSPATH' ) ) {
+   exit;
+}
+
 add_action( 'init', 'register_custom_post_types' );
 function register_custom_post_types() {
 
@@ -34,8 +42,58 @@ function register_custom_post_types() {
       'rewrite'            => array('slug' => 'blog', 'with_front' => false),
    ));
 
+   // CPT Trabajos
+   register_post_type('trabajos', array(
+      'label'       => __('trabajos', 'theme'),
+      'description' => __('Custom post type para Trabajos', 'theme'),
+      'labels'      => array(
+         'name'               => __('Trabajos', 'theme'),
+         'singular_name'      => __('Trabajo', 'theme'),
+         'menu_name'          => __('Trabajos', 'theme'),
+         'parent_item_colon'  => __('Trabajo padre:', 'theme'),
+         'all_items'          => __('Ver todos', 'theme'),
+         'view_item'          => __('Ver Trabajo', 'theme'),
+         'add_new_item'       => __('Añadir Nuevo Trabajo', 'theme'),
+         'add_new'            => __('Nuevo Trabajo', 'theme'),
+         'edit_item'          => __('Editar Trabajo', 'theme'),
+         'update_item'        => __('Actualizar Trabajo', 'theme'),
+         'search_items'       => __('Buscar Trabajo', 'theme'),
+         'not_found'          => __('No se encontraron trabajos', 'theme'),
+         'not_found_in_trash' => __('No se encontraron trabajos en la papelera', 'theme')
+      ),
+      'public'             => true,
+      'has_archive'        => true,
+      'publicly_queryable' => true,
+      'query_var'          => true,
+      'rewrite'            => array('slug' => 'trabajos', 'with_front' => false),
+      'supports'           => array('title', 'editor', 'thumbnail', 'revisions', 'excerpt'),
+      'menu_icon'          => 'dashicons-universal-access',
+      'hierarchical'       => false,
+   ));
+
+   // Taxonomía Tipo de Trabajo para CPT Trabajos (Descomentarlo para habilitarlo)
+   register_taxonomy('tipo-trabajo', 'trabajos', array(
+      'hierarchical'      => true,
+      'labels'            => array(
+         'name'              => __('Tipos de Trabajo', 'theme'),
+         'singular_name'     => __('Tipo de Trabajo', 'theme'),
+         'search_items'      => __('Buscar Tipo de Trabajo', 'theme'),
+         'all_items'         => __('Todos los Tipos de Trabajo', 'theme'),
+         'parent_item'       => __('Tipo de Trabajo Padre', 'theme'),
+         'parent_item_colon' => __('Tipo de Trabajo Padre:', 'theme'),
+         'edit_item'         => __('Editar Tipo de Trabajo', 'theme'),
+         'update_item'       => __('Actualizar Tipo de Trabajo', 'theme'),
+         'add_new_item'      => __('Añadir Nuevo Tipo de Trabajo', 'theme'),
+         'new_item_name'     => __('Nuevo Nombre de Tipo de Trabajo', 'theme'),
+         'menu_name'         => __('Tipos de Trabajo', 'theme')
+      ),
+      'show_ui'           => true,
+      'show_admin_column' => true,
+      'query_var'         => true,
+      'rewrite'           => array('slug' => 'tipo-trabajo'),
+   ));
    
-   // CPT Servicios (Descomentarlo para habilitarlo)
+   // // CPT Servicios
    // register_post_type('servicios', array(
    //    'label'       => __('Servicios', 'theme'),
    //    'description' => __('Custom post type para servicios', 'theme'),
@@ -64,8 +122,8 @@ function register_custom_post_types() {
    //    'hierarchical'       => false,
    // ));
 
-   // Taxonomía Tipo de Servicio para CPT Servicios (Descomentarlo para habilitarlo)
-   // register_taxonomy('tipo_servicio', 'servicios', array(
+   // // Taxonomía Tipo de Servicio para CPT Servicios
+   // register_taxonomy('tipo-servicio', 'servicios', array(
    //    'hierarchical'      => true,
    //    'labels'            => array(
    //       'name'              => __('Tipos de Servicio', 'theme'),
@@ -86,7 +144,7 @@ function register_custom_post_types() {
    //    'rewrite'           => array('slug' => 'tipo-servicio'),
    // ));
 
-   // Taxonomía de Producto de Woocommerce (Descomentarlo para habilitarlo)
+   // // Taxonomía de Producto de Woocommerce
    // register_taxonomy('material','product', array(
    //    'hierarchical'      => true,
    //    'labels'            => array(
@@ -110,7 +168,7 @@ function register_custom_post_types() {
 }
 
 // Habilitar soporte para miniaturas en los tipos de publicación personalizados
-add_theme_support('post-thumbnails', array('post', 'servicios'));
+add_theme_support('post-thumbnails', array('post', 'trabajos'));
 
 // Función para ajustar la paginación del blog
 add_action( 'init', 'wpa_fix_blog_pagination' );

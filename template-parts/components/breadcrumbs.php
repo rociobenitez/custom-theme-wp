@@ -87,15 +87,17 @@ function generate_breadcrumbs() {
         
     // Página de Archivo
     } elseif (is_archive()) {
-        echo esc_html__('Archivo', 'textdomain');
+        $current_term = get_queried_object();
+        $title = esc_html($current_term->name);
+        echo esc_html__($title, CTM_TEXTDOMAIN);
 
     // Resultados de Búsqueda
     } elseif (is_search()) {
-        echo esc_html__('Resultados de búsqueda para: ', 'textdomain') . esc_html(get_search_query());
+        echo esc_html__('Resultados de búsqueda para: ', CTM_TEXTDOMAIN) . esc_html(get_search_query());
 
     // 404 - Página no encontrada
     } elseif (is_404()) {
-        echo esc_html__('Página no encontrada', 'textdomain');
+        echo esc_html__('Página no encontrada', CTM_TEXTDOMAIN);
 
     // Otras Páginas
     } else {

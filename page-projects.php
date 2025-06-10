@@ -39,7 +39,7 @@ get_header();
         <div class="filter-buttons d-flex flex-wrap gap-2 justify-content-center">
             <!-- Botón para mostrar todos -->
             <button class="btn btn-md btn-outline-secondary active" data-filter="all">
-                <?= __('Todos', THEME_TEXTDOMAIN); ?>
+                <?= __('Todos', CTM_TEXTDOMAIN); ?>
             </button>
             
             <?php if (!empty($terms) && !is_wp_error($terms)) : ?>
