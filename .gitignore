@@ -1,0 +1,43 @@
+# OS generated files
+.DS_Store
+.DS_Store?
+.localized
+.Spotlight-V100
+.Trashes
+Icon?
+ehthumbs.db
+[Tt]humbs.db
+sftp-config.json
+.well-known
+.bash*
+.vi*
+.vscode
+.idea
+.php-ini
+.php-version
+.devilbox
+
+# logs
+*.log
+*.log.*
+npm-debug.log*
+
+# build
+node_modules/
+
+# extensions
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.swp
+*.t3x
+*.tar.gz
+*.tar
+*.zip
+
+# temporal files
+/tmp/
+.tmp_*
