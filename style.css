@@ -36,6 +36,7 @@ Sigue las pautas de Underscores (https://underscores.me/) y está licenciado baj
 # Flexible Blocks: Text
 # Flexible Blocks: Alternated Content
 # Flexible Blocks: Alternated Slider
+# Flexible Blocks: Brands
 # Flexible Blocks: Features
 # Flexible Blocks: Specialties
 # Flexible Blocks: Section blocks
@@ -67,11 +68,12 @@ Sigue las pautas de Underscores (https://underscores.me/) y está licenciado baj
 
 :root {
   /* Fonts */
-  --body-font: "Roboto", sans-serif;
-  --font-title: "Roboto", sans-serif;
-  --font-tagline: "Roboto", sans-serif;
-  --font-nav-link: "Roboto", sans-serif;
+  --font-body: "Manrope", sans-serif;
+  --font-title: "Quattrocento", serif;
+  --font-tagline: "Manrope", sans-serif;
+  --font-nav-link: "Manrope", sans-serif;
 
+  /* Font Sizes */
   --fs-h1: clamp(2rem, 5vw, 3.5rem);
   --fs-h2: 2.25rem;
   --fs-h3: 1.75rem;
@@ -80,32 +82,18 @@ Sigue las pautas de Underscores (https://underscores.me/) y está licenciado baj
   --fs-h6: 1.025rem;
   --fw-heading: 600;
 
-  /* Colors */
-  --color-black: #121212;
-  --color-dark: #2c2c2c;
-  --color-gray: #3a3a3a;
-  --color-light-gray: #a1a1a1;
+  /* Brand Colors */
+  --color-black: #031e31;
+  --color-dark: #042c46;
+  --color-gray: #444444;
+  --color-light: #f7f5ef;
 
-  --color-primary: var(--color-black);
-  --color-primary-hover: var(--color-dark);
+  --color-primary: #00425d;
+  --color-primary-hover: #00587c;
+  --color-secondary: #b09e60;
+  --color-secondary-hover: #c8bb8f;
 
-  --color-primary-500: #121212;
-  --color-primary-400: #3a3a3a;
-  --color-primary-300: #616161;
-  --color-primary-200: #888888;
-  --color-primary-100: #b0b0b0;
-  --color-primary-alpha: rgba(18, 18, 18, 10);
-
-  --color-secondary: #2c2c2c;
-  --color-secondary-hover: #4f4f4f;
-
-  --color-secondary-500: #2c2c2c;
-  --color-secondary-400: #4f4f4f;
-  --color-secondary-300: #727272;
-  --color-secondary-200: #969696;
-  --color-secondary-100: #b9b9b9;
-  --color-secondary-alpha: rgba(44, 44, 44, 10);
-
+  /* Semantic Colors */
   --color-error-100: #fb3748;
   --color-error-200: #d00416;
   --color-error-alpha: rgba(251, 55, 72, 10);
@@ -118,24 +106,23 @@ Sigue las pautas de Underscores (https://underscores.me/) y está licenciado baj
   --color-sucess-200: #1fc16b;
   --color-sucess-alpha: rgba(31, 193, 107, 10);
 
-  --color-text-body: #6e6e73;
-  --color-text-heading: #1d1d1f;
-  --color-text-tagline: #727272;
+  /* Text Colors */
+  --color-text-body: #696969;
+  --color-text-heading: #031e31;
+  --color-text-tagline: #031e31;
   --color-text-muted: #757575;
-  --color-text-card: #4a4a4a;
 
   --color-text-white: #ffffff;
-  --color-text-light: #f9f9f9;
+  --color-text-light: #fefefd;
 
   --color-text-link: #2c2c2c;
   --color-text-link-hover: #121212;
 
-  --color-bg-dark: #121212;
-  --color-bg-light: #f7f7f7;
-  --color-bg-white: #fff;
-  --color-bg-primary: #fff;
-
-  --color-border: #d1d1d1;
+  /* Background Colors */
+  --color-bg-dark: #031e31;
+  --color-bg-light: #f7f5ef;
+  --color-bg-white: #fefefd;
+  --color-bg-primary: #e7e2cfbf;
 
   /* Margins & Paddings */
   --padding-top-body: 105px;
@@ -144,15 +131,19 @@ Sigue las pautas de Underscores (https://underscores.me/) y está licenciado baj
   /* Transitions */
   --transition-btn: all 0.25s ease-in-out;
 
-  /* Shadows */
-  --box-shadow-menu: rgba(0, 0, 0, 0.1) 0px 4px 12px;
-  --box-shadow-input: 0 0 0 2px rgba(0, 201, 183, 0.3);
-  --text-shadow-hero: 0px 2px 4px rgba(0, 0, 0, 0.4);
-  --text-shadow-heading: 1px 1px 2px rgba(0, 0, 0, 0.6);
+  /* Custom Shadows */
+  --box-shadow-menu: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  --box-shadow-input: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
+    rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+  --text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.4);
 
-  /* Border raduis */
+  /* Border radius */
   --border-radius-input-form: 0.25rem;
-  --border-radius-button: 1.5rem;
+  --border-radius-button-sm: 1.5rem;
+  --border-radius-button-lg: 1.5rem;
+
+  /* Line-height global */
+  --line-height-base: 1.5;
 }
 
 /*--------------------------------------------------------------
@@ -171,20 +162,26 @@ Sigue las pautas de Underscores (https://underscores.me/) y está licenciado baj
 # Base Typography & Layout
 --------------------------------------------------------------*/
 
-body {
+body:not(#tinymce) {
   min-height: 100vh;
   width: 100%;
   margin: 0;
   padding: 0;
-  font-family: var(--body-font);
+  font-family: var(--font-body);
   font-weight: 400;
-  line-height: 1.6;
+  line-height: var(--line-height-base);
   background-color: var(--color-bg-white);
   color: var(--color-text-body);
 }
 
 body.home {
   padding-top: var(--padding-top-body);
+}
+
+body#tinymce {
+  font-family: var(--font-body);
+  font-size: 15px;
+  padding: 8px !important;
 }
 
 /* Clases utilitarias */
@@ -227,7 +224,7 @@ body.home {
 }
 
 .text-shadow {
-  text-shadow: var(--text-shadow-heading);
+  text-shadow: var(--text-shadow);
 }
 
 /* Enlaces */
@@ -253,10 +250,9 @@ strong {
 .tagline {
   color: var(--color-text-tagline);
   font-family: var(--font-tagline);
-  font-size: 1.125rem;
-  line-height: 130%;
-  font-style: normal;
-  font-weight: 600;
+  font-size: var(--fs-h5);
+  line-height: 120%;
+  font-weight: 300;
   margin-bottom: 0.25rem;
 }
 
@@ -413,11 +409,12 @@ h6 {
 }
 
 .heading-2 {
+  margin-bottom: 2.5rem;
   font-family: var(--font-title);
   font-size: var(--fs-h2);
-  font-weight: var(--fw-heading);
-  line-height: 1.3;
-  margin-bottom: 1rem;
+  font-weight: 400;
+  line-height: 3.125rem;
+  letter-spacing: -0.05rem;
 }
 
 .heading-3 {
@@ -443,14 +440,6 @@ h6 {
   margin-bottom: 0.875rem;
 }
 
-.heading-1:not(.c-white),
-.heading-2:not(.c-white),
-.heading-3:not(.c-white),
-.heading-4:not(.c-white),
-.heading-5:not(.c-white) {
-  color: var(--color-text-heading);
-}
-
 /*--------------------------------------------------------------
 # Colors
 --------------------------------------------------------------*/
@@ -464,7 +453,7 @@ h6 {
   color: var(--color-secondary);
 }
 .c-bg-secondary {
-  background-color: var(--color-secondary);
+  background-color: #ede9db;
 }
 .c-black {
   color: var(--color-black);
@@ -485,7 +474,7 @@ h6 {
   background-color: var(--color-bg-white);
 }
 .c-light {
-  color: var(--light);
+  color: var(--color-light);
 }
 .c-bg-light {
   background-color: var(--color-bg-light);
@@ -508,7 +497,7 @@ textarea {
 
 .btn {
   font-weight: 400;
-  font-family: var(--font-title);
+  font-family: var(--font-body);
   text-decoration: none;
   transition: var(--transition-btn);
   border: 1px solid;
@@ -532,43 +521,43 @@ textarea {
 .btn-sm {
   padding: 0.5rem 0.75rem;
   font-size: 0.75rem;
-  border-radius: 1.25rem;
+  border-radius: 0;
 }
 
 .btn-md {
   padding: 0.625rem 1rem;
   font-size: 0.875rem;
-  border-radius: 1.5rem;
+  border-radius: 0;
 }
 
 .btn-lg {
   padding: 0.75rem 1.5rem;
   font-size: 0.95rem;
-  border-radius: 2.5rem;
+  border-radius: 0;
 }
 
 .btn-xl {
   padding: 0.875rem 2rem;
   font-size: 1.0625rem;
-  border-radius: 2.5rem;
+  border-radius: 0;
 }
 
 .btn-xxl {
   padding: 1rem 2.5rem;
   font-size: 1.125rem;
-  border-radius: 2.5rem;
+  border-radius: 0;
 }
 
 /* Botón por defecto */
 .btn-default {
-  background-color: var(--color-dark);
+  background-color: var(--color-primary);
   color: var(--color-text-white);
   border-color: transparent;
 }
 
 .btn-default:hover,
 .btn-default:active {
-  background-color: var(--color-primary);
+  background-color: var(--color-primary-hover);
   color: var(--color-text-white);
   border-color: transparent;
   box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.15);
@@ -576,7 +565,7 @@ textarea {
 
 /* Botón primario */
 .btn-primary {
-  background: var(--color-primary-500);
+  background: var(--color-secondary);
   color: var(--color-text-white);
   border-color: transparent;
 }
@@ -586,8 +575,8 @@ textarea {
 .btn-primary:focus {
   background: linear-gradient(
     145deg,
-    var(--color-primary-400),
-    var(--color-primary-500)
+    var(--color-secondary),
+    var(--color-secondary-hover)
   );
   color: var(--color-text-white);
   border-color: transparent;
@@ -596,30 +585,30 @@ textarea {
 /* Botón outline */
 .btn-outline {
   background-color: var(--color-bg-white);
-  color: var(--color-text-heading);
-  border-color: var(--color-primary-500);
+  color: var(--color-primary);
+  border-color: var(--color-primary);
 }
 
 .btn-outline:hover,
 .btn-outline:active,
 .btn-outline:focus {
-  background-color: var(--color-primary-500);
-  color: var(--color-text-white);
-  border-color: var(--color-primary-500);
+  background-color: var(--color-bg-white);
+  color: var(--color-primary-hover);
+  border-color: var(--color-primary-hover);
 }
 
 /* Botón secundario */
 .btn-secondary {
-  background-color: var(--color-secondary-500);
+  background-color: var(--color-bg-dark);
   color: var(--color-text-white);
-  border-color: var(--color-secondary-500);
+  border-color: var(--color-bg-dark);
 }
 
 .btn-secondary:hover,
 .btn-secondary:active {
-  background-color: var(--color-secondary-400);
+  background-color: var(--color-primary);
   color: var(--color-text-white);
-  border-color: var(--color-secondary-400);
+  border-color: var(--color-primary);
 }
 
 /* Botón Transparente */
@@ -698,8 +687,7 @@ header.header {
 }
 
 .header.scrolled {
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(10px);
+  box-shadow: var(--box-shadow-menu);
 }
 
 .header.scrolled.scroll-up {
@@ -719,6 +707,8 @@ header .navbar-brand {
 
 header .img-brand {
   height: auto;
+  max-height: 100px;
+  object-fit: contain;
 }
 
 /* Ocultar el logo blanco por defecto */
@@ -757,16 +747,19 @@ header .img-brand {
   box-shadow: none !important;
 }
 
-.navbar-nav > .nav-item:not(.btn-contact) > .nav-link {
-  font-family: var(--font-nav-link);
+.navbar-nav > li > a {
   color: var(--color-dark);
-  line-height: 100%;
+  font-family: var(--font-nav-link);
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 150%;
   position: relative;
   padding: 0.5rem;
   transition: color 0.3s ease;
 }
 
-.nav-item.current_page_item a {
+.navbar-nav > li > a:hover {
   color: var(--color-primary) !important;
 }
 
@@ -982,13 +975,31 @@ ul.dropdown-submenu.show {
 /*--------------------------------------------------------------
 # Hero Section
 --------------------------------------------------------------*/
-#hero {
-  height: 100vh;
-  min-height: 600px;
+#hero,
+#hero .container-fluid {
+  min-height: 45rem;
+}
+
+.hero-title {
+  color: var(--color-black);
+  font-family: var(--font-title);
+  font-size: 3.5rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 4rem;
+  letter-spacing: -0.07rem;
 }
 
 .hero-subtitle {
-  opacity: 0.9;
+  color: var(--color-black);
+  font-family: var(--font-body);
+  font-size: 1.25rem;
+  font-weight: 300;
+  line-height: 120%;
+}
+
+.hero-split__text {
+  background-color: var(--color-bg-light);
 }
 
 /*--------------------------------------------------------------
@@ -1002,13 +1013,13 @@ ul.dropdown-submenu.show {
 
 .carousel-content .heading-1 {
   color: var(--color-text-white, #fff);
-  text-shadow: var(--text-shadow-hero);
+  text-shadow: var(--text-shadow);
 }
 
 .slide-description p {
   color: var(--color-text-white, #fff);
   font-size: 1.375rem;
-  text-shadow: var(--text-shadow-hero);
+  text-shadow: var(--text-shadow);
 }
 
 /*--------------------------------------------------------------
@@ -1022,19 +1033,23 @@ ul.dropdown-submenu.show {
 /*--------------------------------------------------------------
 # Flexible Blocks: Alternated Content
 --------------------------------------------------------------*/
-.img-small {
-  width: 30%;
-}
-.img-large {
-  width: 50%;
-}
-.img-left {
-  left: 0%;
-}
-.img-right {
-  right: 0%;
+.alternate-section .container {
+  padding-top: 7.5rem;
+  padding-bottom: 7.5rem;
 }
 
+.alternate-section .section-title {
+  color: var(--color-text-heading);
+  font-family: var(--font-title);
+  font-size: 2.875rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 110%;
+}
+
+/*--------------------------------------------------------------
+# Flexible Blocks: Alternated Slider
+--------------------------------------------------------------*/
 .alternated-slider img {
   background: linear-gradient(
     0deg,
@@ -1060,9 +1075,6 @@ ul.dropdown-submenu.show {
   text-align: end;
 }
 
-/*--------------------------------------------------------------
-# Flexible Blocks: Alternated Slider
---------------------------------------------------------------*/
 .alternated-slider a:not(.btn) {
   text-decoration: underline;
   color: var(--color-text-card);
@@ -1095,6 +1107,19 @@ ul.dropdown-submenu.show {
 .swiper-button-next:after,
 .swiper-button-prev:after {
   font-size: 24px !important;
+}
+
+/*--------------------------------------------------------------
+# Flexible Blocks: Brands
+--------------------------------------------------------------*/
+.brands-section {
+  padding-top: 6.25rem;
+  padding-bottom: 6.25rem;
+  background-color: var(--color-bg-white);
+}
+
+.brands-section .section-title {
+  color: var(--color-secondary);
 }
 
 /*--------------------------------------------------------------
@@ -1319,7 +1344,7 @@ section.product-listing .product-image img {
 /*--------------------------------------------------------------
 # Flexible Blocks: Banner (CTA)
  --------------------------------------------------------------*/
- .cta-content {
+.cta-content {
   padding: 7.5rem 0;
 }
 
@@ -1814,11 +1839,6 @@ select.orderby:focus {
 
 /* Small devices (landscape phones, 576px and up) */
 @media (min-width: 576px) {
-  #hero,
-  .carousel-background,
-  .hero-bg {
-    padding-top: var(--padding-top-body);
-  }
   section.product-listing .product-image img {
     height: 17.6875rem;
   }
@@ -1841,7 +1861,7 @@ select.orderby:focus {
   .hero-bg {
     padding-top: var(--padding-top-body-mobile);
   }
-  
+
   .alternated-slider img {
     height: 24rem !important;
   }
@@ -1857,7 +1877,7 @@ select.orderby:focus {
   body:not(.home) {
     padding-top: var(--padding-top-body);
   }
-  
+
   .alternated-content-left {
     padding-top: 3.75rem;
     padding-bottom: 3.75rem;
@@ -1871,14 +1891,7 @@ select.orderby:focus {
     height: 300px;
   }
 
-  .alternating-block .image-container {
-    height: 360px;
-  }
-  .alternating-block img {
-    height: 380px;
-  }
-
-  .banner .banner-img {
+  .alternate-image {
     width: 100%;
     height: 400px !important;
     position: relative;
@@ -1917,9 +1930,16 @@ select.orderby:focus {
 
 /* Large devices (desktops, 992px and up) */
 @media (min-width: 992px) {
-  .banner .banner-img {
+  .alternate-image {
     width: 50%;
     position: absolute;
+    top: 0;
+  }
+  .alternate-image.left {
+    left: 0;
+  }
+  .alternate-image.right {
+    right: 0;
   }
 
   .alternated-slider :has(.swiper),

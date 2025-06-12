@@ -1,5 +1,79 @@
 <?php
 /**
+ * Component: Section Heading
+ *
+ * Variables esperadas en $args:
+ *  - title         (string)        // obligatorio
+ *  - tagline       (string)        // opcional
+ *  - htag_title    (int|string)    // 0=h1,1=h2,2=h3,3=p
+ *  - htag_tagline  (int|string)    // idem para tagline
+ *  - text          (string)        // opcional (descripción)
+ *  - button        (array)         // opcional ['title', 'url', 'target']
+ *  - align_cls     (string)        // text-start, text-center, text-end
+ *  - wrapper_cls   (string)        // clases extra para el wrapper
+ */
+
+if ( ! defined( 'ABSPATH' ) ) exit;
+
+use Custom_Theme\Helpers\Template_Helpers;
+
+// Valores por defecto
+$title        = $args['title'] ?? '';
+$tagline      = $args['tagline'] ?? '';
+$htag_title   = $args['htag_title'] ?? 1;
+$htag_tagline = $args['htag_tagline'] ?? 3;
+$text         = $args['text'] ?? '';
+$button       = $args['button'] ?? '';
+$align_cls    = $args['align_cls'] ?? 'text-center mb-4';
+$wrapper_cls  = $args['wrapper_cls'] ?? '';
+
+if ( empty( $title ) ) {
+    return;
+}
+?>
+<div class="<?php echo esc_attr( $wrapper_cls ); ?>">
+  <?php if ( $tagline ) : ?>
+    <?php
+      echo Template_Helpers::tag_title(
+        $htag_tagline,
+        esc_html( $tagline ),
+        'section-tagline ' . esc_attr( $align_cls )
+      );
+    ?>
+  <?php endif; ?>
+
+  <?php
+    echo Template_Helpers::tag_title(
+      $htag_title,
+      esc_html( $title ),
+      'section-title ' . esc_attr( $align_cls )
+    );
+  ?>
+
+   <?php if ( ! empty( $text ) ) : ?>
+        <div class="section-text <?php echo esc_attr( $align_cls ); ?>">
+            <?php echo wp_kses_post( wpautop( $text ) ); ?>
+        </div>
+    <?php endif; ?>
+
+    <?php if ( is_array( $button ) && ! empty( $button['url'] ) && ! empty( $button['title'] ) ) : ?>
+        <div class="section-button <?php echo esc_attr( $align_cls ); ?>">
+            <a href="<?php echo esc_url( $button['url'] ); ?>"
+               class="btn btn-primary"
+               target="<?php echo esc_attr( $button['target'] ?? '_self' ); ?>">
+                <?php echo esc_html( $button['title'] ); ?>
+            </a>
+        </div>
+    <?php endif; ?>
+
+</div>
+
+
+
+
+
+<?php
+/**
  * Componente: Section Heading
  *
  * Variables esperadas:

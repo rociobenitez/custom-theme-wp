@@ -3,49 +3,122 @@
  * Bloque Hero
  */
 
-// Obtener los valores de los campos ACF
-$fields           = get_fields();
-$title            = !empty($fields['hero_main_title']) ? $fields['hero_main_title'] : '';
-$htag             = (isset($fields['hero_heading_htag']) && $fields['hero_heading_htag'] !== '') ? $fields['hero_heading_htag'] : 0;
-$subtitle         = !empty($fields['hero_subtitle']) ? $fields['hero_subtitle'] : '';
-$htag_subtitle    = (isset($fields['hero_subtitle_htag']) && $fields['hero_subtitle_htag'] !== '') ? $fields['hero_subtitle_htag'] : 3;
-$tagline_position = !empty($fields['hero_tagline_position']) ? $fields['hero_tagline_position'] : 'below'; // 'above' o 'below'
-$text_alignment   = !empty($fields['hero_text_alignment']) ? $fields['hero_text_alignment'] : 'center';  // 'center', 'left' o 'right'
-$description      = !empty($fields['hero_description']) ? $fields['hero_description'] : '';
-$bg_type          = !empty($fields['hero_background_type']) ? $fields['hero_background_type'] : 'image';
-$img_bg           = !empty($fields['hero_background_image']) ? $fields['hero_background_image'] : [];
-$video_bg         = !empty($fields['hero_background_video']) ? $fields['hero_background_video'] : [];
+defined( 'ABSPATH' ) or exit;
+
+use Custom_Theme\Helpers\Template_Helpers;
+
+// Obtener los argumentos del bloque Hero
+$title          = $args['hero_main_title'] ?? '';
+$htag           = $args['hero_heading_htag'] ?? 1;
+$subtitle       = $args['hero_subtitle'] ?? '';
+$htag_sub       = $args['hero_subtitle_htag'] ?? 3;
+$tag_pos        = $args['hero_tagline_position'] ?? 'below';
+$text_align     = $args['hero_text_alignment'] ?? 'center';
+$description    = $args['hero_description'] ?? '';
+$split_enabled  = $args['hero_split'] ?? false;
+$split_side     = $args['hero_split_side'] === 'right' ? 'right' : 'left';
+$bg_type        = $args['hero_background_type'] ?? 'image';
+$img_bg         = $args['hero_background_image']['url'] ?? '';
+$video_bg       = $args['hero_background_video']['url'] ?? '';
+$btn_primary    = $args['hero_cta_button'] ?? [];
+$btn_secondary  = $args['hero_secondary_cta_button'] ?? [];
 
 // Botones
-$link_1 = !empty($fields['hero_cta_button']) ? $fields['hero_cta_button'] : [];
-$link_2 = !empty($fields['hero_secondary_cta_button']) ? $fields['hero_secondary_cta_button'] : [];
+$link_1 = $args['hero_cta_button'] ?? [];
+$link_2 = $args['hero_secondary_cta_button'] ?? [];
 
-// Si no hay un video o imagen de fondo, usar la imagen por defecto
-if ( empty( $img_bg['url'] ) && empty( $video_bg['url'] ) ) {
-    $bg_type = 'image';
-    $img_bg  = ['url' => get_template_directory_uri() . '/assets/img/hero.jpg'];
+if ( $bg_type === 'image' && ! $img_bg ) {
+    $img_bg = get_template_directory_uri() . '/assets/img/hero.jpg';
 }
 
-// Mapear la clase de alineación del texto según el valor seleccionado
-switch ( $text_alignment ) {
-    case 'left':
-        $text_align_class = 'text-start';
-        $margin_text = 'me-auto';
-        $align_container = 'justify-content-start';
-        break;
-    case 'right':
-        $text_align_class = 'text-end';
-        $margin_text = 'ms-auto';
-        $align_container = 'justify-content-end';
-        break;
-    default:
-        $text_align_class = 'text-center';
-        $margin_text = 'mx-auto';
-        $align_container = 'justify-content-center';
-        break;
-}
-?>
+// mapa de clases de alineación
+$map = [
+    'left'   => ['text-start','me-auto','justify-content-start'],
+    'right'  => ['text-end','ms-auto','justify-content-end'],
+    'center' => ['text-center','mx-auto','justify-content-center'],
+];
+list( $text_class, $margin_class, $justify_class ) = $map[ $text_align ];
 
+// ------------- SPLIT LAYOUT -------------
+if ( $split_enabled && $bg_type === 'image' ) : ?>
+  <section id="hero" class="hero-split hero-split--<?= esc_attr($split_side); ?>">
+    <div class="container-fluid p-0 d-flex">
+      <?php 
+      // según side, texto primero o background primero
+      if ( $split_side === 'left' ) {
+        // text panel
+        ?>
+        <div class="hero-split__text col-lg-6 flex-fill d-flex <?= esc_attr($text_class); ?> align-items-center p-5">
+          <div class="w-100">
+            <?php if ( $subtitle && $tag_pos==='above' ) : ?>
+              <?= Template_Helpers::tag_title($htag_sub, esc_html($subtitle), 'hero-subtitle'); ?>
+            <?php endif; ?>
+            <?php if ( $title ) : ?>
+              <?= Template_Helpers::tag_title($htag, esc_html($title), 'hero-title'); ?>
+            <?php endif; ?>
+            <?php if ( $subtitle && $tag_pos==='below' ) : ?>
+              <?= Template_Helpers::tag_title($htag_sub, esc_html($subtitle), 'hero-subtitle'); ?>
+            <?php endif; ?>
+            <?php if ( $description ) : ?>
+              <div class="hero-description"><?php echo wp_kses_post($description); ?></div>
+            <?php endif; ?>
+            <div class="hero-buttons d-flex gap-2 mt-4 <?= esc_attr($justify_class); ?>">
+              <?php if ( $btn_primary ): ?>
+                <a href="<?= esc_url($btn_primary['url']); ?>" class="btn btn-xl btn-default">
+                  <?= esc_html($btn_primary['title']); ?>
+                </a>
+              <?php endif; ?>
+              <?php if ( $btn_secondary ): ?>
+                <a href="<?= esc_url($btn_secondary['url']); ?>" class="btn btn-xl btn-outline">
+                  <?= esc_html($btn_secondary['title']); ?>
+                </a>
+              <?php endif; ?>
+            </div>
+          </div>
+        </div>
+        <?php
+        // image panel
+        ?>
+        <div class="hero-split__bg flex-fill cover col-lg-6" style="background-image:url('<?= esc_url($img_bg); ?>');"></div>
+      <?php
+      } else {
+        // side === right: primero bg, luego text
+        ?>
+        <div class="hero-split__bg flex-fill" style="background-image:url('<?= esc_url($img_bg); ?>');"></div>
+        <div class="hero-split__text flex-fill d-flex <?= esc_attr($text_class); ?> align-items-center p-5">
+          <div class="w-100">
+            <?php if ( $subtitle && $tag_pos==='above' ) : ?>
+              <?= Template_Helpers::tag_title($htag_sub, esc_html($subtitle), 'hero-subtitle'); ?>
+            <?php endif; ?>
+            <?php if ( $title ) : ?>
+              <?= Template_Helpers::tag_title($htag, esc_html($title), 'hero-title'); ?>
+            <?php endif; ?>
+            <?php if ( $subtitle && $tag_pos==='below' ) : ?>
+              <?= Template_Helpers::tag_title($htag_sub, esc_html($subtitle), 'hero-subtitle'); ?>
+            <?php endif; ?>
+            <?php if ( $description ) : ?>
+              <div class="hero-description"><?php echo wp_kses_post($description); ?></div>
+            <?php endif; ?>
+            <div class="hero-buttons d-flex gap-2 mt-4 <?= esc_attr($justify_class); ?>">
+              <?php if ( $btn_primary['url'] ): ?>
+                <a href="<?= esc_url($btn_primary['url']); ?>" class="btn btn-primary">
+                  <?= esc_html($btn_primary['title']); ?>
+                </a>
+              <?php endif; ?>
+              <?php if ( $btn_secondary['url'] ): ?>
+                <a href="<?= esc_url($btn_secondary['url']); ?>" class="btn btn-outline-light">
+                  <?= esc_html($btn_secondary['title']); ?>
+                </a>
+              <?php endif; ?>
+            </div>
+          </div>
+        </div>
+      <?php } ?>
+    </div>
+  </section>
+<?php
+// ------------- LAYOUT NORMAL -------------
+else : ?>
 <div id="hero">
     <?php if ( 'image' === $bg_type && ! empty( $img_bg['url'] ) ) : ?>
         <div class="hero-bg cover d-flex <?= esc_attr( $align_container ); ?> align-items-center"
@@ -66,24 +139,24 @@ switch ( $text_alignment ) {
             <div class="col-md-10 col-lg-8 d-flex flex-column justify-content-center h-100 py-5 my-5 <?= esc_attr( $margin_text ); ?>">
                 <?php 
                 // Si el subtítulo debe aparecer arriba, muéstralo antes del título
-                if ( 'above' === $tagline_position && ! empty( $subtitle ) ) : ?>
+                if ( 'above' === $tag_pos && ! empty( $subtitle ) ) : ?>
                     <div class="hero-subtitle-container">
-                        <?= tagTitle( $htag_subtitle, esc_html( $subtitle ), 'hero-subtitle fs20 c-white lh160', ''); ?>
+                        <?= Template_Helpers::tag_title( $htag_sub, esc_html( $subtitle ), 'hero-subtitle fs20 c-white lh160', ''); ?>
                     </div>
                 <?php endif; ?>
                 
                 <?php
                 // Mostrar el título si existe
                 if ( ! empty( $title ) ) :
-                    echo tagTitle( $htag, esc_html( $title ), 'heading-1 hero-title c-white', '');
+                    echo Template_Helpers::tag_title( $htag, esc_html( $title ), 'heading-1 hero-title c-white', '');
                 endif;
                 ?>
 
                 <?php
                 // Si el subtítulo debe aparecer debajo, muéstralo después del título
-                if ( 'below' === $tagline_position && ! empty( $subtitle ) ) : ?>
+                if ( 'below' === $tag_pos && ! empty( $subtitle ) ) : ?>
                     <div class="hero-subtitle-container">
-                        <?= tagTitle( $htag_subtitle, esc_html( $subtitle ), 'hero-subtitle fs20 c-white lh160', ''); ?>
+                        <?= Template_Helpers::tag_title( $htag_sub, esc_html( $subtitle ), 'hero-subtitle fs20 c-white lh160', ''); ?>
                     </div>
                 <?php endif; ?>
 
@@ -114,3 +187,4 @@ switch ( $text_alignment ) {
         </div>
     </div>
 </div>
+<?php endif; ?>
