@@ -41,7 +41,7 @@ Sigue las pautas de Underscores (https://underscores.me/) y está licenciado baj
 # Flexible Blocks: Specialties
 # Flexible Blocks: Section blocks
 # Flexible Blocks: Related Content
-# Flexible Blocks: Related Products
+# Flexible Blocks: Products
 # Flexible Blocks: Banner (CTA)
 # Flexible Blocks: FAQs
 # Flexible Blocks: Centros
@@ -1334,11 +1334,11 @@ ul.dropdown-submenu.show {
 }
 
 /*--------------------------------------------------------------
-# Flexible Blocks: Related Products
+# Flexible Blocks: Products
 --------------------------------------------------------------*/
-section.product-listing .product-image img {
-  width: 100%;
-  object-fit: cover;
+section.product-listing {
+  margin-top: 6rem;
+  margin-bottom: 6rem;
 }
 
 /*--------------------------------------------------------------
