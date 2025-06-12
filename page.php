@@ -1,13 +1,6 @@
 <?php
 /**
- * The template for displaying all pages
- *
- * This is the template that displays all pages by default.
- * Please note that this is the WordPress construct of pages
- * and that other 'pages' on your WordPress site may use a
- * different template.
- *
- * @link https://developer.wordpress.org/themes/basics/template-hierarchy/
+ * Default template
  *
  * @package custom_theme
  */
@@ -15,22 +8,17 @@
 $bodyclass  = 'page-default';
 
 get_header();
-$fields = get_fields(); 
 
-?>
+// Obtener campos ACF
+$fields = function_exists('get_fields') ? get_fields() : [];
 
-<main id="primary" class="main-content">
+// Page Header
+get_template_part( 'template-parts/pageheader' );
 
-	<?php 
-	get_template_part('template-parts/pageheader', null, [
-		'pageheader_style' => 'cols',
-	]);
+// Bloques flexibles ACF
+if ( ! empty( $fields['flexible_content'] )
+&& is_array( $fields['flexible_content'] ) ) {
+	BlockLoader::load( $fields['flexible_content'] );
+}
 
-	// Cargar bloques flexibles dinámicamente
-	require_once get_template_directory() . '/template-parts/load-flexible-blocks.php';
-	load_flexible_blocks($fields['flexible_content']);
-	?>
-
-</main>
-
-<?php get_footer(); ?>
+get_footer();
