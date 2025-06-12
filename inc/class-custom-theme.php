@@ -50,7 +50,7 @@ class Custom_Theme {
 
         // Registrar Custom Post Types y taxonomías
         add_action( 'init', [ __CLASS__, 'modify_post_rewrite' ], 20 );
-        add_action( 'init', [ __CLASS__, 'register_cpt' ] );
+        // add_action( 'init', [ __CLASS__, 'register_cpt' ] );
         // add_action( 'init', [ __CLASS__, 'fix_blog_pagination' ] );
         // add_filter( 'post_link', [ __CLASS__, 'append_query_string' ], 10, 3 );
 
@@ -228,6 +228,13 @@ class Custom_Theme {
             get_stylesheet_uri(), // style.css principal
             [ 'bootstrap-css' ],  // dependencias
             CTM_THEME_VERSION
+        );
+
+        wp_enqueue_style(
+            'theme-fonts',
+            get_stylesheet_directory_uri() . '/assets/css/fonts.css',
+            [],
+            '1.0'
         );
 
         // CSS personalizado de Woocommerce (si está activo)
@@ -468,7 +475,7 @@ class Custom_Theme {
      */
     public static function add_custom_dashboard_widget() {
         wp_add_dashboard_widget(
-            'ctm_custom_dashboard_widget',
+            'custom_dashboard_widget',
             esc_html__( '¡Bienvenido!', CTM_TEXTDOMAIN ),
             [ __CLASS__, 'render_custom_dashboard_widget' ]
         );
@@ -485,8 +492,8 @@ class Custom_Theme {
                 echo '<img src="' . esc_url( CTM_SITE_LOGO ) . '" alt="' . esc_attr__( 'Logo', CTM_TEXTDOMAIN ) . '" style="max-width:150px;margin-bottom:0.5rem;" />';
             }
         }
-        echo '<h3>' . esc_html( CTM_COMPANY_NAME ) . '</h3>';
-        echo '<p>' . esc_html__( 'Sistema de Gestión de Contenidos', CTM_TEXTDOMAIN ) . '</p>';
+        echo '<h3 class="custom-dashboard-title top">' . esc_html( CTM_COMPANY_NAME ) . '</h3>';
+        echo '<p class="custom-dashboard-title bottom">' . esc_html__( 'Sistema de Gestión de Contenidos', CTM_TEXTDOMAIN ) . '</p>';
     }
 
     /**
@@ -685,7 +692,7 @@ class Custom_Theme {
                 background-image: url("<?php echo $logo_url_white; ?>");
                 background-size: 200px auto;
                 width: 100%;
-                height: 40px;
+                height: 58px;
             }
             <?php endif; ?>
             /* Enlaces e iconos en blanco */
@@ -698,13 +705,13 @@ class Custom_Theme {
             }
             /* Botón primario personalizado */
             .wp-core-ui .button-primary {
-                background-color: #0c0d19;
-                border-color: #0c0d19;
+                background-color: #031E31;
+                border-color: #031E31;
                 color: #fff;
             }
             .wp-core-ui .button-primary:hover {
-                background-color: rgba(12,13,25,0.85);
-                border-color: rgba(12,13,25,0.85);
+                background-color: #00587C;
+                border-color: #00587C;
                 color: #fff;
             }
             /* Ocultar selector de idioma */
@@ -749,7 +756,7 @@ class Custom_Theme {
      */
     public static function flush_rewrite_rules_on_theme_activation() {
         self::modify_post_rewrite();
-        self::register_cpt();
+        // self::register_cpt();
         self::rewrite_rules();
         flush_rewrite_rules();
     }
@@ -777,11 +784,31 @@ class Custom_Theme {
     }
 
     /**
+     * Carga el topbar correcto en wp_body_open:
+     * - topbar-woo si WooCommerce está activo
+     * - topbar general en otro caso
+     */
+    public static function render_topbar() {
+        // Solo si está marcado en ACF
+        $show = \Custom_Theme\Helpers\Theme_Options::get( 'show_topbar', false );
+        if ( ! $show ) {
+            return;
+        }
+
+        if ( class_exists( 'WooCommerce' ) ) {
+            get_template_part( 'template-parts/header/topbar-woo' );
+        } else {
+            get_template_part( 'template-parts/header/topbar' );
+        }
+    }
+
+    /**
      * Incluye (require) todos los archivos de /inc necesarios.
      */
     private static function includes() {
         $files = [
             '/inc/class-theme-options.php',       // Helper para obtener opciones ACF
+            '/inc/class-block-loader.php',        // Cargador de bloques flexibles ACF
             '/inc/class-template-helpers.php',    // Helper para plantillas
             '/inc/class-social-links.php',        // Helper para redes sociales
             '/inc/class-bs-navwalker.php',        // Walker para Bootstrap nav

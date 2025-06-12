@@ -10,16 +10,21 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class Theme_Options {
 
+    // Caché interno para no volver a llamar a get_fields() múltiples veces
+    private static $all = null;
+
     /**
      * Recupera todas las opciones definidas en ACF Options Page.
      * @return array Un array de pares clave => valor; [] si no existe ACF.
      */
-    public static function get_all() {
-        if ( ! function_exists( 'get_fields' ) ) {
-            return [];
+    public static function get_all(): array {
+        if ( function_exists( 'get_fields' ) ) {
+            $fields = get_fields( 'option' );
+            self::$all = is_array( $fields ) ? $fields : [];
+        } else {
+            self::$all = [];
         }
-        $fields = get_fields( 'option' );
-        return is_array( $fields ) ? $fields : [];
+        return self::$all;
     }
 
     /**
@@ -28,21 +33,24 @@ class Theme_Options {
      * @param mixed  $default Valor por defecto.
      * @return mixed
      */
-    public static function get( $key, $default = '' ) {
+    public static function get( string $key, $default = '' ) {
         $all = self::get_all();
-        return isset( $all[ $key ] ) ? $all[ $key ] : $default;
+        return array_key_exists( $key, $all ) ? $all[ $key ] : $default;
     }
 
     /**
      * Obtiene opciones de contacto: phone, whatsapp, email.
-     * @return array [ 'phone' => '', 'whatsapp' => '', 'email' => '' ]
+     * @return array{phone:string,whatsapp:string,email:string}
      */
     public static function get_contact_options() {
-        $opts = self::get_all();
+        $phone    = self::get( 'phone', '' );
+        $whatsapp = self::get( 'whatsapp', '' );
+        $email    = self::get( 'email', '' );
+
         return [
-            'phone'    => isset( $opts['phone'] )    ? sanitize_text_field( $opts['phone'] )    : '',
-            'whatsapp' => isset( $opts['whatsapp'] ) ? sanitize_text_field( $opts['whatsapp'] ) : '',
-            'email'    => isset( $opts['email'] )    ? sanitize_email( $opts['email'] )         : '',
+            'phone'    => $phone    ? sanitize_text_field( $phone ) : '',
+            'whatsapp' => $whatsapp ? sanitize_text_field( $whatsapp ) : '',
+            'email'    => $email    ? sanitize_email( $email )         : '',
         ];
     }
 }
