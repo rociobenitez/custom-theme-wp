@@ -1,9 +1,19 @@
 <?php
-
 /**
- * Parte superior del encabezado: barra superior.
+ * Topbar general (contacto + social)
  *
- * @package custom_theme
+ * Solo se muestra si:
+ *  - ACF Options: show_topbar = true
+ *  - Hay al menos un contacto o, show_social_links = 'topbar' y hay redes
+ *
+ * Variables ACF usadas:
+ *  - show_topbar (true_false)
+ *  - bg_color_topbar (css class)
+ *  - border_topbar (css class)
+ *  - show_social_links (radio: topbar | navbar | none)
+ *
+ * Contacto obtenido vía Theme_Options::get_contact_options()
+ * Social via Social_Links::get_all()
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -11,38 +21,61 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 use Custom_Theme\Helpers\Theme_Options;
+use Custom_Theme\Helpers\Social_Links;
 
-// Obtener opciones de tema
-$options = Theme_Options::get_all();
+$show_topbar       = Theme_Options::get( 'show_topbar', false );
+$bg_class          = Theme_Options::get( 'bg_color_topbar', 'bg-black' );
+$border_class      = Theme_Options::get( 'border_topbar', 'border-none' );
+$social_position   = Theme_Options::get( 'show_social_links', 'topbar' );
 
-// Obtener opciones de contacto
-$contact_options = Theme_Options::get_contact_options();
+if ( ! $show_topbar ) {
+    return;
+}
 
-// Clases dinámicas ACF
-$topbar_bg_class = ! empty( $options['bg_color_topbar'] ) ? $options['bg_color_topbar'] : 'bg-black';
-$topbar_border_class = ! empty( $options['border_topbar'] ) ? $options['border_topbar'] : 'border-none';
-$show_topbar = ! empty( $options['show_topbar'] ) ? true : false;
-$show_social_links = ! empty( $options['show_social_links'] ) ? $options['show_social_links'] : false;
+$contact = Theme_Options::get_contact_options();
+$social  = Social_Links::get_all();
+
+// si no hay nada que mostrar, salimos
+if ( empty( array_filter( $contact ) ) && ( $social_position !== 'topbar' || empty( $social ) ) ) {
+    return;
+}
+
 ?>
+<div class="topbar <?php echo esc_attr( $bg_class . ' ' . $border_class ); ?> py-1">
+  <div class="container d-flex justify-content-between align-items-center">
 
-<?php if ( $show_topbar ) :?>
-    <!-- Topbar -->
-    <div class="topbar d-none d-md-block <?= esc_attr( $topbar_bg_class . ' ' . $topbar_border_class); ?>">
-        <div class="container d-flex py-2 <?= $show_social_links === 'topbar' ? 'justify-content-between' : 'justify-content-end'; ?> <?= esc_attr($topbar_border_class); ?>">
-            <?php if ( !empty( array_filter( $contact_options ) ) ) : ?>
-                <div class="icons-contact d-flex align-items-center gap-3">
-                    <?php foreach ($contact_options as $type => $value) : ?>
-                        <?= generate_contact_link($type, $value); ?>
-                    <?php endforeach; ?>
-                </div>
-            <?php endif; ?>
+    <!-- Contacto -->
+    <?php if ( ! empty( array_filter( $contact ) ) ) : ?>
+      <div class="topbar-contact d-flex gap-3">
+        <?php if ( $contact['phone'] ) : ?>
+          <a href="tel:<?php echo esc_attr( preg_replace('/\D/','',$contact['phone']) ); ?>">
+            <i class="bi bi-telephone me-1"></i>
+            <?php echo esc_html( $contact['phone'] ); ?>
+          </a>
+        <?php endif; ?>
 
-            <?php if ($show_social_links === 'topbar') : ?>
-                <!-- Iconos de redes sociales -->
-                <div class="social-media d-flex align-items-center">
-                    <?= social_media(); ?>
-                </div>
-            <?php endif; ?>
-        </div>
-    </div>
-<?php endif;?>
+        <?php if ( $contact['whatsapp'] ) : ?>
+          <a href="https://wa.me/<?php echo esc_attr( preg_replace('/\D/','',$contact['whatsapp']) ); ?>">
+            <i class="bi bi-whatsapp me-1"></i>
+            <?php echo esc_html( $contact['whatsapp'] ); ?>
+          </a>
+        <?php endif; ?>
+
+        <?php if ( $contact['email'] ) : ?>
+          <a href="mailto:<?php echo esc_attr( $contact['email'] ); ?>">
+            <i class="bi bi-envelope me-1"></i>
+            <?php echo esc_html( $contact['email'] ); ?>
+          </a>
+        <?php endif; ?>
+      </div>
+    <?php endif; ?>
+
+    <!-- Social links -->
+    <?php if ( $social_position === 'topbar' && ! empty( $social ) ) : ?>
+      <div class="topbar-social">
+        <?php Social_Links::render(); ?>
+      </div>
+    <?php endif; ?>
+
+  </div>
+</div>

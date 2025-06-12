@@ -9,13 +9,12 @@
  * @package custom_theme
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-    exit;
-}
+if ( ! defined( 'ABSPATH' ) ) exit;
 
 global $bodyclass;
 $bodyclass = $bodyclass ?? 'default-body';
-
+$options = \Custom_Theme\Helpers\Theme_Options::get_all();
+$mobile_button = isset( $options['link_btn_movil']['url'] ) ? $options['link_btn_movil'] : false;
 ?><!doctype html>
 <html <?php language_attributes(); ?>>
 <head>
@@ -42,26 +41,24 @@ $bodyclass = $bodyclass ?? 'default-body';
  
 <body <?php body_class( $bodyclass ); ?>>
 
-	<?php wp_body_open(); ?>
+	<?php wp_body_open();  ?>
 
-	<header id="mainHeader" class="header fixed-top <?= esc_attr( $header_bg_class ); ?> shadow-sm">
-
-		<?php
-		/**
-		 * . TEMPLATES PARTS:
-		 * 1. Topbar (opcional)
-		 * 2. Navbar principal
-		 */
-		get_template_part( 'template-parts/header/topbar' );
+	<header id="mainHeader" class="header fixed-top
+		<?php 
+		echo esc_attr( $opts['bg_color_header_home'] ?? 'bg-white' );
+		echo ' ';
+		echo esc_attr( $opts['border_header'] ?? 'border-none' );
+		?>">
+		<?php 
+		// Topbar
+		\Custom_Theme\Custom_Theme::render_topbar();
+		// Navbar
 		get_template_part( 'template-parts/header/navbar' );
 		?>
 	</header>
 
-	<!-- Botón móvil (si existe en ACF) -->
-	<?php
-	$options       = \Custom_Theme\Helpers\Theme_Options::get_all();
-	$mobile_button = isset( $options['link_btn_movil']['url'] ) ? $options['link_btn_movil'] : false;
-	if ( $mobile_button ) : ?>
+	<!-- Botón móvil -->
+	<?php if ( $mobile_button ) : ?>
 		<div class="d-flex">
 			<a href="<?php echo esc_url( $mobile_button['url'] ); ?>" class="btn btn-primary btn-contact-mobile d-block d-xl-none">
 				<?php echo esc_html( $mobile_button['title'] ); ?>

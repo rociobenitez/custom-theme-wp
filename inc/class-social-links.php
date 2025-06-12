@@ -6,7 +6,25 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 class Social_Links {
-    public static function get_all() {
+
+    private static $icons = [
+        'facebook'  => 'facebook.svg',
+        'instagram' => 'instagram.svg',
+        'linkedin'  => 'linkedin.svg',
+        'youtube'   => 'youtube.svg',
+        'x'         => 'x.svg',
+        'tiktok'    => 'tiktok.svg',
+        'pinterest' => 'pinterest.svg',
+        'twitch'    => 'twitch.svg',
+        'dribbble'  => 'dribbble.svg',
+        'behance'   => 'behance.svg',
+    ];
+
+    /**
+     * Recupera array name=>url desde ACF Options (campo repeater 'social_links').
+     * @return array<string,string>
+     */
+    public static function get_all():array {
         if ( ! function_exists( 'get_field' ) ) {
             return [];
         }
@@ -21,42 +39,33 @@ class Social_Links {
             }
             $network = sanitize_text_field( strtolower( $item['social_network'] ) );
             $url     = esc_url( $item['social_url'] );
-            $result[ $network ] = $url;
+            if ( isset( self::$icons[ $network ] ) ) {
+                $result[ $network ] = $url;
+            }
         }
         return $result;
     }
 
-    public static function render() {
+    /**
+     * Imprime los enlaces con sus iconos.
+     */
+    public static function render(): void {
         $links = self::get_all();
         if ( empty( $links ) ) {
             return;
         }
-        $icons = [
-            'facebook'  => 'facebook.svg',
-            'instagram' => 'instagram.svg',
-            'linkedin'  => 'linkedin.svg',
-            'youtube'   => 'youtube.svg',
-            'x'         => 'x.svg',
-            'tiktok'    => 'tiktok.svg',
-            'pinterest' => 'pinterest.svg',
-            'twitch'    => 'twitch.svg',
-            'dribbble'  => 'dribbble.svg',
-            'behance'   => 'behance.svg',
-        ];
         echo '<div class="social-links d-flex">';
         foreach ( $links as $network => $url ) {
-            if ( ! isset( $icons[ $network ] ) ) {
-                continue;
-            }
-            $icon_path = CTM_THEME_URI . '/assets/img/icons/boxicons/' . $icons[ $network ];
-            $alt       = sprintf( esc_attr__( 'Icono de %s', CTM_TEXTDOMAIN ), ucfirst( $network ) );
+            $icon = self::$icons[ $network ];
+            $src  = CTM_THEME_URI . "/assets/img/icons/boxicons/{$icon}";
+            $alt  = sprintf( esc_attr__( 'Icono de %s', CTM_TEXTDOMAIN ), ucfirst( $network ) );
             printf(
                 '<a href="%1$s" class="social-item %2$s me-2" target="_blank" rel="noopener noreferrer">
                     <img src="%3$s" alt="%4$s" width="24" height="24">
                 </a>',
-                esc_url( $url ),
+                $url,
                 esc_attr( $network ),
-                esc_url( $icon_path ),
+                esc_url( $src ),
                 $alt
             );
         }
