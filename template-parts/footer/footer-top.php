@@ -9,44 +9,60 @@
 
 if ( ! defined('ABSPATH') ) exit;
 
-// Datos de contacto y columnas
-$opts         = Template_Helpers::generate_footer_options();
-$contact_info = Theme_Helpers::get_contact_info( $opts );
-$cols         = Template_Helpers::get_footer_columns( $opts );
+use Custom_Theme\Helpers\Template_Helpers;
 
-// determinar layout: minimal, 3columns, 4columns
-$layout = sanitize_key( $opts['footer_layout'] ?? '4columns' );
+// Datos de contacto y columnas
+$opts      = Template_Helpers::generate_footer_options();
+$cols      = Template_Helpers::get_footer_columns( $opts );
+$layout    = $opts['footer_layout'] ?? 'columns';
+$col_count = count( $cols );
+$col_cls   = 'row-cols-md-' . min( $col_count, 6 );
 ?>
 <div class="footer-top pt-5">
   <div class="container py-4">
     <?php 
     if ( $layout === 'minimal' ) :
-        get_template_part( 'template-parts/footer/footer-minimal', null, [ 'opts' => $opts, 'cols' => $cols ] );
-    else :
-        $count   = count( $cols );
-        $col_cls = 'col-md-' . ( $count ? floor( 12 / max(1, $count) ) : 12 );
-        ?>
+        get_template_part( 'template-parts/footer/footer-minimal', null, [ 
+            'opts' => $opts,
+            'cols' => $cols
+        ] );
+    else : ?>
 
-        <div class="row justify-content-center">
+        <div class="row justify-content-center row-cols-1 <?= esc_attr( $col_cls ); ?> g-4">
             <?php foreach ( $cols as $col ) : ?>
-                <div class="<?= esc_attr( $col_cls ); ?> footer-col mb-4 mb-lg-0">
 
-                    <?php if ( $col['type'] === 'logo' ) : ?>
+                <?php
+                switch ( $col['type'] ) {
+                    // Brand column
+                    case 'logo':
+                    ?>
                         <div class="footer-brand text-center text-md-start">
                             <?php get_template_part( 'template-parts/footer/footer-brand' ); ?>  
                         </div>
-                    <?php elseif ( $col['type'] === 'menu' ) : ?>
+
+                    <?php
+                    break;
+
+                    // Menus columns
+                    case 'menu': ?>
                         <?php if ( $col['title'] ) : ?>
-                            <p class="footer-menu-title mb-2"><?= esc_html( $col['title'] ); ?></p>
-                        <?php endif; ?>
-                        <?php wp_nav_menu([
+                            <p class="footer-menu-title mb-2">
+                                <?= esc_html( $col['title'] ); ?>
+                            </p>
+                        <?php endif;
+                        wp_nav_menu([
                             'theme_location' => $col['menu_location'],
                             'menu_class'     => 'footer-menu-list list-unstyled d-flex flex-column gap-1',
                             'depth'          => 1,
-                        ]); ?>
-                    <?php elseif ( $col['type'] === 'contact' ) : ?>
-                        <?php if ( $col['title'] ) : ?>
-                            <p class="footer-contact-title mb-2"><?php echo esc_html( $col['title'] ); ?></p>
+                        ]);
+                    break;
+
+                    // Contact column
+                    case 'contact':
+                        if ( $col['title'] ) : ?>
+                            <p class="footer-contact-title mb-2">
+                                <?php echo esc_html( $col['title'] ); ?>
+                            </p>
                         <?php endif; ?>
                         <ul class="list-unstyled footer-contact-list">
                             <?php foreach ( $col['contact'] as $info ) :
@@ -68,9 +84,12 @@ $layout = sanitize_key( $opts['footer_layout'] ?? '4columns' );
                             </li>
                             <?php endforeach; ?>
                         </ul>
-                    <?php endif; ?>
+                    <?php 
+                    
+                    break; 
+                }
+                ?>
 
-                </div>
             <?php endforeach; ?>
         </div>
 

@@ -41,27 +41,30 @@ $mobile_button = isset( $options['link_btn_movil']['url'] ) ? $options['link_btn
  
 <body <?php body_class( $bodyclass ); ?>>
 
-	<?php wp_body_open();  ?>
+	<div class="site-wrapper">
+		<?php wp_body_open();  ?>
 
-	<header id="mainHeader" class="header fixed-top
-		<?php 
-		echo esc_attr( $opts['bg_color_header_home'] ?? 'bg-white' );
-		echo ' ';
-		echo esc_attr( $opts['border_header'] ?? 'border-none' );
-		?>">
-		<?php 
-		// Topbar
-		\Custom_Theme\Custom_Theme::render_topbar();
-		// Navbar
-		get_template_part( 'template-parts/header/navbar' );
-		?>
-	</header>
+		<header id="mainHeader" class="header fixed-top
+			<?php 
+			echo esc_attr( $opts['bg_color_header_home'] ?? 'bg-white' );
+			echo ' ';
+			echo esc_attr( $opts['border_header'] ?? 'border-none' );
+			?>">
+			<?php 
+			// Topbar
+			\Custom_Theme\Custom_Theme::render_topbar();
+			// Navbar
+			get_template_part( 'template-parts/header/navbar' );
+			?>
+		</header>
 
-	<!-- Botón móvil -->
-	<?php if ( $mobile_button ) : ?>
-		<div class="d-flex">
-			<a href="<?php echo esc_url( $mobile_button['url'] ); ?>" class="btn btn-primary btn-contact-mobile d-block d-xl-none">
-				<?php echo esc_html( $mobile_button['title'] ); ?>
-			</a>
-		</div>
-	<?php endif; ?>
+		<!-- Botón móvil -->
+		<?php if ( $mobile_button ) : ?>
+			<div class="d-flex">
+				<a href="<?php echo esc_url( $mobile_button['url'] ); ?>" class="btn btn-primary btn-contact-mobile d-block d-xl-none">
+					<?php echo esc_html( $mobile_button['title'] ); ?>
+				</a>
+			</div>
+		<?php endif; ?>
+
+		<main class="site-content">

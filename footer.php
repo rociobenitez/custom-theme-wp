@@ -10,15 +10,18 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 use Custom_Theme\Helpers\Template_Helpers;
 $opts = Template_Helpers::generate_footer_options();
 ?>
+    </main>
 
-<footer id="site-footer" role="contentinfo" class="site-footer c-bg-white">
-    <?php
-    // Footer Top Section: logo, menús y contacto
-    get_template_part( 'template-parts/footer/footer-top' );
-    // Footer Bottom Section: copyright, social links, etc.
-    get_template_part( 'template-parts/footer/footer-bottom' );
-    ?>
-</footer>
+    <footer id="site-footer" role="contentinfo" class="site-footer c-bg-white">
+        <?php
+        // Footer Top Section: logo, menús y contacto
+        get_template_part( 'template-parts/footer/footer-top' );
+        // Footer Bottom Section: copyright, social links, etc.
+        get_template_part( 'template-parts/footer/footer-bottom' );
+        ?>
+    </footer>
+
+</div><!-- .site-wrapper -->
 
 <?php
 // Módulo Kit Digital si está habilitado
