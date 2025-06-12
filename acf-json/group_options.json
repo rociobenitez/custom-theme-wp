@@ -673,6 +673,7 @@
         "instructions": "Define el color del header en la página de inicio",
         "choices": {
             "bg-white": "Blanco",
+            "c-bg-white": "Blanco roto",
             "bg-transparent": "Transparente",
             "bg-dark": "Oscuro"
         },

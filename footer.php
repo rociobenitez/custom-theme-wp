@@ -11,7 +11,7 @@ use Custom_Theme\Helpers\Template_Helpers;
 $opts = Template_Helpers::generate_footer_options();
 ?>
 
-<footer id="site-footer" role="contentinfo" class="site-footer bg-light">
+<footer id="site-footer" role="contentinfo" class="site-footer c-bg-white">
     <?php
     // Footer Top Section: logo, menús y contacto
     get_template_part( 'template-parts/footer/footer-top' );

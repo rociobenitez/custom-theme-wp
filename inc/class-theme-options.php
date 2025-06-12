@@ -53,4 +53,24 @@ class Theme_Options {
             'email'    => $email    ? sanitize_email( $email )         : '',
         ];
     }
+
+    /**
+     * Obtiene el listado de datos de contacto para 'blocks/cta-actions.php'
+     * @return array
+     */
+    public static function get_cta_actions(): array {
+        if ( ! function_exists('have_rows') ) {
+            return [];
+        }
+        $list = [];
+        while ( have_rows('contact_blocks','option') ) {
+            the_row();
+            $list[] = [
+                'title'  => get_sub_field('title'),
+                'text'   => get_sub_field('text'),
+                'button' => get_sub_field('button'),
+            ];
+        }
+        return $list;
+    }
 }

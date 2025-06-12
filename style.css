@@ -36,11 +36,11 @@ Sigue las pautas de Underscores (https://underscores.me/) y está licenciado baj
 # Flexible Blocks: Text
 # Flexible Blocks: Alternated Content
 # Flexible Blocks: Alternated Slider
-# Flexible Blocks: Brands
 # Flexible Blocks: Features
 # Flexible Blocks: Specialties
 # Flexible Blocks: Section blocks
 # Flexible Blocks: Related Content
+# Flexible Blocks: Brands
 # Flexible Blocks: Products
 # Flexible Blocks: Banner (CTA)
 # Flexible Blocks: FAQs
@@ -52,6 +52,7 @@ Sigue las pautas de Underscores (https://underscores.me/) y está licenciado baj
 # Forms
 # - Form Banner
 # - Form Sidebar
+# CTA contact
 # Single Post
 # 404 Page
 # Blog Page
@@ -595,6 +596,20 @@ textarea {
   background-color: var(--color-bg-white);
   color: var(--color-primary-hover);
   border-color: var(--color-primary-hover);
+}
+
+.btn-outline-secondary {
+  background-color: var(--color-bg-white);
+  color: var(--color-secondary);
+  border-color: var(--color-secondary);
+}
+
+.btn-outline-secondary:hover,
+.btn-outline-secondary:active,
+.btn-outline-secondary:focus {
+  background-color: var(--color-bg-white);
+  color: var(--color-secondary-hover);
+  border-color: var(--color-secondary-hover);
 }
 
 /* Botón secundario */
@@ -1623,6 +1638,25 @@ section.product-listing {
 .validation_message {
   margin-bottom: 8px !important;
   margin-top: 0 !important;
+}
+
+/*--------------------------------------------------------------
+ # CTA contact
+ --------------------------------------------------------------*/
+.cta-actions-title {
+  color: var(--color-black);
+  font-family: var(--font-title);
+  font-size: 1.5rem;
+  font-weight: 400;
+  line-height: 110%;
+}
+
+.cta-actions-text {
+  color: var(--color-text-muted);
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
+  font-weight: 400;
+  line-height: 1.25rem;
 }
 
 /*--------------------------------------------------------------
