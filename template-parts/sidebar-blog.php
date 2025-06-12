@@ -3,7 +3,7 @@
  * Sidebar de la página del Blog
  * Incluye las categorías del blog
  *
- * @package CustomTheme
+ * @package custom_theme
  */
 
 $class_col  = $args['class_col'] ?? 'col-lg-3';

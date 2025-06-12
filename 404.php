@@ -4,7 +4,7 @@
  *
  * @link https://developer.wordpress.org/themes/basics/template-hierarchy/#404-not-found
  *
- * @package CustomTheme
+ * @package custom_theme
  */
 
 // Variables globales

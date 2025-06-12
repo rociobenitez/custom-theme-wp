@@ -9,7 +9,7 @@
  *
  * @link https://developer.wordpress.org/themes/basics/template-hierarchy/
  *
- * @package CustomTheme
+ * @package custom_theme
  */
 
 $bodyclass  = 'page-default';

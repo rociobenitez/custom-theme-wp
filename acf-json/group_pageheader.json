@@ -11,7 +11,7 @@
         "instructions": "Texto breve o slogan que se mostrará encima del título. Opcional.",
         "required": 0,
         "wrapper": {
-          "width": "40"
+          "width": "35"
         },
         "placeholder": ""
       },
@@ -27,9 +27,9 @@
           "2": "H3",
           "3": "P"
         },
-        "default_value": "H3",
+        "default_value": "P",
         "wrapper": {
-          "width": "10"
+          "width": "15"
         },
         "layout": "vertical"
       },
@@ -41,7 +41,7 @@
         "instructions": "Título principal de la página. Si se deja vacío, se usará el título de la página.",
         "required": 0,
         "wrapper": {
-          "width": "40"
+          "width": "35"
         },
         "placeholder": ""
       },
@@ -59,7 +59,7 @@
         },
         "default_value": "H1",
         "wrapper": {
-          "width": "10"
+          "width": "15"
         },
         "layout": "vertical"
       },
