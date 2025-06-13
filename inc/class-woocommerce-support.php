@@ -18,7 +18,10 @@ class WC_Support {
      */
     public static function init() {
         // 1. Soporte básico
-        add_action( 'after_setup_theme', [ __CLASS__, 'add_woocommerce_support' ] );
+        add_theme_support( 'woocommerce' );
+        add_theme_support( 'wc-product-gallery-zoom' );
+        add_theme_support( 'wc-product-gallery-lightbox' );
+        add_theme_support( 'wc-product-gallery-slider' );
 
         // 2. Eliminar pestaña "Valoraciones"
         add_filter( 'woocommerce_product_tabs', [ __CLASS__, 'remove_reviews_tab' ], 98 );
@@ -28,16 +31,13 @@ class WC_Support {
 
         // 4. Actualizar contador del carrito con AJAX
         add_filter( 'woocommerce_add_to_cart_fragments', [ __CLASS__, 'update_cart_count_fragment' ] );
-    }
 
-    /**
-     * Añadir soporte para WooCommerce y características de galería.
-     */
-    public static function add_woocommerce_support() {
-        add_theme_support( 'woocommerce' );
-        add_theme_support( 'wc-product-gallery-zoom' );
-        add_theme_support( 'wc-product-gallery-lightbox' );
-        add_theme_support( 'wc-product-gallery-slider' );
+        // 5. Encolar filters.js si es WooCommerce 
+        add_action( 'wp_enqueue_scripts', [ __CLASS__, 'enqueue_ajax_filters' ] );
+
+        // 6. AJAX handlers
+        add_action( 'wp_ajax_ctm_filter_products', [ __CLASS__, 'filter_products' ] );
+        add_action( 'wp_ajax_nopriv_ctm_filter_products', [ __CLASS__, 'filter_products' ] );
     }
 
     /**
@@ -98,5 +98,81 @@ class WC_Support {
         <?php
         $fragments['.cart-count'] = ob_get_clean();
         return $fragments;
+    }
+
+    /**
+     * Encola Ajax filters si es WooCommerce
+     */
+    public static function enqueue_ajax_filters() {
+        if ( ! class_exists('WooCommerce') ) {
+            return;
+        }
+        if ( ! ( is_shop() || is_product_taxonomy() || is_product_category() || is_product_tag() ) ) {
+            return;
+        }
+        wp_enqueue_script(
+            'ctm-ajax-filters',
+            CTM_THEME_URI . '/assets/js/filters.js',
+            [], // sin jQuery
+            CTM_THEME_VERSION,
+            true
+        );
+        wp_localize_script('ctm-ajax-filters','ctm_ajax',[
+            'ajax_url'=> admin_url('admin-ajax.php'),
+            'nonce'   => wp_create_nonce('ctm_filter_products'),
+        ]);
+    }
+
+    /**
+     * Ajax Handlers
+     */
+    public static function filter_products() {
+        // Seguridad
+        check_ajax_referer( 'ctm_filter_products', 'nonce' );
+
+        $args = [
+            'post_type'      => 'product',
+            'posts_per_page' => 12,
+        ];
+
+        // Construir tax_query
+        $tax_query = [];
+        foreach ( $_POST as $key => $value ) {
+            if ( in_array( $key, ['action','nonce'], true ) ) {
+                continue;
+            }
+            // nombres vienen como brand[], color[], etc.
+            if ( is_array( $value ) ) {
+                $term_ids = array_map( 'absint', $value );
+                if ( empty( $term_ids ) ) {
+                    continue;
+                }
+                $tax_query[] = [
+                    'taxonomy' => sanitize_key( $key ),
+                    'field'    => 'term_id',
+                    'terms'    => $term_ids,
+                    'operator' => 'IN',
+                ];
+            }
+        }
+        if ( ! empty( $tax_query ) ) {
+            $tax_query['relation'] = 'AND';
+            $args['tax_query'] = $tax_query;
+        }
+
+        // Ejecutar WP_Query
+        $q = new \WP_Query( $args );
+        ob_start();
+        if ( $q->have_posts() ) {
+            while ( $q->have_posts() ) {
+                $q->the_post();
+                wc_get_template_part( 'content', 'product' );
+            }
+        } else {
+            echo '<p class="text-center">' . esc_html__( 'No products found', 'woocommerce' ) . '</p>';
+        }
+        wp_reset_postdata();
+
+        wp_send_json_success( [ 'html' => ob_get_clean() ] );
     }
 }

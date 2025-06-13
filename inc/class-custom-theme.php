@@ -70,7 +70,12 @@ class Custom_Theme {
 
         // Hooks específicos de WooCommerce (si está activo)
         if ( class_exists( 'WooCommerce' ) ) {
-            add_action( 'after_setup_theme', [ 'Custom_Theme\\WooCommerce\\WC_Support', 'init' ] );
+            \Custom_Theme\WooCommerce\WC_Support::init();
+
+            // Widget AJAX Tax Filter
+            add_action( 'widgets_init', function(){
+                register_widget('Custom_Theme\Widgets\AJAX_Tax_Filter');
+            });
         }
 
         // Helpers de plantillas
@@ -324,6 +329,16 @@ class Custom_Theme {
             'before_title'  => '<h2 class="widget-title">',
             'after_title'   => '</h2>',
         ] );
+
+        // Filtros WooCommerce (widgets)
+        register_sidebar([
+            'name'          => __('Shop Sidebar', CTM_TEXTDOMAIN),
+            'id'            => 'shop-sidebar',
+            'before_widget' => '<div id="%1$s" class="widget %2$s mb-4">',
+            'after_widget'  => '</div>',
+            'before_title'  => '<p class="widget-title mb-3">',
+            'after_title'   => '</p>',
+        ]);
     }
 
     /**
@@ -813,6 +828,7 @@ class Custom_Theme {
             '/inc/class-social-links.php',        // Helper para redes sociales
             '/inc/class-bs-navwalker.php',        // Walker para Bootstrap nav
             '/inc/class-woocommerce-support.php', // Soporte WooCommerce
+            '/inc/class-ajax-tax-filter.php'      // Ajax Filters
             // ... más helpers aquí
         ];
         foreach ( $files as $file ) {

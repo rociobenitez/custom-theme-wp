@@ -322,4 +322,63 @@ class Template_Helpers {
             include $template;
         }
     }
+
+    /**
+     * Recoge y normaliza todo lo necesario para el Page Header.
+     *
+     * @param array $args Argumentos pasados desde get_template_part().
+     * @return array Datos:
+     *   - show (bool)
+     *   - style (string) 'cols'|'bg_image'|'bg_color'
+     *   - text_align (string) clase de alineación
+     *   - tagline, htag_tagline
+     *   - title, htag_title
+     *   - description
+     *   - button_text, button_url
+     *   - bg_image (url) o bg_color (hex o clase)
+     */
+    public static function get_page_header_data( array $args = [] ): array {
+        $fields          = function_exists('get_fields') ? get_fields() : [];
+        $page_title      = get_the_title();
+        $default_img     = get_template_directory_uri() . '/assets/img/default-background.jpg';
+
+        // Valores por defecto
+        $data = [
+            'show'          => ! empty( $fields['show_pageheader'] ),
+            'style'         => $args['pageheader_style'] ?? $fields['pageheader_style'] ?? 'bg_image',
+            'text_align'    => $args['text_align'] ?? $fields['pageheader_text_align'] ?? 'text-start',
+            'tagline'       => $fields['pageheader_tagline'] ?? '',
+            'htag_tagline'  => intval( $fields['pageheader_htag_tagline'] ?? 3 ),
+            'title'         => $args['title'] ?? $fields['pageheader_title'] ?? $page_title,
+            'htag_title'    => intval( $fields['pageheader_htag_title'] ?? 2 ),
+            'description'   => $fields['pageheader_text'] ?? '',
+            'button_text'   => '',
+            'button_url'    => '',
+            'bg_image'      => '',
+            'bg_color'      => '',
+        ];
+
+        // Botón
+        if ( ! empty( $fields['pageheader_button'] ) && is_array( $fields['pageheader_button'] ) ) {
+            $btn = $fields['pageheader_button'];
+            $data['button_text'] = $btn['title'] ?? '';
+            $data['button_url']  = $btn['url']   ?? '';
+        }
+
+        // Imagen destacada = prioridad ACF → thumbnail → default
+        if ( ! empty( $fields['pageheader_image']['url'] ) ) {
+            $data['bg_image'] = esc_url( $fields['pageheader_image']['url'] );
+        } elseif ( has_post_thumbnail() ) {
+            $data['bg_image'] = get_the_post_thumbnail_url( null, 'full' );
+        } else {
+            $data['bg_image'] = $default_img;
+        }
+
+        // Color de fondo
+        if ( ! empty( $fields['pageheader_bg_color'] ) ) {
+            $data['bg_color'] = sanitize_hex_color( $fields['pageheader_bg_color'] );
+        }
+
+        return $data;
+    }
 }
