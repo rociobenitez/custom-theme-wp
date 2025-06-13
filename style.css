@@ -84,15 +84,15 @@ Sigue las pautas de Underscores (https://underscores.me/) y está licenciado baj
   --fw-heading: 600;
 
   /* Brand Colors */
-  --color-black: #031e31;
-  --color-dark: #042c46;
-  --color-gray: #444444;
-  --color-light: #f7f5ef;
+  --color-black: #121212;
+  --color-dark: #2c2c2c;
+  --color-gray: #3a3a3a;
+  --color-light: #a1a1a1;
 
-  --color-primary: #00425d;
-  --color-primary-hover: #00587c;
-  --color-secondary: #b09e60;
-  --color-secondary-hover: #c8bb8f;
+  --color-primary: var(--color-black);
+  --color-primary-hover: var(--color-dark);
+  --color-secondary: #2c2c2c;
+  --color-secondary-hover: #4f4f4f;
 
   /* Semantic Colors */
   --color-error-100: #fb3748;
@@ -108,9 +108,9 @@ Sigue las pautas de Underscores (https://underscores.me/) y está licenciado baj
   --color-sucess-alpha: rgba(31, 193, 107, 10);
 
   /* Text Colors */
-  --color-text-body: #696969;
-  --color-text-heading: #031e31;
-  --color-text-tagline: #031e31;
+  --color-text-body: #6e6e73;
+  --color-text-heading: #1d1d1f;
+  --color-text-tagline: #727272;
   --color-text-muted: #757575;
 
   --color-text-white: #ffffff;
@@ -120,10 +120,10 @@ Sigue las pautas de Underscores (https://underscores.me/) y está licenciado baj
   --color-text-link-hover: #121212;
 
   /* Background Colors */
-  --color-bg-dark: #031e31;
-  --color-bg-light: #f7f5ef;
-  --color-bg-white: #fefefd;
-  --color-bg-primary: #e7e2cfbf;
+  --color-bg-dark: #121212;
+  --color-bg-light: #f7f7f7;
+  --color-bg-white: #fff;
+  --color-bg-primary: #fff;
 
   /* Margins & Paddings */
   --padding-top-body: 105px;
