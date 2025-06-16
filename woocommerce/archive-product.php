@@ -54,7 +54,7 @@ get_template_part('template-parts/pageheader', null, ['pageheader_style' => 'bg-
                     <!-- Lista de productos -->
                     <div class="grid-products row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4 mb-5">
                         <?php while ( have_posts() ) : the_post(); ?>
-                            <div class="col mb-3 text-center">
+                            <div class="col text-center">
                                 <?php wc_get_template_part( 'content', 'product' ); ?>
                             </div>
                         <?php endwhile; ?>

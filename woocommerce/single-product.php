@@ -20,8 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Obtener los campos ACF
-$fields = get_fields();
-set_query_var('fields', $fields);
+$fields = function_exists('get_fields') ? get_fields() : [];
 
 get_header( 'shop' ); ?>
 
@@ -60,7 +59,7 @@ get_header( 'shop' ); ?>
 				 *
 				 * @hooked woocommerce_get_sidebar - 10
 				 */
-				do_action( 'woocommerce_sidebar' );
+				//do_action( 'woocommerce_sidebar' );
 			?>
 
 		</div>
@@ -81,15 +80,10 @@ get_header( 'shop' ); ?>
 <!-- </div> -->
 
 <?php
-/**
- * Cargar bloques flexibles dinámicamente
- * Verificar si existen y si tienen contenido
- */
-if (!empty($fields['flexible_content']) && is_array($fields['flexible_content'])) {
-    require_once get_template_directory() . '/template-parts/load-flexible-blocks.php';
-    load_flexible_blocks($fields['flexible_content']);
-} else {
-    error_log('No hay contenido flexible definido en ACF para esta página.');
+// Bloques flexibles ACF
+if ( ! empty( $fields['flexible_content'] )
+&& is_array( $fields['flexible_content'] ) ) {
+	BlockLoader::load( $fields['flexible_content'] );
 }
 
 get_footer( 'shop' );
