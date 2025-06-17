@@ -70,7 +70,7 @@
             {
                 "param": "page_template",
                 "operator": "==",
-                "value": "page-contacto.php"
+                "value": "page-contact.php"
             }
         ]
     ],
@@ -81,7 +81,7 @@
     "instruction_placement": "label",
     "hide_on_screen": "",
     "active": true,
-    "description": "",
+    "description": "Mapas de Google Maps",
     "show_in_rest": 0,
     "modified": 1744102775
 }

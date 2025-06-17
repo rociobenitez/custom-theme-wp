@@ -339,27 +339,44 @@ class Template_Helpers {
      */
     public static function get_page_header_data( array $args = [] ): array {
         $fields          = function_exists('get_fields') ? get_fields() : [];
-        $page_title      = get_the_title();
         $default_img     = get_template_directory_uri() . '/assets/img/default-background.jpg';
 
         // Valores por defecto
         $data = [
-            'show'          => ! empty( $fields['show_pageheader'] ),
-            'style'         => $args['pageheader_style'] ?? $fields['pageheader_style'] ?? 'bg_image',
-            'text_align'    => $args['text_align'] ?? $fields['pageheader_text_align'] ?? 'text-start',
-            'tagline'       => $fields['pageheader_tagline'] ?? '',
-            'htag_tagline'  => intval( $fields['pageheader_htag_tagline'] ?? 3 ),
-            'title'         => $args['title'] ?? $fields['pageheader_title'] ?? $page_title,
-            'htag_title'    => intval( $fields['pageheader_htag_title'] ?? 2 ),
-            'description'   => $fields['pageheader_text'] ?? '',
-            'button_text'   => '',
-            'button_url'    => '',
-            'bg_image'      => '',
-            'bg_color'      => '',
+            'htag_tagline' => intval( ! empty( $fields['pageheader_htag_tagline'] ) ?? 3 ),
+            'htag_title'   => intval( ! empty( $fields['pageheader_htag_title'] ) ?? 2 ),
+            'style'        => ! empty( $args['pageheader_style'] )
+                                ?? ! empty( $fields['pageheader_style'] )
+                                ?? 'bg_image',
+            'description'  => ! empty( $args['pageheader_text'] )
+                                ?? ! empty( $fields['pageheader_text'] )
+                                ?? '',
+            'bg_color'     => ! empty( $args['pageheader_bg_color'] ) 
+                                ?? ! empty( $fields['pageheader_bg_color'] )
+                                ?? '',
         ];
 
+        // Tagline
+        if ( ! empty( $args['tagline'] ) ) {
+            $data['tagline'] = $args['tagline'];
+        } elseif ( ! empty( $fields['pageheader_tagline'] ) ) {
+            $data['tagline'] = $fields['pageheader_tagline'];
+        } else {
+            $data['tagline'] = '';
+        }
+
+        // Título
+        if ( ! empty( $args['title'] ) ) {
+            $data['title'] = $args['title'];
+        } elseif ( ! empty( $fields['pageheader_title'] ) ) {
+            $data['title'] = $fields['pageheader_title'];
+        } else {
+            $data['title'] = get_the_title();
+        }
+
         // Botón
-        if ( ! empty( $fields['pageheader_button'] ) && is_array( $fields['pageheader_button'] ) ) {
+        if ( ! empty( $fields['pageheader_button'] ) 
+            && is_array( $fields['pageheader_button'] ) ) {
             $btn = $fields['pageheader_button'];
             $data['button_text'] = $btn['title'] ?? '';
             $data['button_url']  = $btn['url']   ?? '';
@@ -372,11 +389,6 @@ class Template_Helpers {
             $data['bg_image'] = get_the_post_thumbnail_url( null, 'full' );
         } else {
             $data['bg_image'] = $default_img;
-        }
-
-        // Color de fondo
-        if ( ! empty( $fields['pageheader_bg_color'] ) ) {
-            $data['bg_color'] = sanitize_hex_color( $fields['pageheader_bg_color'] );
         }
 
         return $data;
