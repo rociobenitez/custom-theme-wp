@@ -903,6 +903,24 @@
                     "display": "block",
                     "sub_fields": [
                         {
+                            "key": "field_6852c3adba5f0",
+                            "label": "Encabezado",
+                            "name": "",
+                            "aria-label": "",
+                            "type": "tab",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "placement": "top",
+                            "endpoint": 0,
+                            "selected": 0
+                        },
+                        {
                             "key": "field_6761501909850",
                             "label": "Incluir encabezado",
                             "name": "show_heading",
@@ -1071,7 +1089,7 @@
                                 ]
                             ],
                             "wrapper": {
-                                "width": "40",
+                                "width": "75",
                                 "class": "",
                                 "id": ""
                             },
@@ -1083,6 +1101,41 @@
                             "delay": 0
                         },
                         {
+                            "key": "field_6852c41b87574",
+                            "label": "Botón",
+                            "name": "button",
+                            "aria-label": "",
+                            "type": "link",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "25",
+                                "class": "",
+                                "id": ""
+                            },
+                            "return_format": "array",
+                            "allow_in_bindings": 0
+                        },
+                        {
+                            "key": "field_6852c3beba5f1",
+                            "label": "Destacados",
+                            "name": "",
+                            "aria-label": "",
+                            "type": "tab",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "placement": "top",
+                            "endpoint": 0,
+                            "selected": 0
+                        },
+                        {
                             "key": "field_67604f9b09f65",
                             "label": "Incluir imágenes",
                             "name": "featured_with_image",
@@ -1092,7 +1145,7 @@
                             "required": 0,
                             "conditional_logic": 0,
                             "wrapper": {
-                                "width": "20",
+                                "width": "33",
                                 "class": "",
                                 "id": ""
                             },
@@ -1121,7 +1174,7 @@
                                 ]
                             ],
                             "wrapper": {
-                                "width": "20",
+                                "width": "33",
                                 "class": "",
                                 "id": ""
                             },
@@ -1136,38 +1189,12 @@
                             "layout": "horizontal"
                         },
                         {
-                            "key": "field_6726078a5de22",
-                            "label": "Color de Fondo",
-                            "name": "background_color",
+                            "key": "field_6852be92c94fd",
+                            "label": "Tipo de card",
+                            "name": "item_type",
                             "aria-label": "",
-                            "type": "color_picker",
-                            "instructions": "Opcional. Elige un color de fondo para la sección.",
-                            "required": 0,
-                            "conditional_logic": [
-                                [
-                                    {
-                                        "field": "field_6725fbd81b790",
-                                        "operator": "!=empty"
-                                    }
-                                ]
-                            ],
-                            "wrapper": {
-                                "width": "20",
-                                "class": "",
-                                "id": ""
-                            },
-                            "default_value": "#ffffff",
-                            "enable_opacity": 0,
-                            "return_format": "string",
-                            "allow_in_bindings": 0
-                        },
-                        {
-                            "key": "field_672607ab5de27",
-                            "label": "Apartados Destacados",
-                            "name": "featured_items_images",
-                            "aria-label": "",
-                            "type": "repeater",
-                            "instructions": "",
+                            "type": "radio",
+                            "instructions": "Elige el diseño de la tarjeta o contenido destacado.",
                             "required": 0,
                             "conditional_logic": [
                                 [
@@ -1176,8 +1203,42 @@
                                         "operator": "==",
                                         "value": "1"
                                     }
+                                ],
+                                [
+                                    {
+                                        "field": "field_676050f609f6d",
+                                        "operator": "==",
+                                        "value": "top"
+                                    }
                                 ]
                             ],
+                            "wrapper": {
+                                "width": "33",
+                                "class": "",
+                                "id": ""
+                            },
+                            "choices": {
+                                "standard": "Imagen arriba",
+                                "alternated": "Imagen alternada arriba y abajo",
+                                "step": "Numerado"
+                            },
+                            "default_value": 1,
+                            "return_format": "value",
+                            "allow_null": 0,
+                            "other_choice": 0,
+                            "allow_in_bindings": 1,
+                            "layout": "vertical",
+                            "save_other_choice": 0
+                        },
+                        {
+                            "key": "field_672607ab5de27",
+                            "label": "Apartados Destacados",
+                            "name": "featured_items",
+                            "aria-label": "",
+                            "type": "repeater",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
                             "wrapper": {
                                 "width": "",
                                 "class": "",
@@ -1198,7 +1259,15 @@
                                     "type": "image",
                                     "instructions": "",
                                     "required": 0,
-                                    "conditional_logic": 0,
+                                    "conditional_logic": [
+                                        [
+                                            {
+                                                "field": "field_67604f9b09f65",
+                                                "operator": "==",
+                                                "value": "1"
+                                            }
+                                        ]
+                                    ],
                                     "wrapper": {
                                         "width": "15",
                                         "class": "",
@@ -1225,15 +1294,7 @@
                                     "type": "text",
                                     "instructions": "",
                                     "required": 0,
-                                    "conditional_logic": [
-                                        [
-                                            {
-                                                "field": "field_676050f609f6d",
-                                                "operator": "==",
-                                                "value": "top"
-                                            }
-                                        ]
-                                    ],
+                                    "conditional_logic": 0,
                                     "wrapper": {
                                         "width": "20",
                                         "class": "",
@@ -1255,15 +1316,7 @@
                                     "type": "radio",
                                     "instructions": "Selecciona el nivel de encabezado para el título (H1, H2, etc.).",
                                     "required": 0,
-                                    "conditional_logic": [
-                                        [
-                                            {
-                                                "field": "field_676050f609f6d",
-                                                "operator": "==",
-                                                "value": "top"
-                                            }
-                                        ]
-                                    ],
+                                    "conditional_logic": 0,
                                     "wrapper": {
                                         "width": "15",
                                         "class": "",
@@ -1305,110 +1358,6 @@
                                     "media_upload": 0,
                                     "delay": 0,
                                     "parent_repeater": "field_672607ab5de27"
-                                }
-                            ]
-                        },
-                        {
-                            "key": "field_67604fd909f66",
-                            "label": "Apartados Destacados",
-                            "name": "featured_items",
-                            "aria-label": "",
-                            "type": "repeater",
-                            "instructions": "",
-                            "required": 0,
-                            "conditional_logic": [
-                                [
-                                    {
-                                        "field": "field_67604f9b09f65",
-                                        "operator": "!=",
-                                        "value": "1"
-                                    }
-                                ]
-                            ],
-                            "wrapper": {
-                                "width": "",
-                                "class": "",
-                                "id": ""
-                            },
-                            "layout": "table",
-                            "min": 2,
-                            "max": 5,
-                            "collapsed": "",
-                            "button_label": "Agregar Fila",
-                            "rows_per_page": 20,
-                            "sub_fields": [
-                                {
-                                    "key": "field_67604fd909f68",
-                                    "label": "Título",
-                                    "name": "title",
-                                    "aria-label": "",
-                                    "type": "text",
-                                    "instructions": "",
-                                    "required": 0,
-                                    "conditional_logic": 0,
-                                    "wrapper": {
-                                        "width": "20",
-                                        "class": "",
-                                        "id": ""
-                                    },
-                                    "default_value": "",
-                                    "maxlength": "",
-                                    "allow_in_bindings": 0,
-                                    "placeholder": "",
-                                    "prepend": "",
-                                    "append": "",
-                                    "parent_repeater": "field_67604fd909f66"
-                                },
-                                {
-                                    "key": "field_67604fd909f69",
-                                    "label": "Etiqueta del Título (Htag)",
-                                    "name": "htag_title",
-                                    "aria-label": "",
-                                    "type": "radio",
-                                    "instructions": "Selecciona el nivel de encabezado para el título (H1, H2, etc.).",
-                                    "required": 0,
-                                    "conditional_logic": 0,
-                                    "wrapper": {
-                                        "width": "15",
-                                        "class": "",
-                                        "id": ""
-                                    },
-                                    "choices": [
-                                        "H1",
-                                        "H2",
-                                        "H3",
-                                        "P"
-                                    ],
-                                    "default_value": 2,
-                                    "return_format": "value",
-                                    "allow_null": 0,
-                                    "other_choice": 0,
-                                    "allow_in_bindings": 1,
-                                    "layout": "vertical",
-                                    "save_other_choice": 0,
-                                    "parent_repeater": "field_67604fd909f66"
-                                },
-                                {
-                                    "key": "field_67604fd909f6a",
-                                    "label": "Descripción",
-                                    "name": "description",
-                                    "aria-label": "",
-                                    "type": "wysiwyg",
-                                    "instructions": "Texto descriptivo de este apartado",
-                                    "required": 0,
-                                    "conditional_logic": 0,
-                                    "wrapper": {
-                                        "width": "40",
-                                        "class": "",
-                                        "id": ""
-                                    },
-                                    "default_value": "",
-                                    "allow_in_bindings": 0,
-                                    "tabs": "all",
-                                    "toolbar": "basic",
-                                    "media_upload": 0,
-                                    "delay": 0,
-                                    "parent_repeater": "field_67604fd909f66"
                                 }
                             ]
                         }

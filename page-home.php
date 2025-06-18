@@ -5,8 +5,6 @@
 
 if ( ! defined('ABSPATH') ) exit;
 
-$bodyclass='page-home';
-
 get_header();
 
 // Obtener campos ACF

@@ -1,121 +1,135 @@
-<?php 
+<?php
 /**
  * Bloque de Características
  *
- * Este bloque permite mostrar destacados con opciones flexibles:
- * - Con o sin encabezado.
- * - Diseño con imagen (posición 'top' o 'bg') o sin imagen.
- * - Alineación automática y dinámica según el número de destacados.
+ * Campos ACF esperados en $args:
+ * - show_heading (bool)
+ * - title, htag_title, tagline, htag_tagline, text, text_align, wrapper_cls
+ * - background_color
+ * - featured_with_image (bool)
+ * - position_image ('top'|'bg')
+ * - featured_items_images (array)
+ * - featured_items (array)
  *
- * Campos ACF esperados:
- * - 'show_heading'            => Mostrar encabezado (boolean).
- * - 'tagline', 'htag_tagline' => Tagline y etiqueta HTML (h3, h4, etc.).
- * - 'title', 'htag_title'     => Título del bloque y etiqueta HTML.
- * - 'text'                    => Descripción del bloque.
- * - 'background_color'        => Color de fondo del bloque.
- * - 'featured_with_image'     => Determina si los destacados tienen imagen (boolean).
- * - 'position_image'          => Posición de la imagen: 'top' (encima) o 'bg' (fondo).
- * - 'featured_items_images'   => Repeater para destacados con imagen.
- * - 'featured_items'          => Repeater para destacados sin imagen.
+ * @package custom_theme
  */
 
-$tagline             = $block['tagline'] ?? '';
-$htag_tagline        = $block['htag_tagline'] ?? 3;
-$title               = $block['title'] ?? '';
-$htag_title          = $block['htag_title'] ?? 2;
-$description         = $block['text'] ?? '';
-$show_heading        = $block['show_heading'] ?? false;
-$bg_color            = $block['background_color'] ?? '#F9F9F9';
-$featured_with_image = $block['featured_with_image'] ?? false;
-$position_image      = $block['position_image'] ?? 'top';
-$default_image       = get_template_directory_uri() . '/img/img-default.jpg';
+if ( ! defined( 'ABSPATH' ) ) exit;
 
-// Verifica si 'features' tiene contenido
-$features = $featured_with_image
-    ? ($block['featured_items_images'] ?? [])
-    : ($block['featured_items'] ?? []);
+use Custom_Theme\Helpers\Template_Helpers;
 
-if (!is_array($features) || empty($features)) {
-    return; // Si no hay destacados, no renderizar
+// --- Tipo de tarjeta ---
+$item_type = $args['item_type'] ?? 'default';
+$with_img = ! empty( $args['featured_with_image'] );
+$items = $args['featured_items'] ?? [];
+
+// Early return si no hay nada
+if ( empty( $items ) ) {
+    return;
 }
 
-// Calcular las columnas dinámicamente
-$feature_count = count($features);
-$col_class = ($feature_count === 4) ? 'col-md-6 col-lg-3' 
-    : (($feature_count === 2) ? 'col-md-6' : 'col-md-6 col-lg-4'); 
-
-// Clase CSS para los títulos de los detacados
-$feature_title_class = 'heading-4 feature-item-title c-dark';
+// --- Dinámica de columnas ---
+$count = count( $items );
+if ( $count === 1 ) {
+    $col_class = 'col-lg-8 mx-auto';
+} elseif ( in_array( $count, [2,4], true ) ) {
+    $col_class = 'col-md-6 col-lg-6';
+} else {
+    // 3, 6 o cualquier otro
+    $col_class = 'col-md-6 col-lg-4';
+}
 ?>
-<section class="features-block py-5" style="background-color: <?php echo esc_attr($bg_color); ?>">
-    <div class="container">
-        <?php if (!empty($title)) :
-            get_component('template-parts/components/section-heading', [
-                'container_class'  => 'col-md-8 mx-auto mb-4',
-                'show_heading'     => $show_heading,
-                'tagline'          => $tagline,
-                'htag_tagline'     => $htag_tagline,
-                'title'            => $title,
-                'htag_title'       => $htag_title,
-                'class_title'      => 'heading-2',
-                'text'             => $description
-            ]);
-        endif; ?>
-        <div class="row justify-content-center">
-            <?php foreach ($features as $feature): 
-                $title       = $feature['title'] ?? '';
-                $htag_title  = $feature['htag_title'] ?? 'h4';
-                $description = $feature['description'] ?? '';
-                $image       = $feature['image']['url'] ?? $default_image;
+<section class="features-section features-<?php echo esc_attr( $item_type ); ?> 
+  <?php echo $with_img ? 'features-img' : 'features-text'; ?> py-5">
+  <div class="container">
 
-                // Diseño con imagen tipo "top"
-                if ($featured_with_image && $position_image === 'top'):
-                    if(!empty($image) && !empty($title)): ?>
-                        <div class="<?php echo esc_attr($col_class); ?> mb-4">
-                            <div class="feature-item feature-item-img-top">
-                                <figure class="overflow-hidden rounded">
-                                    <img src="<?php echo esc_url($image); ?>" 
-                                        alt="<?php echo esc_attr($title); ?>" 
-                                        class="card-img-top fit rounded">
-                                </figure>
-                                <?php echo tagTitle($htag_title, $title, $feature_title_class, ''); ?>
-                                <div class="feature-description">
-                                    <?php echo wp_kses_post($description); ?>
-                                </div>
-                            </div>
-                        </div>
+    <?php // --- Cabecera del bloque ---
+    get_template_part(
+        'template-parts/components/section-heading',
+        null,
+        [
+            'tagline'      => $args['tagline'] ?? '',
+            'htag_tagline' => intval( $args['htag_tagline'] ?? 3 ),
+            'title'        => $args['title'] ?? '',
+            'htag_title'   => intval( $args['htag_title'] ?? 2 ),
+            'text'         => $args['text'] ?? '',
+            'align_cls'    => $args['text_align'] ?? 'text-center mt-5 mb-4',
+            'wrapper_cls'  => $args['wrapper_cls'] ?? 'col-md-8 mx-auto mb-5',
+        ]
+    );
+    ?>
+
+    <div class="row justify-content-center align-items-strech">
+
+      <?php foreach ( $items as $i => $item ) :
+        $number = $i + 1;
+
+        // Campos comunes
+        $feat_title       = $item['title']         ?? '';
+        $feat_htag        = intval( $item['htag_title'] ?? 4 );
+        $feat_description = $item['description']   ?? '';
+        $description_html = wp_kses_post( wpautop( $feat_description ) );
+
+        // Cuando usas imagen:
+        if ( $with_img ) {
+            $img_src  = $item['image']['url'] ?? '';
+            $img_alt  = $item['image']['alt'] ?? '';
+            $position = $args['position_image'] ?? 'top';
+        }
+
+        // Si no hay título, saltamos
+        if ( ! $feat_title ) {
+            continue;
+        }
+        ?>
+
+        <div class="feature-col <?php echo esc_attr( $col_class ); ?> mb-4">
+
+          <?php // Imagen arriba
+          if ( $with_img && $position === 'top' && $img_src ) : ?>
+            <div class="feature-item feature-item-img-top h-100 d-flex flex-column">
+                <figure class="overflow-hidden mb-0">
+                    <img src="<?php echo esc_url( $img_src ); ?>"
+                        alt="<?php echo esc_attr( $img_alt ); ?>"
+                        class="img-fluid h-100 w-100 object-fit-cover">
+                </figure>
+                <div class="feature-content d-flex flex-column">
+                    <?php if ( $item_type === 'step' ) : ?>
+                      <div class="feature-number mb-2"><?php echo esc_html( $number ); ?>.</div>
                     <?php endif; ?>
-                <?php 
-                // Diseño con imagen tipo "bg"
-                elseif ($featured_with_image && $position_image === 'bg'):
-                    if(!empty($image) && !empty($title)): ?>
-                        <div class="<?php echo esc_attr($col_class); ?> mb-4">
-                            <div class="feature-item feature-item-img-bg position-relative overflow-hidden rounded cover p-4 d-flex justify-content-center align-items-center"
-                                style="background-image: url('<?php echo esc_url($image); ?>');">
-                                <div class="feature-content p-4 c-bg-white rounded position-relative">
-                                    <div class="feature-description text-center fw600">
-                                        <?php echo wp_kses_post($description); ?>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    <?php endif; ?>
-                <?php 
-                // Diseño sin imagen
-                else:
-                    if(!empty($title)): ?>
-                        <div class="<?php echo esc_attr($col_class); ?> mb-4">
-                            <div class="feature-item feature-item-text text-center">
-                                <?php echo tagTitle($htag_title, $title, $feature_title_class, ''); ?>
-                                <div class="feature-description">
-                                    <?php echo wp_kses_post($description); ?>
-                                </div>
-                            </div>
-                        </div>
-                    <?php endif; 
-                endif;
-            endforeach; ?>
+                    <?php echo Template_Helpers::tag_title( $feat_htag, $feat_title, 'feature-item-title mb-2', '' ); ?>
+                    <div class="feature-description mx-auto">
+                        <?php echo $description_html; ?>
+                    </div>
+                </div>
+            </div>
+
+          <?php // Imagen de fondo
+          elseif ( $with_img && $position === 'bg' && $img_src ) : ?>
+            <div class="feature-item feature-item-img-bg position-relative overflow-hidden cover"
+                 style="background: url('<?php echo esc_url( $img_src ); ?>');">
+              <div class="feature-overlay p-4 d-flex flex-column justify-content-center align-items-center text-center h-100">
+                <?php echo Template_Helpers::tag_title( $feat_htag, $feat_title, 'feature-item-title text-white mb-2', '' ); ?>
+                <div class="feature-description text-white">
+                  <?php echo $description_html; ?>
+                </div>
+              </div>
+            </div>
+
+          <?php else : ?>
+            <div class="feature-item feature-item-text h-100 d-flex flex-column justify-content-center">
+              <?php echo Template_Helpers::tag_title( $feat_htag, $feat_title, 'feature-item-title mb-2', '' ); ?>
+              <div class="feature-description mx-auto">
+                <?php echo $description_html; ?>
+              </div>
+            </div>
+          <?php endif; ?>
+
         </div>
-    </div>
-</section>
 
+      <?php $count+=1;
+      endforeach; ?>
+
+    </div>
+  </div>
+</section>
