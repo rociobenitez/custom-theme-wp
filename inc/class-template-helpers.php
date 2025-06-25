@@ -70,25 +70,6 @@ class Template_Helpers {
     }
 
     /**
-     * Genera un encabezado HTML para FAQs con id, clases y contenido.
-     */
-    public static function tag_title_faq( $level, $text, $class, $id = '', $class2 = '', $content = '' ) {
-        $tags = [ 'h1', 'h2', 'h3', 'p' ];
-        $level = ( is_numeric( $level ) && $level >= 0 && $level <= 3 ) ? intval( $level ) : 2;
-        $tag   = $tags[ $level ];
-        $id_attr = $id ? ' id="' . esc_attr( $id ) . '"' : '';
-        return sprintf(
-            '<%1$s%2$s class="%3$s %4$s">%5$s %6$s</%1$s>',
-            $tag,
-            $id_attr,
-            esc_attr( $class ),
-            esc_attr( $class2 ),
-            esc_html( $text ),
-            $content ? ' ' . esc_html( $content ) : ''
-        );
-    }
-
-    /**
      * Genera un paginador HTML con clases y atributos personalizados.
      */
     public static function custom_pagination( $total_pages = null, $current_page = null ) {
@@ -339,21 +320,12 @@ class Template_Helpers {
      */
     public static function get_page_header_data( array $args = [] ): array {
         $fields          = function_exists('get_fields') ? get_fields() : [];
-        $default_img     = get_template_directory_uri() . '/assets/img/default-background.jpg';
+        $default_img     = get_template_directory_uri() . '/assets/img/default-background.webp';
 
         // Valores por defecto
         $data = [
             'htag_tagline' => intval( ! empty( $fields['pageheader_htag_tagline'] ) ?? 3 ),
-            'htag_title'   => intval( ! empty( $fields['pageheader_htag_title'] ) ?? 2 ),
-            'style'        => ! empty( $args['pageheader_style'] )
-                                ?? ! empty( $fields['pageheader_style'] )
-                                ?? 'bg_image',
-            'description'  => ! empty( $args['pageheader_text'] )
-                                ?? ! empty( $fields['pageheader_text'] )
-                                ?? '',
-            'bg_color'     => ! empty( $args['pageheader_bg_color'] ) 
-                                ?? ! empty( $fields['pageheader_bg_color'] )
-                                ?? '',
+            'htag_title'   => intval( ! empty( $fields['pageheader_htag_title'] ) ?? 2 )
         ];
 
         // Tagline
@@ -372,6 +344,33 @@ class Template_Helpers {
             $data['title'] = $fields['pageheader_title'];
         } else {
             $data['title'] = get_the_title();
+        }
+
+        // Descripción
+        if ( ! empty( $args['text'] ) ) {
+            $data['description'] = $args['text'];
+        } elseif ( ! empty( $fields['pageheader_text'] ) ) {
+            $data['description'] = $fields['pageheader_text'];
+        } else {
+            $data['description'] = '';
+        }
+
+        // Estilo de fondo
+        if ( ! empty( $args['pageheader_style'] ) ) {
+            $data['style'] = $args['pageheader_style'];
+        } elseif ( ! empty( $fields['pageheader_style'] ) ) {
+            $data['style'] = $fields['pageheader_style'];
+        } else {
+            $data['style'] = 'bg_color';
+        }
+
+        // Color de fondo
+        if ( ! empty( $args['pageheader_bg_color'] ) ) {
+            $data['bg_color'] = $args['pageheader_bg_color'];
+        } elseif ( ! empty( $fields['pageheader_bg_color'] ) ) {
+            $data['bg_color'] = $fields['pageheader_bg_color'];
+        } else {
+            $data['bg_color'] = '#FFF';
         }
 
         // Botón

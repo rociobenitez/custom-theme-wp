@@ -837,5 +837,8 @@ class Custom_Theme {
                 require_once $path;
             }
         }
+
+        // Inicializar Schemas
+        // \Custom_Theme\Schema\Schema_Init::init();
     }
 }

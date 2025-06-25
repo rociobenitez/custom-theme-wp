@@ -1481,6 +1481,51 @@ section.product-listing {
 /*--------------------------------------------------------------
 # Flexible Blocks: FAQs
 --------------------------------------------------------------*/
+.faqs-section .bg-cover {
+  height: auto;
+}
+
+.faqs-section .accordion-header,
+.faqs-section .accordion-header button {
+  color: var(--color-dark);
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 160%;
+}
+
+.faqs-section .accordion-item {
+  border-radius: 0 !important;
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.faqs-section .accordion-item:not(:has(.show)) {
+  margin-top: 0.5rem;
+}
+
+.faqs-section .accordion-item:has(.show) {
+  border: 2px solid var(--color-secondary);
+}
+
+.faqs-section .accordion-button:not(.collapsed) {
+  background-color: var(--color-bg-white);
+  color: var(--color-secondary);
+  font-weight: 600;
+  box-shadow: none;
+}
+
+.faqs-section .accordion-button:focus {
+  box-shadow: 0 0 0 0.25rem rgb(220 225 233 / 25%);
+}
+
+.faqs-section .accordion-button:focus {
+  box-shadow: none !important;
+}
+
+.faqs-section .accordion-body p:last-child {
+  margin-bottom: 0;
+}
 
 /*--------------------------------------------------------------
 # Flexible Blocks: Centros
@@ -1749,10 +1794,21 @@ section.product-listing {
 /*--------------------------------------------------------------
 # 404 Page
 --------------------------------------------------------------*/
+main.site-content:has(.error-404) {
+  background-color: var(--color-bg-light);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  width: 100%;
+}
 
 /*--------------------------------------------------------------
 # Blog Page
 --------------------------------------------------------------*/
+.page-template-page-blog article.post-blog img {
+  height: 200px;
+}
 
 /*--------------------------------------------------------------
 # About Page

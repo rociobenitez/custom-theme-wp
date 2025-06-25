@@ -2463,6 +2463,222 @@
                     "display": "block",
                     "sub_fields": [
                         {
+                            "key": "field_685bdf39a4b3c",
+                            "label": "Tagline",
+                            "name": "tagline",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "Breve frase que complementa el título",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "35",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "Resolvemos tus dudas",
+                            "maxlength": "",
+                            "allow_in_bindings": 1,
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": ""
+                        },
+                        {
+                            "key": "field_685bdf59a4b3d",
+                            "label": "Etiqueta del Tagline (Htag)",
+                            "name": "htag_tagline",
+                            "aria-label": "",
+                            "type": "radio",
+                            "instructions": "Selecciona el nivel de encabezado para el tagline.",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "15",
+                                "class": "",
+                                "id": ""
+                            },
+                            "choices": [
+                                "H1",
+                                "H2",
+                                "H3",
+                                "P"
+                            ],
+                            "default_value": 3,
+                            "return_format": "value",
+                            "allow_null": 0,
+                            "other_choice": 0,
+                            "allow_in_bindings": 1,
+                            "layout": "vertical",
+                            "save_other_choice": 0
+                        },
+                        {
+                            "key": "field_685bdf6ba4b3e",
+                            "label": "Título",
+                            "name": "title",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "35",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "Preguntas frecuentes",
+                            "maxlength": "",
+                            "allow_in_bindings": 1,
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": ""
+                        },
+                        {
+                            "key": "field_685bdf7ca4b3f",
+                            "label": "Etiqueta del Título (Htag)",
+                            "name": "htag_title",
+                            "aria-label": "",
+                            "type": "radio",
+                            "instructions": "Selecciona el nivel de encabezado para el título (H1, H2, etc.).",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "15",
+                                "class": "",
+                                "id": ""
+                            },
+                            "choices": [
+                                "H1",
+                                "H2",
+                                "H3",
+                                "P"
+                            ],
+                            "default_value": 1,
+                            "return_format": "value",
+                            "allow_null": 0,
+                            "other_choice": 0,
+                            "allow_in_bindings": 1,
+                            "layout": "vertical",
+                            "save_other_choice": 0
+                        },
+                        {
+                            "key": "field_685bdf86a4b40",
+                            "label": "Texto",
+                            "name": "text",
+                            "aria-label": "",
+                            "type": "wysiwyg",
+                            "instructions": "Texto descriptivo para esta sección. Opcional.",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "50",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "allow_in_bindings": 1,
+                            "tabs": "all",
+                            "toolbar": "full",
+                            "media_upload": 0,
+                            "delay": 0
+                        },
+                        {
+                            "key": "field_685be1571c14c",
+                            "label": "Tipo de diseño",
+                            "name": "design",
+                            "aria-label": "",
+                            "type": "radio",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "15",
+                                "class": "",
+                                "id": ""
+                            },
+                            "choices": {
+                                "image_left": "Imagen a la izquierda",
+                                "image_right": "Imagen a la derecha",
+                                "center": "Sin imagen y centrado",
+                                "default": "Sin imagen y justificado"
+                            },
+                            "default_value": "default",
+                            "return_format": "value",
+                            "allow_null": 0,
+                            "other_choice": 0,
+                            "allow_in_bindings": 0,
+                            "layout": "vertical",
+                            "save_other_choice": 0
+                        },
+                        {
+                            "key": "field_685be12f1c14b",
+                            "label": "Imagen",
+                            "name": "image",
+                            "aria-label": "",
+                            "type": "image",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": [
+                                [
+                                    {
+                                        "field": "field_685be1571c14c",
+                                        "operator": "==",
+                                        "value": "image_left"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "field": "field_685be1571c14c",
+                                        "operator": "==",
+                                        "value": "image_right"
+                                    }
+                                ]
+                            ],
+                            "wrapper": {
+                                "width": "20",
+                                "class": "",
+                                "id": ""
+                            },
+                            "return_format": "array",
+                            "library": "all",
+                            "min_width": "",
+                            "min_height": "",
+                            "min_size": "",
+                            "max_width": "",
+                            "max_height": "",
+                            "max_size": "",
+                            "mime_types": "",
+                            "allow_in_bindings": 0,
+                            "preview_size": "medium"
+                        },
+                        {
+                            "key": "field_685c107bf5c44",
+                            "label": "Etiqueta de las Preguntas (Htag)",
+                            "name": "htag_faq",
+                            "aria-label": "",
+                            "type": "radio",
+                            "instructions": "Selecciona el nivel de encabezado (H1, H2, etc.) para las preguntas de las FAQs.",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "15",
+                                "class": "",
+                                "id": ""
+                            },
+                            "choices": {
+                                "h1": "H1",
+                                "h2": "H2",
+                                "h3": "H3",
+                                "p": "P"
+                            },
+                            "default_value": "h3",
+                            "return_format": "value",
+                            "allow_null": 0,
+                            "other_choice": 0,
+                            "allow_in_bindings": 1,
+                            "layout": "vertical",
+                            "save_other_choice": 0
+                        },
+                        {
                             "key": "field_67364d137740a",
                             "label": "Preguntas Frecuentes",
                             "name": "faq",
