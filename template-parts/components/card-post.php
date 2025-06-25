@@ -13,6 +13,12 @@
  * - style_card (string): Estilo de la card, puede ser 'border-none' o 'default' (por defecto: 'border-none').
  */
 
+if ( ! defined( 'ABSPATH' ) ) exit;
+
+if ( ! $args['title'] && ! $args['image_url'] ) {
+    return;
+}
+
 // Configurar los valores predeterminados usando el operador de fusión nula
 $image_url  = $args['image_url'] ?? '';
 $title      = $args['title'] ?? '';
@@ -21,7 +27,7 @@ $date       = $args['date'] ?? '';
 $excerpt    = $args['excerpt'] ?? '';
 $permalink  = $args['permalink'] ?? '';
 $class_col  = $args['class_col'] ?? 'col-lg-4';
-$style_card = $args['style_card'] ?? 'border-none';
+$style_card = $args['style_card'] ?? 'grid';
 
 if ($style_card === 'default') {
    // Formato tipo card (con border y padding en el contenido)
@@ -35,25 +41,20 @@ if ($style_card === 'default') {
    $card_body_class = 'p-0 pt-2';
 }
 
-// Validar si las variables están definidas correctamente (opcional)
-if (empty($title) && empty($image_url)) {
-    return; // No hay datos para mostrar la card
-}
-
-// Detectar si se está usando la plantilla page-blog.php
-$is_blog_template = is_page_template('page-blog.php');
 ?>
 
-<?php if ($is_blog_template): ?>
+<?php if ( is_page_template('page-blog.php') || is_author() ): ?>
 <?php // Formato tipo blog (imagen izquierda, texto derecha) ?>
-<div class="post-blog mb-4">
+<article class="post-blog mb-4">
     <div class="row">
         <!-- Imagen del post -->
         <?php if (!empty($image_url)): ?>
-        <div class="<?php echo esc_attr($class_col); ?> d-flex align-items-stretch">
-            <img src="<?php echo esc_url($image_url); ?>" 
-                 alt="<?php echo esc_attr($title); ?>" 
-                 class="fit post-img rounded shadow-sm">
+        <div class="col-lg-4 d-flex align-items-stretch">
+            <a href="<?php echo esc_url($permalink); ?>" class="text-decoration-none w-100">
+               <img src="<?php echo esc_url($image_url); ?>" 
+                  alt="<?php echo esc_attr($title); ?>" 
+                  class="fit post-img rounded shadow-sm" height="240">
+            </a>
         </div>
         <?php endif; ?>
 
@@ -62,29 +63,30 @@ $is_blog_template = is_page_template('page-blog.php');
             <div>
                <!-- Título del post -->
                <?php if (!empty($title)): ?>
-               <p class="heading-4 title mt-3 mb-2 fw600 c-black">
-                  <?php echo esc_html($title); ?>
-               </p>
+               <a href="<?php echo esc_url($permalink); ?>" class="text-decoration-none">
+                  <p class="heading-4 title mt-3 mb-2 fw600 c-black">
+                     <?php echo esc_html($title); ?>
+                  </p>
+               </a>
                <?php endif; ?>
                
                <!-- Autor y Fecha -->
                <?php if (!empty($author)): ?>
-               <div class="d-flex mb- c-primary">
+               <div class="d-flex text-muted">
                   <small class="author">
-                     Escrito por <?php echo $author; ?>
+                     <?php esc_html_e( 'Escrito por ', CTM_TEXTDOMAIN ); ?>
+                     <a href="<?php echo get_author_posts_url(get_the_author_meta('ID')); ?>"><?php echo $author; ?></a>
                   </small>
-                  <?php if (!empty($date)): ?>
                   <span class="mx-2 line-sep">|</span>
                   <small class="date">
                      <?php echo esc_html($date); ?>
                   </small>
-                  <?php endif; ?>
                </div>
                <?php endif; ?>
                
                <!-- Resumen del post -->
                <?php if (!empty($excerpt)): ?>
-                  <p class="excerpt fs15">
+                  <p class="excerpt fs15 mt-2">
                      <?php echo esc_html($excerpt); ?>
                   </p>
                <?php endif; ?>
@@ -93,15 +95,15 @@ $is_blog_template = is_page_template('page-blog.php');
             <!-- Botón Leer Más -->
             <?php if (!empty($permalink)): ?>
                <div class="d-flex justify-content-end">
-                  <a href="<?php echo esc_url($permalink); ?>" class="btn btn-sm btn-secondary fs14 px-3 py-1">Leer más</a>
+                  <a href="<?php echo esc_url($permalink); ?>" class="btn btn-sm btn-outline-secondary fs14"><?php esc_html_e( 'Leer más', CTM_TEXTDOMAIN ); ?></a>
                </div>
             <?php endif; ?>
         </div>
     </div>
-</div>
+</article>
 <?php else: ?>
 <?php // Formato tipo card (imagen arriba, contenido debajo) ?>
-   <div class="<?php echo esc_attr($class_col); ?> mb-4">
+   <div class="col-lg-4 mb-4">
       <a href="<?php echo esc_url($permalink); ?>" class="card h-100 text-decoration-none overflow-hidden relative <?php echo esc_attr($card_class); ?>">
          <!-- Imagen del post -->
          <?php if (!empty($image_url)): ?>
@@ -114,14 +116,15 @@ $is_blog_template = is_page_template('page-blog.php');
          <!-- Contenido del post -->
          <div class="card-body <?php echo esc_attr($card_body_class); ?>">
             <?php if (!empty($title)): ?>
-               <p class="card-title heading-5 mb-2">
+               <p class="heading-4 title mt-3 mb-2 fw600 c-black">
                   <?php echo esc_html($title); ?>
                </p>
             <?php endif; ?>
             <?php if (!empty($author)): ?>
-               <div class="d-flex mb-1 c-primary">
+               <div class="d-flex mb-1 text-muted">
                   <small class="author">
-                     Escrito por <?php echo $author; ?>
+                     <?php esc_html_e( 'Escrito por ', CTM_TEXTDOMAIN ); ?> 
+                     <a href="<?php echo get_author_posts_url(get_the_author_meta('ID')); ?>"><?php echo $author; ?></a>
                   </small>
                   <?php if (!empty($date)): ?>
                   <span class="mx-2 line-sep">|</span>

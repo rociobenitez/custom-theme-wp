@@ -62,7 +62,7 @@ foreach ( $alternados as $item ) :
 
             <!-- Texto -->
             <div class="col-lg-6 <?php echo esc_attr( $order_text ); ?>">
-               <?php if ( $tagline ) : ?>
+               <?php if ( ! empty( $tagline ) ) : ?>
                   <?php echo Template_Helpers::tag_title( $htag_tagline, esc_html( $tagline ), 'section-tagline' ); ?>
                <?php endif; ?>
 

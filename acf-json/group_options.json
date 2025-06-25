@@ -1505,7 +1505,7 @@
                 {
                     "key": "field_66eacee91ab08",
                     "label": "openingHoursSpecification",
-                    "name": "openingHoursSpecification",
+                    "name": "opening_hours_specification",
                     "aria-label": "",
                     "type": "repeater",
                     "instructions": "",

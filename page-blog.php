@@ -2,84 +2,88 @@
 /**
  * Template Name: Blog
  */
+namespace Custom_Theme;
 
-$bodyclass='page-blog';
+if ( ! defined('ABSPATH') ) exit;
 
 get_header();
 
-$fields = get_fields();
-$options = get_fields('option');
-set_query_var('fields', $fields);
-$contenido = get_the_content();
-$default_img_post = $options['card_default_image'];
-$paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
+// Obtener campos ACF para bloques flexibles
+$fields = function_exists('get_fields') ? get_fields() : [];
 
-$args = array(
-    "post_type"      => "post",
-    "posts_per_page" => 10,
-    "orderby"        => 'date',
-    "order"          => 'DESC',
-    "paged"          => $paged
-);
+// Imagen por defecto si el post no tiene destacada
+$default_img_post = get_template_directory_uri() . '/assets/img/default-background.jpg';
 
-$the_query = new WP_Query($args);
+// Page Header
+get_template_part( 'template-parts/pageheader' );
+?>
 
-if ( $the_query->have_posts() ) : ?>
-   <main class="main-content">
-   <?php get_template_part('template-parts/pageheader', null, ['htag' => 0]); ?>
+<?php if ( apply_filters( 'the_content', get_the_content() ) ) : ?>
+<section class="the-content py-5 bg-light">
+    <div class="container">
+        <?php the_content(); ?>
+    </div>
+</section>
+<?php endif; ?>
 
-   <?php if(!empty($contenido)):?>
-      <section class="section__content py-5 c-bg-light">
-         <div class="container"><?php echo $contenido; ?></div>
-      </section>
-   <?php endif; ?>
-   <section class="container my-5">
-      <div class="row justify-content-between">
-         <div class="col-lg-8">
-               <?php while ( $the_query->have_posts() ) : $the_query->the_post();
-                  $author = ucwords(strtolower(get_the_author()));
-                  $excerpt = get_the_excerpt();
-                  $custom_length = 25; // Número de palabras del excerpt
-                  $trimmed_excerpt = wp_trim_words($excerpt, $custom_length, '...');
+<div class="container my-5">
+   <div class="row justify-content-between">
+      <div class="col-lg-8">
+         <?php 
+         // Preparar consulta de entradas
+         $paged = get_query_var( 'paged', 1 );
+         $args = array(
+            "post_type"      => "post",
+            "posts_per_page" => get_option( 'posts_per_page', 10 ),
+            "paged"          => $paged
+         );
+         $query = new \WP_Query($args);
 
-                  // Verifica si hay imagen destacada y asigna la URL o usa una por defecto
-                  $img_src = has_post_thumbnail() 
-                     ? wp_get_attachment_image_src(get_post_thumbnail_id(), 'large')[0]
-                     : $default_img_post;
+         if ( $query->have_posts() ) :
+            echo '<div class="row">';
+            while ( $query->have_posts() ) : $query->the_post();
+               // Imagen destacada o imagen por defecto
+               $image_url = has_post_thumbnail() 
+                  ? get_the_post_thumbnail_url( null, 'large' )
+                  : $default_img_post;
 
-                  get_template_part('template-parts/components/card-post', null, [
-                     'image_url' => $img_src,
-                     'title'     => get_the_title(),
-                     'author'    => $author,
-                     'date'      => get_the_date(),
-                     'excerpt'   => $trimmed_excerpt,
-                     'permalink' => get_permalink(),
-                     'class-col' => 'col-lg-4',
-                  ]);
+               get_template_part( 'template-parts/components/card', 'post', [
+                  'image_url'  => esc_url( $image_url ),
+                  'title'      => get_the_title(),
+                  'author'     => ucwords( strtolower( get_the_author() ) ),
+                  'date'       => get_the_date(),
+                  'excerpt'    => wp_trim_words( get_the_excerpt(), 20, '...' ),
+                  'permalink'  => get_permalink(),
+                  'style_card' => 'blog',
+               ] );
+            endwhile;
+            echo '</div>';
 
-               endwhile; ?>
-               <div class="pagination text-center">
-                  <?php custom_pagination($the_query->max_num_pages, $paged); ?>
-               </div>
-         </div>
-         <?php get_template_part('template-parts/sidebar-blog', null, [ 
-            'id_form' => 2,
-            'class_col' => 'col-lg-4 ps-lg-5 mt-5 mt-lg-0'
-         ]); ?>      
+            // Paginación
+            get_template_part( 'template-parts/components/pagination', null, [
+               'max_num_pages' => $query->max_num_pages,
+               'current_page'  => max(1, $paged),
+            ]);
+         else : ?>
+            <article class="p-4 bg-light rounded">
+               <p><?php esc_html_e( 'No hay entradas disponibles.', CTM_TEXTDOMAIN ); ?></p>
+            </article>
+         <?php endif;
+
+         wp_reset_postdata();
+         ?>
       </div>
-   </section>
-   <?php
-   else :
-      echo '<div class="container my-5"><p>No hay entradas disponibles.</p></div>';
-   endif;
 
-   wp_reset_postdata(); // Restablecer la información global de postdata
+      <?php get_template_part( 'template-parts/sidebar-blog', null, [ 'id_form' => 2 ] ); ?>  
 
-   // Cargar bloques flexibles dinámicamente
-   if(!empty($fields['flexible_content'])) {
-      require_once get_template_directory() . '/template-parts/load-flexible-blocks.php';
-      load_flexible_blocks($fields['flexible_content']);
-   }
-   ?>
-   </main>
-<?php get_footer(); ?>
+   </div>
+</div>
+
+<?php
+// Bloques flexibles ACF
+if ( ! empty( $fields['flexible_content'] )
+&& is_array( $fields['flexible_content'] ) ) {
+   BlockLoader::load( $fields['flexible_content'] );
+}
+
+get_footer();
