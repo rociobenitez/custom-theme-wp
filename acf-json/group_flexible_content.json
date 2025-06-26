@@ -4063,6 +4063,89 @@
                     ],
                     "min": "",
                     "max": ""
+                },
+                "layout_685d33c16ed12": {
+                    "key": "layout_685d33c16ed12",
+                    "name": "map",
+                    "label": "Mapa",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_685d375e9a813",
+                            "label": "Coger datos de Opciones",
+                            "name": "use_options",
+                            "aria-label": "",
+                            "type": "true_false",
+                            "instructions": "Marcar para usar las localizaciones definidas en Opciones generales. Si está desmarcado, usa las definidas en este bloque.",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "message": "",
+                            "default_value": 1,
+                            "allow_in_bindings": 0,
+                            "ui_on_text": "Opciones",
+                            "ui_off_text": "Bloque",
+                            "ui": 1
+                        },
+                        {
+                            "key": "field_685d33ce6ed14",
+                            "label": "Localizaciones",
+                            "name": "map_locations",
+                            "aria-label": "",
+                            "type": "repeater",
+                            "instructions": "Añade tantas localizaciones como necesites. Cada fila es un marcador en el mapa.",
+                            "required": 0,
+                            "conditional_logic": [
+                                [
+                                    {
+                                        "field": "field_685d375e9a813",
+                                        "operator": "!=",
+                                        "value": "1"
+                                    }
+                                ]
+                            ],
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "layout": "table",
+                            "min": 0,
+                            "max": 0,
+                            "collapsed": "",
+                            "button_label": "Agregar Fila",
+                            "rows_per_page": 20,
+                            "sub_fields": [
+                                {
+                                    "key": "field_685d34146ed15",
+                                    "label": "Localización",
+                                    "name": "location",
+                                    "aria-label": "",
+                                    "type": "google_map",
+                                    "instructions": "Busca la dirección para establecer coordenadas, dirección y zoom.",
+                                    "required": 0,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "center_lat": "",
+                                    "center_lng": "",
+                                    "zoom": "",
+                                    "height": "",
+                                    "allow_in_bindings": 0,
+                                    "parent_repeater": "field_685d33ce6ed14"
+                                }
+                            ]
+                        }
+                    ],
+                    "min": "",
+                    "max": ""
                 }
             },
             "min": "",

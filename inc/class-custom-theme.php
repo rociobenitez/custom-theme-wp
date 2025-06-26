@@ -363,12 +363,13 @@ class Custom_Theme {
         add_action( 'admin_notices', [ __CLASS__, 'acf_options_update_message' ] );
 
         // API Key de Google Maps
-        if ( function_exists( 'get_field' ) ) {
-            $google_api_key = get_field( 'google_maps_api', 'option' );
-            if ( $google_api_key ) {
-                acf_update_setting( 'google_api_key', esc_attr( $google_api_key ) );
+        add_filter('acf/fields/google_map/api', function( $api ){
+            $key = get_field('google_maps_api','option');
+            if ( $key && strlen($key) > 10 ) {
+                $api['key'] = $key;
             }
-        }
+            return $api;
+        });
     }
 
     /**

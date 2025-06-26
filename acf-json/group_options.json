@@ -219,7 +219,7 @@
             "name": "google_maps_api",
             "aria-label": "",
             "type": "text",
-            "instructions": "Clave API de Google Maps (opcional)",
+            "instructions": "Clave API de Google Maps",
             "required": 0,
             "conditional_logic": false,
             "wrapper": {
@@ -227,7 +227,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "",
+            "default_value": "AIzaSyAR2Ai-l_-UrUElBgeIjmlGp2-HUZ9vn90",
             "maxlength": "",
             "placeholder": "",
             "prepend": "",
@@ -302,7 +302,7 @@
             "required": 0,
             "conditional_logic": false,
             "wrapper": {
-                "width": "100",
+                "width": "50",
                 "class": "",
                 "id": ""
             },
@@ -315,6 +315,44 @@
             "toolbar": "full",
             "media_upload": 1,
             "delay": 0
+        },
+        {
+            "key": "field_685d4093d07a0",
+            "label": "Google Maps",
+            "name": "main_location",
+            "aria-label": "",
+            "type": "google_map",
+            "instructions": "Añade la localización de Google Maps.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            },
+            "center_lat": "",
+            "center_lng": "",
+            "zoom": "",
+            "height": "",
+            "allow_in_bindings": 0
+        },
+        {
+            "key": "field_68540296f78d9",
+            "label": "Todas las direcciones",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
         },
         {
             "key": "field_684ac537d415c",
@@ -381,6 +419,71 @@
                     "multiple": 0,
                     "allow_null": 0,
                     "allow_in_bindings": 0,
+                    "parent_repeater": "field_684ac537d415c"
+                },
+                {
+                    "key": "field_684ac5a5d4162",
+                    "label": "Teléfono",
+                    "name": "phone",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "33",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "allow_in_bindings": 1,
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_684ac537d415c"
+                },
+                {
+                    "key": "field_684ac5bcd4163",
+                    "label": "Whatsapp",
+                    "name": "whatsapp",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "33",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "allow_in_bindings": 1,
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_684ac537d415c"
+                },
+                {
+                    "key": "field_684ac595d4161",
+                    "label": "Email",
+                    "name": "email",
+                    "aria-label": "",
+                    "type": "email",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "33",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "allow_in_bindings": 1,
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
                     "parent_repeater": "field_684ac537d415c"
                 },
                 {
@@ -481,7 +584,7 @@
                     "required": 0,
                     "conditional_logic": 0,
                     "wrapper": {
-                        "width": "25",
+                        "width": "60",
                         "class": "",
                         "id": ""
                     },
@@ -500,7 +603,7 @@
                     "required": 0,
                     "conditional_logic": 0,
                     "wrapper": {
-                        "width": "15",
+                        "width": "20",
                         "class": "",
                         "id": ""
                     },
@@ -522,7 +625,7 @@
                     "required": 0,
                     "conditional_logic": 0,
                     "wrapper": {
-                        "width": "15",
+                        "width": "20",
                         "class": "",
                         "id": ""
                     },
@@ -535,68 +638,24 @@
                     "parent_repeater": "field_684ac537d415c"
                 },
                 {
-                    "key": "field_684ac5a5d4162",
-                    "label": "Teléfono",
-                    "name": "phone",
+                    "key": "field_685d51af4c8b3",
+                    "label": "Google Maps",
+                    "name": "google_maps",
                     "aria-label": "",
-                    "type": "text",
-                    "instructions": "",
+                    "type": "google_map",
+                    "instructions": "Añade la localización de Google Maps.",
                     "required": 0,
                     "conditional_logic": 0,
                     "wrapper": {
-                        "width": "15",
+                        "width": "100",
                         "class": "",
                         "id": ""
                     },
-                    "default_value": "",
-                    "maxlength": "",
-                    "allow_in_bindings": 1,
-                    "placeholder": "",
-                    "prepend": "",
-                    "append": "",
-                    "parent_repeater": "field_684ac537d415c"
-                },
-                {
-                    "key": "field_684ac5bcd4163",
-                    "label": "Whatsapp",
-                    "name": "whatsapp",
-                    "aria-label": "",
-                    "type": "text",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "15",
-                        "class": "",
-                        "id": ""
-                    },
-                    "default_value": "",
-                    "maxlength": "",
-                    "allow_in_bindings": 1,
-                    "placeholder": "",
-                    "prepend": "",
-                    "append": "",
-                    "parent_repeater": "field_684ac537d415c"
-                },
-                {
-                    "key": "field_684ac595d4161",
-                    "label": "Email",
-                    "name": "email",
-                    "aria-label": "",
-                    "type": "email",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "15",
-                        "class": "",
-                        "id": ""
-                    },
-                    "default_value": "",
-                    "allow_in_bindings": 1,
-                    "placeholder": "",
-                    "prepend": "",
-                    "append": "",
+                    "center_lat": "",
+                    "center_lng": "",
+                    "zoom": "",
+                    "height": "",
+                    "allow_in_bindings": 0,
                     "parent_repeater": "field_684ac537d415c"
                 },
                 {
@@ -653,7 +712,7 @@
                     "label": "Horario",
                     "name": "opening_hours",
                     "aria-label": "",
-                    "type": "textarea",
+                    "type": "wysiwyg",
                     "instructions": "",
                     "required": 0,
                     "conditional_logic": 0,
@@ -663,11 +722,11 @@
                         "id": ""
                     },
                     "default_value": "",
-                    "maxlength": "",
                     "allow_in_bindings": 0,
-                    "rows": 4,
-                    "placeholder": "",
-                    "new_lines": "",
+                    "tabs": "all",
+                    "toolbar": "full",
+                    "media_upload": 1,
+                    "delay": 0,
                     "parent_repeater": "field_684ac537d415c"
                 },
                 {
