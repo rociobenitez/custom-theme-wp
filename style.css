@@ -1060,6 +1060,32 @@ ul.dropdown-submenu.show {
 /*--------------------------------------------------------------
 # Page Headers
 --------------------------------------------------------------*/
+.page-header .title {
+  font-size: 3rem;
+  font-weight: 400;
+}
+
+/* Breadcrumbs */
+.breadcrumbs nav a:hover {
+  color: var(--color-secondary);
+}
+
+/* Page Header Minimal - Only Breadcrumbs */
+.page-header-minimal .breadcrumbs {
+  display: flex;
+  padding-bottom: 0.5rem;
+  align-items: flex-start;
+  gap: 0.375rem;
+  align-self: stretch;
+  border-bottom: 1px solid #e1e1e1;
+  font-size: 0.9375rem;
+  margin-bottom: 3.5rem;
+}
+
+.page-header-minimal .breadcrumbs .current {
+  color: var(--color-secondary);
+  font-weight: 600;
+}
 
 /*--------------------------------------------------------------
 # Flexible Blocks: Text
