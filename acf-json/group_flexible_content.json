@@ -2109,19 +2109,48 @@
                 },
                 "layout_67ab270f11082": {
                     "key": "layout_67ab270f11082",
-                    "name": "centres",
-                    "label": "Centros",
+                    "name": "locations",
+                    "label": "Localizaciones",
                     "display": "block",
                     "sub_fields": [
                         {
+                            "key": "field_685cfebb52c07",
+                            "label": "Coger datos de Opciones",
+                            "name": "use_options",
+                            "aria-label": "",
+                            "type": "true_false",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "message": "",
+                            "default_value": 1,
+                            "allow_in_bindings": 0,
+                            "ui_on_text": "",
+                            "ui_off_text": "",
+                            "ui": 1
+                        },
+                        {
                             "key": "field_67ab271811086",
-                            "label": "Centro",
-                            "name": "centre",
+                            "label": "Tienda",
+                            "name": "items",
                             "aria-label": "",
                             "type": "repeater",
                             "instructions": "",
                             "required": 0,
-                            "conditional_logic": 0,
+                            "conditional_logic": [
+                                [
+                                    {
+                                        "field": "field_685cfebb52c07",
+                                        "operator": "!=",
+                                        "value": "1"
+                                    }
+                                ]
+                            ],
                             "wrapper": {
                                 "width": "",
                                 "class": "",
@@ -2176,7 +2205,7 @@
                                         "H3",
                                         "P"
                                     ],
-                                    "default_value": "",
+                                    "default_value": 3,
                                     "return_format": "value",
                                     "allow_null": 0,
                                     "other_choice": 0,
@@ -2236,8 +2265,8 @@
                                 },
                                 {
                                     "key": "field_67f8c234a7418",
-                                    "label": "Enlace",
-                                    "name": "link",
+                                    "label": "Botón",
+                                    "name": "button",
                                     "aria-label": "",
                                     "type": "link",
                                     "instructions": "",

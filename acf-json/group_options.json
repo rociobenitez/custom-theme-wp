@@ -330,7 +330,7 @@
                 "class": "",
                 "id": ""
             },
-            "layout": "table",
+            "layout": "block",
             "pagination": 0,
             "min": 0,
             "max": 0,
@@ -339,8 +339,53 @@
             "rows_per_page": 20,
             "sub_fields": [
                 {
+                    "key": "field_685401c0597bb",
+                    "label": "Nombre",
+                    "name": "name",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "allow_in_bindings": 1,
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_684ac537d415c"
+                },
+                {
+                    "key": "field_685400f1a22ea",
+                    "label": "URL página interna",
+                    "name": "url",
+                    "aria-label": "",
+                    "type": "page_link",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "post_type": "",
+                    "post_status": "",
+                    "taxonomy": "",
+                    "allow_archives": 1,
+                    "multiple": 0,
+                    "allow_null": 0,
+                    "allow_in_bindings": 0,
+                    "parent_repeater": "field_684ac537d415c"
+                },
+                {
                     "key": "field_684ac559d415d",
-                    "label": "Dirección completa",
+                    "label": "Dirección",
                     "name": "address",
                     "aria-label": "",
                     "type": "text",
@@ -348,7 +393,73 @@
                     "required": 0,
                     "conditional_logic": 0,
                     "wrapper": {
-                        "width": "25",
+                        "width": "40",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "allow_in_bindings": 1,
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_684ac537d415c"
+                },
+                {
+                    "key": "field_6853ffdaa22e1",
+                    "label": "Ciudad",
+                    "name": "city",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "20",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "allow_in_bindings": 1,
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_684ac537d415c"
+                },
+                {
+                    "key": "field_68540004a22e2",
+                    "label": "Provincia",
+                    "name": "province",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "20",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "allow_in_bindings": 1,
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_684ac537d415c"
+                },
+                {
+                    "key": "field_6854000ea22e3",
+                    "label": "Código postal",
+                    "name": "postal_code",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "20",
                         "class": "",
                         "id": ""
                     },
@@ -366,7 +477,7 @@
                     "name": "google_maps_link",
                     "aria-label": "",
                     "type": "url",
-                    "instructions": "Introduce la URL de Google Maps de la ubicación",
+                    "instructions": "",
                     "required": 0,
                     "conditional_logic": 0,
                     "wrapper": {
@@ -380,20 +491,43 @@
                     "parent_repeater": "field_684ac537d415c"
                 },
                 {
-                    "key": "field_684ac595d4161",
-                    "label": "Email",
-                    "name": "email",
+                    "key": "field_6854003ca22e4",
+                    "label": "Latitud",
+                    "name": "latitude",
                     "aria-label": "",
-                    "type": "email",
-                    "instructions": "Introduce el correo electrónico de contacto",
+                    "type": "text",
+                    "instructions": "",
                     "required": 0,
                     "conditional_logic": 0,
                     "wrapper": {
-                        "width": "16",
+                        "width": "15",
                         "class": "",
                         "id": ""
                     },
                     "default_value": "",
+                    "maxlength": "",
+                    "allow_in_bindings": 1,
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_684ac537d415c"
+                },
+                {
+                    "key": "field_68540051a22e5",
+                    "label": "Longitud",
+                    "name": "longitude",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "15",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
                     "allow_in_bindings": 1,
                     "placeholder": "",
                     "prepend": "",
@@ -406,11 +540,11 @@
                     "name": "phone",
                     "aria-label": "",
                     "type": "text",
-                    "instructions": "Introduce el número de teléfono principal",
+                    "instructions": "",
                     "required": 0,
                     "conditional_logic": 0,
                     "wrapper": {
-                        "width": "16",
+                        "width": "15",
                         "class": "",
                         "id": ""
                     },
@@ -428,11 +562,11 @@
                     "name": "whatsapp",
                     "aria-label": "",
                     "type": "text",
-                    "instructions": "Número de teléfono para WhatsApp (opcional)",
+                    "instructions": "",
                     "required": 0,
                     "conditional_logic": 0,
                     "wrapper": {
-                        "width": "16",
+                        "width": "15",
                         "class": "",
                         "id": ""
                     },
@@ -442,6 +576,189 @@
                     "placeholder": "",
                     "prepend": "",
                     "append": "",
+                    "parent_repeater": "field_684ac537d415c"
+                },
+                {
+                    "key": "field_684ac595d4161",
+                    "label": "Email",
+                    "name": "email",
+                    "aria-label": "",
+                    "type": "email",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "15",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "allow_in_bindings": 1,
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_684ac537d415c"
+                },
+                {
+                    "key": "field_685d025144d7f",
+                    "label": "Imagen",
+                    "name": "img",
+                    "aria-label": "",
+                    "type": "image",
+                    "instructions": "Imagen asociada al centro, local, tienda...",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "25",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "array",
+                    "library": "all",
+                    "min_width": "",
+                    "min_height": "",
+                    "min_size": "",
+                    "max_width": "",
+                    "max_height": "",
+                    "max_size": "",
+                    "mime_types": "",
+                    "allow_in_bindings": 0,
+                    "preview_size": "medium",
+                    "parent_repeater": "field_684ac537d415c"
+                },
+                {
+                    "key": "field_685d039bd18ea",
+                    "label": "Descripción",
+                    "name": "text",
+                    "aria-label": "",
+                    "type": "wysiwyg",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "40",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "allow_in_bindings": 0,
+                    "tabs": "all",
+                    "toolbar": "full",
+                    "media_upload": 1,
+                    "delay": 0,
+                    "parent_repeater": "field_684ac537d415c"
+                },
+                {
+                    "key": "field_685cfa0509126",
+                    "label": "Horario",
+                    "name": "opening_hours",
+                    "aria-label": "",
+                    "type": "textarea",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "35",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "allow_in_bindings": 0,
+                    "rows": 4,
+                    "placeholder": "",
+                    "new_lines": "",
+                    "parent_repeater": "field_684ac537d415c"
+                },
+                {
+                    "key": "field_685400c3a22e6",
+                    "label": "openingHoursSpecification",
+                    "name": "opening_hours_specification",
+                    "aria-label": "",
+                    "type": "repeater",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "layout": "table",
+                    "pagination": 0,
+                    "min": 0,
+                    "max": 0,
+                    "collapsed": "",
+                    "button_label": "Agregar Fila",
+                    "rows_per_page": 20,
+                    "sub_fields": [
+                        {
+                            "key": "field_685400c3a22e7",
+                            "label": "DayOfWeek",
+                            "name": "dayofweek",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "maxlength": "",
+                            "allow_in_bindings": 1,
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": "",
+                            "parent_repeater": "field_685400c3a22e6"
+                        },
+                        {
+                            "key": "field_685400c3a22e8",
+                            "label": "Apertura (opens)",
+                            "name": "opens",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "maxlength": "",
+                            "allow_in_bindings": 1,
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": "",
+                            "parent_repeater": "field_685400c3a22e6"
+                        },
+                        {
+                            "key": "field_685400c3a22e9",
+                            "label": "Cierre (closes)",
+                            "name": "closes",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "maxlength": "",
+                            "allow_in_bindings": 1,
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": "",
+                            "parent_repeater": "field_685400c3a22e6"
+                        }
+                    ],
                     "parent_repeater": "field_684ac537d415c"
                 }
             ]
